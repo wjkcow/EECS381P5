@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D2F91A101AA90BBD00CB23BA /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A0F1AA90BBD00CB23BA /* main.cpp */; };
+		D2F91A311AA90DB200CB23BA /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1B1AA90DB200CB23BA /* Geometry.cpp */; };
+		D2F91A321AA90DB200CB23BA /* Navigation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1D1AA90DB200CB23BA /* Navigation.cpp */; };
+		D2F91A331AA90DB200CB23BA /* p4_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1F1AA90DB200CB23BA /* p4_main.cpp */; };
+		D2F91A341AA90DB200CB23BA /* skeleton_Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A241AA90DB200CB23BA /* skeleton_Model.cpp */; };
+		D2F91A351AA90DB200CB23BA /* skeleton_Ship.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A261AA90DB200CB23BA /* skeleton_Ship.cpp */; };
+		D2F91A361AA90DB200CB23BA /* skeleton_View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A2B1AA90DB200CB23BA /* skeleton_View.cpp */; };
+		D2F91A371AA90DB200CB23BA /* Track_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A2F1AA90DB200CB23BA /* Track_base.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +30,28 @@
 
 /* Begin PBXFileReference section */
 		D2F91A0C1AA90BBD00CB23BA /* EECS381P4 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EECS381P4; sourceTree = BUILT_PRODUCTS_DIR; };
-		D2F91A0F1AA90BBD00CB23BA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		D2F91A1B1AA90DB200CB23BA /* Geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
+		D2F91A1C1AA90DB200CB23BA /* Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geometry.h; sourceTree = "<group>"; };
+		D2F91A1D1AA90DB200CB23BA /* Navigation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Navigation.cpp; sourceTree = "<group>"; };
+		D2F91A1E1AA90DB200CB23BA /* Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Navigation.h; sourceTree = "<group>"; };
+		D2F91A1F1AA90DB200CB23BA /* p4_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = p4_main.cpp; sourceTree = "<group>"; };
+		D2F91A201AA90DB200CB23BA /* Ship_factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ship_factory.h; sourceTree = "<group>"; };
+		D2F91A211AA90DB200CB23BA /* skeleton_Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skeleton_Controller.h; sourceTree = "<group>"; };
+		D2F91A221AA90DB200CB23BA /* skeleton_Cruiser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skeleton_Cruiser.h; sourceTree = "<group>"; };
+		D2F91A231AA90DB200CB23BA /* skeleton_Island.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skeleton_Island.h; sourceTree = "<group>"; };
+		D2F91A241AA90DB200CB23BA /* skeleton_Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = skeleton_Model.cpp; sourceTree = "<group>"; };
+		D2F91A251AA90DB200CB23BA /* skeleton_Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skeleton_Model.h; sourceTree = "<group>"; };
+		D2F91A261AA90DB200CB23BA /* skeleton_Ship.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = skeleton_Ship.cpp; sourceTree = "<group>"; };
+		D2F91A271AA90DB200CB23BA /* skeleton_Ship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skeleton_Ship.h; sourceTree = "<group>"; };
+		D2F91A281AA90DB200CB23BA /* skeleton_Sim_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skeleton_Sim_object.h; sourceTree = "<group>"; };
+		D2F91A291AA90DB200CB23BA /* skeleton_Tanker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skeleton_Tanker.h; sourceTree = "<group>"; };
+		D2F91A2A1AA90DB200CB23BA /* skeleton_Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skeleton_Utility.h; sourceTree = "<group>"; };
+		D2F91A2B1AA90DB200CB23BA /* skeleton_View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = skeleton_View.cpp; sourceTree = "<group>"; };
+		D2F91A2C1AA90DB200CB23BA /* skeleton_View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skeleton_View.h; sourceTree = "<group>"; };
+		D2F91A2D1AA90DB200CB23BA /* skeleton_Warship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skeleton_Warship.h; sourceTree = "<group>"; };
+		D2F91A2E1AA90DB200CB23BA /* strings.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = strings.txt; sourceTree = "<group>"; };
+		D2F91A2F1AA90DB200CB23BA /* Track_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Track_base.cpp; sourceTree = "<group>"; };
+		D2F91A301AA90DB200CB23BA /* Track_base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track_base.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +68,7 @@
 		D2F91A031AA90BBD00CB23BA = {
 			isa = PBXGroup;
 			children = (
-				D2F91A0E1AA90BBD00CB23BA /* EECS381P4 */,
+				D2F91A381AA90DB900CB23BA /* EECS381P4 */,
 				D2F91A0D1AA90BBD00CB23BA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -54,12 +81,33 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D2F91A0E1AA90BBD00CB23BA /* EECS381P4 */ = {
+		D2F91A381AA90DB900CB23BA /* EECS381P4 */ = {
 			isa = PBXGroup;
 			children = (
-				D2F91A0F1AA90BBD00CB23BA /* main.cpp */,
+				D2F91A291AA90DB200CB23BA /* skeleton_Tanker.h */,
+				D2F91A2A1AA90DB200CB23BA /* skeleton_Utility.h */,
+				D2F91A2B1AA90DB200CB23BA /* skeleton_View.cpp */,
+				D2F91A2C1AA90DB200CB23BA /* skeleton_View.h */,
+				D2F91A2D1AA90DB200CB23BA /* skeleton_Warship.h */,
+				D2F91A2E1AA90DB200CB23BA /* strings.txt */,
+				D2F91A2F1AA90DB200CB23BA /* Track_base.cpp */,
+				D2F91A301AA90DB200CB23BA /* Track_base.h */,
+				D2F91A1B1AA90DB200CB23BA /* Geometry.cpp */,
+				D2F91A1C1AA90DB200CB23BA /* Geometry.h */,
+				D2F91A1D1AA90DB200CB23BA /* Navigation.cpp */,
+				D2F91A1E1AA90DB200CB23BA /* Navigation.h */,
+				D2F91A1F1AA90DB200CB23BA /* p4_main.cpp */,
+				D2F91A201AA90DB200CB23BA /* Ship_factory.h */,
+				D2F91A221AA90DB200CB23BA /* skeleton_Cruiser.h */,
+				D2F91A231AA90DB200CB23BA /* skeleton_Island.h */,
+				D2F91A241AA90DB200CB23BA /* skeleton_Model.cpp */,
+				D2F91A251AA90DB200CB23BA /* skeleton_Model.h */,
+				D2F91A261AA90DB200CB23BA /* skeleton_Ship.cpp */,
+				D2F91A271AA90DB200CB23BA /* skeleton_Ship.h */,
+				D2F91A281AA90DB200CB23BA /* skeleton_Sim_object.h */,
+				D2F91A211AA90DB200CB23BA /* skeleton_Controller.h */,
 			);
-			path = EECS381P4;
+			name = EECS381P4;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -118,7 +166,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2F91A101AA90BBD00CB23BA /* main.cpp in Sources */,
+				D2F91A341AA90DB200CB23BA /* skeleton_Model.cpp in Sources */,
+				D2F91A361AA90DB200CB23BA /* skeleton_View.cpp in Sources */,
+				D2F91A371AA90DB200CB23BA /* Track_base.cpp in Sources */,
+				D2F91A311AA90DB200CB23BA /* Geometry.cpp in Sources */,
+				D2F91A351AA90DB200CB23BA /* skeleton_Ship.cpp in Sources */,
+				D2F91A321AA90DB200CB23BA /* Navigation.cpp in Sources */,
+				D2F91A331AA90DB200CB23BA /* p4_main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +256,13 @@
 		D2F91A141AA90BBD00CB23BA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -209,6 +270,13 @@
 		D2F91A151AA90BBD00CB23BA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				GCC_INPUT_FILETYPE = sourcecode.cpp.cpp;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_PEDANTIC = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -232,6 +300,7 @@
 				D2F91A151AA90BBD00CB23BA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

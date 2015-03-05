@@ -1,0 +1,143 @@
+/*
+Output text that is only whitespace is not shown here.
+Also not shown here are output strings that are emitted by modules that are
+supplied as starters, such as Navigation.h, .cpp.
+Two or more strings on the same line would have some variable or function returned value
+output between the consecutive double-quote marks.
+*/
+
+/* Text strings emitted and Error exceptions thrown by Model */
+"Model constructed"
+"Model destructed"
+Error("Island not found!")
+Error("Ship not found!")
+
+
+/* Text strings emitted and Error exceptions thrown by View */
+"View constructed"
+"View destructed"
+", "
+" outside the map"
+"Display size: " ", scale: " ", origin: "  
+Error("New map size is too big!")
+Error("New map size is too small!")
+Error("New map scale must be positive!")
+
+
+
+/* Text strings emitted and Error exceptions thrown by Controller */
+"Controller constructed"
+"Controller destructed"
+"\nTime " ": Enter command: "
+"Done"
+// For below, note that the complete name of a ship must be supplied in a command, not just the first two characters. 
+Error("Unrecognized command!")
+// Below applies to both cases of first 2 characters or entire name is duplicated;
+Error("Name is already in use!") 
+Error("Name is too short!")
+Error("Invalid heading entered!")
+Error("Negative speed entered!")
+Error("Expected an integer!")
+Error("Expected a double!")
+
+/* Error exceptions emitted by Ship_factory */
+Error("Trying to create ship of unknown type!")
+
+/* Text strings emitted by Sim_object  (no exceptions thrown) */
+"Sim_object "  " constructed"
+"Sim_object "  " destructed"
+
+
+/* Text strings and Error exceptions emitted by Ship */
+"Ship "  " constructed"
+"Ship "  " destructed"
+ " will sail on "   " to " 
+ " will sail on " 
+ " stopping at " 
+ " docked at " 
+ " now has "   " tons of fuel"
+ " hit with "   ", resistance now " 
+// produced by update function:
+ " sinking"
+ " sunk"
+ " on the bottom"
+ " now at " 
+ " stopped at " 
+ " docked at " 
+ " dead in the water at " 
+// produced by describe function
+ " at "  
+" sinking"
+" sunk"
+" on the bottom"
+", fuel: "   " tons, resistance: "
+
+"Moving to "   " on " 
+"Moving on " 
+"Docked at " 
+"Stopped"
+"Dead in the water"
+
+Error("Can't dock!")
+Error("Must be docked!")
+Error("Cannot load at a destination!")
+Error("Cannot unload at a destination!")
+Error("Cannot attack!")
+Error("Ship cannot move!")
+Error("Ship cannot go that fast!")
+
+
+/* Text strings and Error exceptions emitted by Tanker */
+"Tanker " " constructed"
+"Tanker " " destructed"
+  " will load at "  
+  " will unload at "  
+ " now has no cargo destinations"
+  " now has " " of cargo"
+// produced by describe function:
+"\nTanker "
+"Cargo: " " tons"
+", no cargo destinations"
+", loading"
+", unloading"
+", moving to loading destination"
+", moving to unloading destination"
+
+
+Error("Tanker has cargo destinations!")
+Error("Load and unload cargo destinations are the same!")
+
+
+
+/* Text strings emitted and Error exceptions thrown by Warship */
+"Warship " " constructed"
+"Warship "  " destructed"
+  " will attack "  
+  " stopping attack"
+  " is attacking"
+  " fires"
+// produced by describe function
+"Attacking "  
+
+Error("Cannot attack!")
+Error("Warship may not attack itself!")
+Error("Already attacking this target!")
+Error("Was not attacking!")
+
+
+/* Text strings emitted by Cruiser (no exceptions thrown) */
+"Cruiser " " destructed"
+"Cruiser " " constructed"
+"\nCruiser "
+" target is out of range"
+
+
+
+/* Text strings emitted by Island (no Error exceptions thrown) */
+"Island " " constructed"
+"Island " " destructed"
+"Island " " supplied " " tons of fuel"
+"Island " " now has " " tons"
+// produced by describe function
+"\nIsland " " at position "  
+"Fuel available: " " tons"
