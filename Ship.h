@@ -127,10 +127,15 @@ private:
 	// Updates position, fuel, and movement_state, assuming 1 time unit (1 hr)
 	void calculate_movement();
 
-    const double dock_dist = 1e-1;    // can dock when distance to destination
+    // helper function for move on destination and move on course
+    // throw exception is cannot move or the speed is too large
+    void move_helper(double course, double speed);
+    constexpr static const double dock_dist_c = 1e-1;    // can dock when distance to destination
+    constexpr static const double fuel_error_c = 0.005;  // error for the fuel
     double fuel_capacity;             // max fuel amount
     double maximum_speed;             // max speed of the ship
     int resistance;                   // current resistance of the ship
+    Island* docked_island;
     // The state for FSM
     enum class State{
         DOCKED,

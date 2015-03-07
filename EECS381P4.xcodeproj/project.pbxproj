@@ -12,11 +12,12 @@
 		D22024DD1AA96F3200941BE4 /* Ship.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A261AA90DB200CB23BA /* Ship.cpp */; };
 		D22024DE1AA96F3200941BE4 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A241AA90DB200CB23BA /* Model.cpp */; };
 		D22024DF1AA96F3200941BE4 /* Utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D22024D71AA95FC600941BE4 /* Utility.cpp */; };
-		D22024E01AA96F3200941BE4 /* skeleton_View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A2B1AA90DB200CB23BA /* skeleton_View.cpp */; };
+		D22024E01AA96F3200941BE4 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A2B1AA90DB200CB23BA /* View.cpp */; };
 		D22024E11AA96F3200941BE4 /* Track_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A2F1AA90DB200CB23BA /* Track_base.cpp */; };
 		D22024E21AA96F3200941BE4 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1B1AA90DB200CB23BA /* Geometry.cpp */; };
 		D22024E31AA96F3200941BE4 /* Navigation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1D1AA90DB200CB23BA /* Navigation.cpp */; };
 		D22024E41AA96F3200941BE4 /* p4_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1F1AA90DB200CB23BA /* p4_main.cpp */; };
+		D239A23C1AAAAF7E00856589 /* Tanker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D239A23B1AAAAF7E00856589 /* Tanker.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -34,6 +35,7 @@
 /* Begin PBXFileReference section */
 		D22024D71AA95FC600941BE4 /* Utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utility.cpp; sourceTree = "<group>"; };
 		D22024D91AA96ECE00941BE4 /* test_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_main.cpp; sourceTree = "<group>"; };
+		D239A23B1AAAAF7E00856589 /* Tanker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tanker.cpp; sourceTree = "<group>"; };
 		D2F91A0C1AA90BBD00CB23BA /* EECS381P4 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EECS381P4; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F91A1B1AA90DB200CB23BA /* Geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
 		D2F91A1C1AA90DB200CB23BA /* Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geometry.h; sourceTree = "<group>"; };
@@ -41,19 +43,19 @@
 		D2F91A1E1AA90DB200CB23BA /* Navigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Navigation.h; sourceTree = "<group>"; };
 		D2F91A1F1AA90DB200CB23BA /* p4_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = p4_main.cpp; sourceTree = "<group>"; };
 		D2F91A201AA90DB200CB23BA /* Ship_factory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ship_factory.h; sourceTree = "<group>"; };
-		D2F91A211AA90DB200CB23BA /* skeleton_Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skeleton_Controller.h; sourceTree = "<group>"; };
-		D2F91A221AA90DB200CB23BA /* skeleton_Cruiser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skeleton_Cruiser.h; sourceTree = "<group>"; };
+		D2F91A211AA90DB200CB23BA /* Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Controller.h; sourceTree = "<group>"; };
+		D2F91A221AA90DB200CB23BA /* Cruiser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cruiser.h; sourceTree = "<group>"; };
 		D2F91A231AA90DB200CB23BA /* Island.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Island.h; sourceTree = "<group>"; };
 		D2F91A241AA90DB200CB23BA /* Model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Model.cpp; sourceTree = "<group>"; };
 		D2F91A251AA90DB200CB23BA /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
 		D2F91A261AA90DB200CB23BA /* Ship.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ship.cpp; sourceTree = "<group>"; };
 		D2F91A271AA90DB200CB23BA /* Ship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ship.h; sourceTree = "<group>"; };
 		D2F91A281AA90DB200CB23BA /* Sim_object.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sim_object.h; sourceTree = "<group>"; };
-		D2F91A291AA90DB200CB23BA /* skeleton_Tanker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skeleton_Tanker.h; sourceTree = "<group>"; };
+		D2F91A291AA90DB200CB23BA /* Tanker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tanker.h; sourceTree = "<group>"; };
 		D2F91A2A1AA90DB200CB23BA /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
-		D2F91A2B1AA90DB200CB23BA /* skeleton_View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = skeleton_View.cpp; sourceTree = "<group>"; };
+		D2F91A2B1AA90DB200CB23BA /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = View.cpp; sourceTree = "<group>"; };
 		D2F91A2C1AA90DB200CB23BA /* View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = View.h; sourceTree = "<group>"; };
-		D2F91A2D1AA90DB200CB23BA /* skeleton_Warship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = skeleton_Warship.h; sourceTree = "<group>"; };
+		D2F91A2D1AA90DB200CB23BA /* Warship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Warship.h; sourceTree = "<group>"; };
 		D2F91A2E1AA90DB200CB23BA /* strings.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = strings.txt; sourceTree = "<group>"; };
 		D2F91A2F1AA90DB200CB23BA /* Track_base.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Track_base.cpp; sourceTree = "<group>"; };
 		D2F91A301AA90DB200CB23BA /* Track_base.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Track_base.h; sourceTree = "<group>"; };
@@ -97,14 +99,17 @@
 				D2F91A3B1AA91E3300CB23BA /* Island.cpp */,
 				D2F91A271AA90DB200CB23BA /* Ship.h */,
 				D2F91A261AA90DB200CB23BA /* Ship.cpp */,
+				D2F91A291AA90DB200CB23BA /* Tanker.h */,
+				D239A23B1AAAAF7E00856589 /* Tanker.cpp */,
+				D2F91A221AA90DB200CB23BA /* Cruiser.h */,
+				D2F91A201AA90DB200CB23BA /* Ship_factory.h */,
 				D2F91A241AA90DB200CB23BA /* Model.cpp */,
 				D2F91A251AA90DB200CB23BA /* Model.h */,
-				D2F91A291AA90DB200CB23BA /* skeleton_Tanker.h */,
 				D2F91A2A1AA90DB200CB23BA /* Utility.h */,
 				D22024D71AA95FC600941BE4 /* Utility.cpp */,
-				D2F91A2B1AA90DB200CB23BA /* skeleton_View.cpp */,
+				D2F91A2B1AA90DB200CB23BA /* View.cpp */,
 				D2F91A2C1AA90DB200CB23BA /* View.h */,
-				D2F91A2D1AA90DB200CB23BA /* skeleton_Warship.h */,
+				D2F91A2D1AA90DB200CB23BA /* Warship.h */,
 				D2F91A2E1AA90DB200CB23BA /* strings.txt */,
 				D2F91A2F1AA90DB200CB23BA /* Track_base.cpp */,
 				D2F91A301AA90DB200CB23BA /* Track_base.h */,
@@ -113,10 +118,8 @@
 				D2F91A1D1AA90DB200CB23BA /* Navigation.cpp */,
 				D2F91A1E1AA90DB200CB23BA /* Navigation.h */,
 				D2F91A1F1AA90DB200CB23BA /* p4_main.cpp */,
-				D2F91A201AA90DB200CB23BA /* Ship_factory.h */,
-				D2F91A221AA90DB200CB23BA /* skeleton_Cruiser.h */,
 				D22024D91AA96ECE00941BE4 /* test_main.cpp */,
-				D2F91A211AA90DB200CB23BA /* skeleton_Controller.h */,
+				D2F91A211AA90DB200CB23BA /* Controller.h */,
 			);
 			name = EECS381P4;
 			sourceTree = "<group>";
@@ -182,8 +185,9 @@
 				D22024DD1AA96F3200941BE4 /* Ship.cpp in Sources */,
 				D22024DE1AA96F3200941BE4 /* Model.cpp in Sources */,
 				D22024DF1AA96F3200941BE4 /* Utility.cpp in Sources */,
-				D22024E01AA96F3200941BE4 /* skeleton_View.cpp in Sources */,
+				D22024E01AA96F3200941BE4 /* View.cpp in Sources */,
 				D22024E11AA96F3200941BE4 /* Track_base.cpp in Sources */,
+				D239A23C1AAAAF7E00856589 /* Tanker.cpp in Sources */,
 				D22024E21AA96F3200941BE4 /* Geometry.cpp in Sources */,
 				D22024E31AA96F3200941BE4 /* Navigation.cpp in Sources */,
 				D22024E41AA96F3200941BE4 /* p4_main.cpp in Sources */,
