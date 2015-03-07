@@ -130,8 +130,8 @@ private:
     // helper function for move on destination and move on course
     // throw exception is cannot move or the speed is too large
     void move_helper(double course, double speed);
-    constexpr static const double dock_dist_c = 1e-1;    // can dock when distance to destination
-    constexpr static const double fuel_error_c = 0.005;  // error for the fuel
+    constexpr static double dock_dist_c = 1e-1;    // can dock when distance to destination
+    constexpr static double fuel_error_c = 0.005;  // error for the fuel
     double fuel_capacity;             // max fuel amount
     double maximum_speed;             // max speed of the ship
     int resistance;                   // current resistance of the ship

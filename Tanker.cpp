@@ -4,9 +4,9 @@
 #include <iostream>
 using namespace std;
 
-//Tanker::Tanker(const string& name_, Point position_):Ship{name_, position_, init_fuel_capacity_c, init_max_speed_c, init_fuel_consumption_c, init_resistance_c}{
-//    cout << "Tanker " << name_ << " constructed" << endl;
-//}
+Tanker::Tanker(const string& name_, Point position_):Ship{name_, position_, init_fuel_capacity_c, init_max_speed_c, init_fuel_consumption_c, init_resistance_c}{
+    cout << "Tanker " << name_ << " constructed" << endl;
+}
 
 Tanker::~Tanker(){
     cout << "Tanker " << get_name() << " destructed" << endl;
@@ -82,8 +82,38 @@ void Tanker::stop(){
 
 void Tanker::update(){
     Ship::update();
-    if (!can_move()) {
-        <#statements#>
+   if (!can_move() && tanker_state != State::NO_CARGO_DESTINATION) {
+        tanker_state = State::NO_CARGO_DESTINATION;
+        load_destination = nullptr;
+        unload_destination = nullptr;
+        cout << get_name() <<  " now has no cargo destinations" << endl;
+    } else if (tanker_state == State::MOVING_TO_LOADING && !is_moving()
+        && can_dock(load_destination)) {
+        dock(load_destination);
+        tanker_state = State::LOADING;
+    } else if (tanker_state == State::MOVING_TO_UNLOADING && !is_moving()
+        && can_dock(unload_destination)) {
+        dock(unload_destination);
+        tanker_state = State::UNLOADING;
+    } else if (tanker_state == State::LOADING) {
+        Ship::refuel();
+        double cargo_needed = cargo_capacity - cargo;
+        if (cargo_needed < cargo_error_c) {
+            cargo = cargo_capacity;
+            Ship::set_destination_position_and_speed(
+                    unload_destination->get_location(), get_maximum_speed());
+            tanker_state = State::MOVING_TO_UNLOADING;
+        } else {
+            cargo += load_destination->provide_fuel(cargo_needed);
+            cout << get_name() << " now has " << cargo << " of cargo" << endl;
+        }
+    } else if (tanker_state == State::UNLOADING && cargo == 0.) {
+        Ship::set_destination_position_and_speed
+            (load_destination->get_location(), get_maximum_speed());
+        tanker_state = State::MOVING_TO_LOADING;
+    } else if (tanker_state == State::UNLOADING && cargo > 0.){
+        unload_destination->accept_fuel(cargo);
+        cargo = 0.;
     }
 }
 

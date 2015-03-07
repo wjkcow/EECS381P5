@@ -1,3 +1,7 @@
+#ifndef WARSHIP_H
+#define WARSHIP_H
+
+#include "Ship.h"
 /* Warship class
 A Warship is a ship with firepower and range member variables, and some services for
 protected classes to manage many of the details of warship behavior. This is an
@@ -15,7 +19,7 @@ by changing the prototype to the definition. Your .h file for a component will a
 be kept together with your .cpp file for the component.
 You should delete this comment.
 */
-
+class Warship: public Ship{
 
 public:
 	// initialize, then output constructor message
@@ -56,4 +60,12 @@ protected:
 
 	// get the target
 	Ship* get_target() const;
-
+private:
+    bool is_attcking_state = false;
+    int firepower;
+    double maximum_range;
+    Ship* target_ptr;
+    
+    
+};
+#endif

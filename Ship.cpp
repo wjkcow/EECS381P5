@@ -60,15 +60,22 @@ bool Ship::can_dock(Island* island_ptr) const{
 }
 
 void Ship::update(){
-    if (is_afloat() && resistance >= 0 && is_moving()){ // we are not sinking!
-        calculate_movement();
-        cout << get_name() << " now at " << get_position() << endl;
-    } else if(is_afloat() && resistance >= 0 && ship_state == State::STOPPED){
-        
-    } //else if(is_afloat() && resistance >= 0 && is_docked()){
-        
-    } else if(is_afloat() && resistance >= 0 && !can_move()){
-        
+    
+    
+    if (is_afloat() && resistance >= 0){ // we are not sinking!
+        if(is_moving()){
+            calculate_movement();
+            cout << get_name() << " now at " << get_location() << endl;
+            g_Model_ptr->notify_location(get_name(), get_location());
+        } else if(ship_state == State::STOPPED){
+            cout << get_name() << " stopped at " << get_location() << endl;
+        } else if (is_docked()){
+            cout <<  get_name() << " docked at " << get_location() << endl;
+        } else if (ship_state == State::DEAD_IN_THE_WATER){
+            cout << get_name() <<  " dead in the water at "
+            << get_location() << endl;
+        }
+    
     } else if (is_afloat() && resistance < 0){
         ship_state = State::SINKING;
         set_speed(0.);

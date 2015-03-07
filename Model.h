@@ -87,6 +87,5 @@ public:
 private:
 	int time;		// the simulated time
 
-
 };
 #endif
