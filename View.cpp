@@ -49,3 +49,24 @@ void View::update_remove(const string& name){
 
 void View::draw(){
 }
+
+void View::clear(){
+
+}
+
+void View::set_size(int size_){
+
+}
+
+void View::set_scale(double scale_){
+
+}
+
+void set_origin(Point origin_){
+
+}
+
+void set_defaults(){
+
+}
+

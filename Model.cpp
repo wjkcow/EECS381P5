@@ -21,13 +21,16 @@
 #include "View.h"
 #include "Ship_factory.h"
 
-using namespace std;
-Model::Model(){
+#include <iostream>
 
+using namespace std;
+
+Model::Model(){
+    cout << "Model constructed" << endl;
 }
 
 Model::~Model(){
-
+    cout << "Model destructed" << endl;
 }
 
 bool Model::is_name_in_use(const string& name) const{
@@ -39,7 +42,7 @@ bool Model::is_island_present(const string& name) const{
 }
 
 Island* Model::get_island_ptr(const string& name) const{
-
+    throw Error("Island not found!");
 }
 
 bool Model::is_ship_present(const string& name) const{
@@ -51,7 +54,7 @@ void Model::add_ship(Ship* ship_ptr){
 }
 
 Ship* Model::get_ship_ptr(const string& name) const{
-
+    throw Error("Ship not found!");
 }
 
 void Model::describe() const{

@@ -1,10 +1,12 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
+#include <iostream>
 struct Model;
 struct View;
 struct Ship;
 struct Island;
+struct Point;
 /* Controller
 This class is responsible for controlling the Model and View according to interactions
 with the user.
@@ -25,6 +27,8 @@ public:
 	// create View object, run the program by acccepting user commands, then destroy View object
 	void run();
 private:
+    View* view; // the only view for this one
+    
     // handlers to the view comands:
     // restore the default setting of the map
     void view_cmd_default() const;
@@ -71,9 +75,18 @@ private:
     // stop attack
     void ship_stop_attack(Ship* ship_ptr) const;
     
+
     // helper functions:
-    Ship* getShip(const std::string& name);
-    Island* getIsland(const std::string& name);
+    Ship* get_ship() const;
+    Island* get_island() const;
+    
+    // helper function for reading
+    double read_double() const;
+    Point  read_point() const;
+    double read_compass_heading() const;
+    double read_speed() const;
+    
+    constexpr static int min_name_len = 2;
 };
 
 #endif
