@@ -1,10 +1,13 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include "Sim_object.h"
-#include "Island.h"
-#include "Ship.h"
-#include "View.h"
+#include <string>
+
+struct Sim_object;
+struct Island;
+struct Ship;
+struct View;
+struct Point;
 /*
 Model is part of a simplified Model-View-Controller pattern.
 Model keeps track of the Sim_objects in our little world. It is the only

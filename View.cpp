@@ -1,4 +1,8 @@
+#include "View.h"
+#include <cmath>
+#include <string>
 
+using namespace std;
 /* *** Use this function to calculate the subscripts for the cell. */
 
 /* *** This code assumes the specified private member variables. */
@@ -27,3 +31,21 @@ bool View::get_subscripts(int &ix, int &iy, Point location)
 		return true;
 }
 
+View::View(){
+
+}
+
+View::~View(){
+
+}
+
+void View::update_location(const string& name, Point location){
+
+}
+
+void View::update_remove(const string& name){
+
+}
+
+void View::draw(){
+}

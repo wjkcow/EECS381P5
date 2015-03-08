@@ -1,3 +1,7 @@
+#ifndef VIEW_H
+#define VIEW_H
+
+#include "Geometry.h"
 /* *** View class ***
 The View class encapsulates the data and functions needed to generate the map
 display, and control its properties. It has a "memory" for the names and locations
