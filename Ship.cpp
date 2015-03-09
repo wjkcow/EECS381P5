@@ -94,9 +94,6 @@ void Ship::update(){
 }
 
 void Ship::describe() const{
-    cout.setf(ios::fixed, ios::floatfield);
-    cout.precision(2);
-    
     cout << get_name() << " at " << get_position();
     switch (ship_state) {
         case State::SINKING:

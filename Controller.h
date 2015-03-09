@@ -76,6 +76,8 @@ private:
     void ship_stop_attack(Ship* ship_ptr) const;
     
 
+    // clear the data before quit
+    void clear();
     // helper functions:
     Ship* get_ship() const;
     Island* get_island() const;

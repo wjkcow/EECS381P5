@@ -73,18 +73,18 @@ Ship* Model::get_ship_ptr(const string& name) const{
 
 void Model::describe() const{
     for (auto &objects_pair : sim_objects) {
-        objects_pair->second->describe();
+        objects_pair.second->describe();
     }
 }
 
 void Model::update(){
     time ++;
     for (auto &objects_pair : sim_objects) {
-        objects_pair->second->update();
+        objects_pair.second->update();
     }
     vector<Ship*> bottom_ships;
     for (auto &ships_pair : sim_objects) {
-        bottom_ships.push_back(objects_pair->second);
+        bottom_ships.push_back(ships_pair.second);
     }
     for (Ship* s: bottom_ships) {
         sim_objects.erase(s->get_name());

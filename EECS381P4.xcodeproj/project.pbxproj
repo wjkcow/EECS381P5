@@ -7,21 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D22024DB1AA96F3200941BE4 /* Sim_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A391AA91D3300CB23BA /* Sim_object.cpp */; };
-		D22024DC1AA96F3200941BE4 /* Island.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A3B1AA91E3300CB23BA /* Island.cpp */; };
-		D22024DD1AA96F3200941BE4 /* Ship.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A261AA90DB200CB23BA /* Ship.cpp */; };
-		D22024DE1AA96F3200941BE4 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A241AA90DB200CB23BA /* Model.cpp */; };
-		D22024DF1AA96F3200941BE4 /* Utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D22024D71AA95FC600941BE4 /* Utility.cpp */; };
-		D22024E01AA96F3200941BE4 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A2B1AA90DB200CB23BA /* View.cpp */; };
-		D22024E11AA96F3200941BE4 /* Track_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A2F1AA90DB200CB23BA /* Track_base.cpp */; };
-		D22024E21AA96F3200941BE4 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1B1AA90DB200CB23BA /* Geometry.cpp */; };
-		D22024E31AA96F3200941BE4 /* Navigation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1D1AA90DB200CB23BA /* Navigation.cpp */; };
-		D22024E41AA96F3200941BE4 /* p4_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1F1AA90DB200CB23BA /* p4_main.cpp */; };
-		D239A23C1AAAAF7E00856589 /* Tanker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D239A23B1AAAAF7E00856589 /* Tanker.cpp */; };
-		D23DAABE1AAB8B4C003793E6 /* Warship.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAABD1AAB8B4C003793E6 /* Warship.cpp */; };
-		D23DAAC01AAB9679003793E6 /* Cruiser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAABF1AAB9679003793E6 /* Cruiser.cpp */; };
-		D23DAAC21AAB9A46003793E6 /* Ship_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAAC11AAB9A46003793E6 /* Ship_factory.cpp */; };
-		D23DAAC41AABA668003793E6 /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAAC31AABA668003793E6 /* Controller.cpp */; };
+		D22335061AAD3DA500C10FD6 /* Sim_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A391AA91D3300CB23BA /* Sim_object.cpp */; };
+		D22335071AAD3DA500C10FD6 /* Island.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A3B1AA91E3300CB23BA /* Island.cpp */; };
+		D22335081AAD3DA500C10FD6 /* Ship.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A261AA90DB200CB23BA /* Ship.cpp */; };
+		D22335091AAD3DA500C10FD6 /* Tanker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D239A23B1AAAAF7E00856589 /* Tanker.cpp */; };
+		D223350A1AAD3DA500C10FD6 /* Warship.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAABD1AAB8B4C003793E6 /* Warship.cpp */; };
+		D223350B1AAD3DA500C10FD6 /* Cruiser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAABF1AAB9679003793E6 /* Cruiser.cpp */; };
+		D223350C1AAD3DA500C10FD6 /* Ship_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAAC11AAB9A46003793E6 /* Ship_factory.cpp */; };
+		D223350D1AAD3DA500C10FD6 /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAAC31AABA668003793E6 /* Controller.cpp */; };
+		D223350E1AAD3DA500C10FD6 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A241AA90DB200CB23BA /* Model.cpp */; };
+		D223350F1AAD3DA500C10FD6 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A2B1AA90DB200CB23BA /* View.cpp */; };
+		D22335101AAD3DA500C10FD6 /* Utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D22024D71AA95FC600941BE4 /* Utility.cpp */; };
+		D22335111AAD3DA500C10FD6 /* Track_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A2F1AA90DB200CB23BA /* Track_base.cpp */; };
+		D22335121AAD3DA500C10FD6 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1B1AA90DB200CB23BA /* Geometry.cpp */; };
+		D22335131AAD3DA500C10FD6 /* Navigation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1D1AA90DB200CB23BA /* Navigation.cpp */; };
+		D22335141AAD3DA500C10FD6 /* p4_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1F1AA90DB200CB23BA /* p4_main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -192,21 +192,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D22024DB1AA96F3200941BE4 /* Sim_object.cpp in Sources */,
-				D22024DC1AA96F3200941BE4 /* Island.cpp in Sources */,
-				D23DAABE1AAB8B4C003793E6 /* Warship.cpp in Sources */,
-				D22024DD1AA96F3200941BE4 /* Ship.cpp in Sources */,
-				D22024DE1AA96F3200941BE4 /* Model.cpp in Sources */,
-				D22024DF1AA96F3200941BE4 /* Utility.cpp in Sources */,
-				D23DAAC01AAB9679003793E6 /* Cruiser.cpp in Sources */,
-				D23DAAC41AABA668003793E6 /* Controller.cpp in Sources */,
-				D22024E01AA96F3200941BE4 /* View.cpp in Sources */,
-				D23DAAC21AAB9A46003793E6 /* Ship_factory.cpp in Sources */,
-				D22024E11AA96F3200941BE4 /* Track_base.cpp in Sources */,
-				D239A23C1AAAAF7E00856589 /* Tanker.cpp in Sources */,
-				D22024E21AA96F3200941BE4 /* Geometry.cpp in Sources */,
-				D22024E31AA96F3200941BE4 /* Navigation.cpp in Sources */,
-				D22024E41AA96F3200941BE4 /* p4_main.cpp in Sources */,
+				D22335061AAD3DA500C10FD6 /* Sim_object.cpp in Sources */,
+				D22335071AAD3DA500C10FD6 /* Island.cpp in Sources */,
+				D22335081AAD3DA500C10FD6 /* Ship.cpp in Sources */,
+				D22335091AAD3DA500C10FD6 /* Tanker.cpp in Sources */,
+				D223350A1AAD3DA500C10FD6 /* Warship.cpp in Sources */,
+				D223350B1AAD3DA500C10FD6 /* Cruiser.cpp in Sources */,
+				D223350C1AAD3DA500C10FD6 /* Ship_factory.cpp in Sources */,
+				D223350D1AAD3DA500C10FD6 /* Controller.cpp in Sources */,
+				D223350E1AAD3DA500C10FD6 /* Model.cpp in Sources */,
+				D223350F1AAD3DA500C10FD6 /* View.cpp in Sources */,
+				D22335101AAD3DA500C10FD6 /* Utility.cpp in Sources */,
+				D22335111AAD3DA500C10FD6 /* Track_base.cpp in Sources */,
+				D22335121AAD3DA500C10FD6 /* Geometry.cpp in Sources */,
+				D22335131AAD3DA500C10FD6 /* Navigation.cpp in Sources */,
+				D22335141AAD3DA500C10FD6 /* p4_main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

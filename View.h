@@ -2,6 +2,7 @@
 #define VIEW_H
 
 #include "Geometry.h"
+#include <map>
 /* *** View class ***
 The View class encapsulates the data and functions needed to generate the map
 display, and control its properties. It has a "memory" for the names and locations
@@ -70,15 +71,25 @@ public:
 	void set_defaults();
 				
 private:
-	int size;			// current size of the display
-	double scale;		// distance per cell of the display
-	Point origin;		// coordinates of the lower-left-hand corner
+    int size{default_size_c};			// current size of the display
+    double scale{default_scale_c};		// distance per cell of the display
+    Point origin{default_origin_c,default_origin_c};		// coordinates of the lower-left-hand corner
 				
 	// Calculate the cell subscripts corresponding to the location parameter, using the 
 	// current size, scale, and origin of the display. 
 	// Return true if the location is within the map, false if not
-	bool get_subscripts(int &ix, int &iy, Point location); 
+	bool get_subscripts(int &ix, int &iy, Point location);
+    std::map<std::string, Point> plot_objects;
 
+    constexpr static int default_size_c = 25;
+    constexpr static double default_scale_c = 2.;
+    constexpr static double default_origin_c = -10.;
+    constexpr static int max_size_c = 30;
+    constexpr static int min_size_c = 6;
+    constexpr static int plot_wide_c = 2;
+    constexpr static int output_y_label_w_c = 4;
+    constexpr static int output_x_label_w_c = 6;
+    constexpr static int label_gap = 3;
 };
 
 #endif

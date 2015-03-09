@@ -21,6 +21,8 @@ Controller::~Controller(){
 }
 
 void Controller::run(){
+    cout.setf(ios::fixed, ios::floatfield);
+    cout.precision(2);
     view = new View{};
     g_Model_ptr->attach(view);
 
@@ -50,22 +52,30 @@ void Controller::run(){
     string cmd_word;
     string ship_cmd_word;
     while (true) {
-        cout << "\nTime " << g_Model_ptr->get_time() << ": Enter command: ";
-        cin >> cmd_word;
-        if (cmd_word == "quit") {
-            g_Model_ptr->detach(view);
-            delete view;
-            cout << "Done" << endl;
+        try {
+            cout << "\nTime " << g_Model_ptr->get_time() << ": Enter command: ";
+            cin >> cmd_word;
+            if (cmd_word == "quit") {
+                clear();
+                return;
+            } else if(g_Model_ptr->is_ship_present(cmd_word) &&
+                      ship_cmds.count(ship_cmd_word)){
+                cin >> ship_cmd_word;
+                ship_cmds[ship_cmd_word](g_Model_ptr->get_ship_ptr(cmd_word));
+            } else if(view_model_cmds.count(cmd_word)){
+                view_model_cmds[cmd_word]();
+            } else {
+                throw Error("Unrecognized command!");
+            }
+
+        } catch (Error &e) {
+            cout << e.what() << endl;
+            while(cin.good() && cin.get() != '\n');
+        } catch (exception &e){
+            cout << e.what() << endl;
+            clear();
             return;
-        } else if(g_Model_ptr->is_ship_present(cmd_word) &&
-                  ship_cmds.count(ship_cmd_word)){
-            cin >> ship_cmd_word;
-            ship_cmds[ship_cmd_word](g_Model_ptr->get_ship_ptr(cmd_word));
-        } else if(view_model_cmds.count(cmd_word)){
-            view_model_cmds[cmd_word]();
-        } else {
-            throw Error("Unrecognized command!");
-        }
+        } 
     }
 }
 
@@ -158,6 +168,11 @@ void Controller::ship_stop_attack(Ship* ship_ptr) const{
     ship_ptr->stop_attack();
 }
 
+void Controller::clear(){
+    g_Model_ptr->detach(view);
+    delete view;
+    cout << "Done" << endl;
+}
 Ship* Controller::get_ship() const{
     string name;
     cin >> name;

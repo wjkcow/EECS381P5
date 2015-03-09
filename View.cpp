@@ -1,6 +1,10 @@
 #include "View.h"
+#include "Utility.h"
 #include <cmath>
 #include <string>
+#include <iostream>
+#include <vector>
+#include <iomanip>
 
 using namespace std;
 /* *** Use this function to calculate the subscripts for the cell. */
@@ -32,41 +36,95 @@ bool View::get_subscripts(int &ix, int &iy, Point location)
 }
 
 View::View(){
-
+    cout << "View constructed" << endl;
 }
 
 View::~View(){
-
+    cout << "View destructed" << endl;
 }
 
 void View::update_location(const string& name, Point location){
-
+    plot_objects[name] = location;
 }
 
 void View::update_remove(const string& name){
-
+    plot_objects.erase(name);
 }
 
 void View::draw(){
+    vector<vector<string>> map{static_cast<size_t>(size),
+        vector<string>{static_cast<size_t>(size), ". "}};
+    cout <<  "Display size: " << size << ", scale: " << scale <<
+    ", origin: " << origin << endl;
+    int x,y;
+    string out_of_maps;
+    for (auto &plot_pair : plot_objects) {
+        if (!get_subscripts(x, y, plot_pair.second)) {
+            if (!out_of_maps.empty()) {
+                out_of_maps += ", ";
+            }
+            out_of_maps += plot_pair.first;
+        } else if(map[x][y] == ". "){
+            map[x][y] = plot_pair.first.substr(0, plot_wide_c);
+        } else {
+            map[x][y] = "* ";
+        }
+    }
+    if (!out_of_maps.empty()) {
+        cout << out_of_maps << " outside the map" << endl;
+    }
+    
+    int y_label = static_cast<int>(origin.x) +
+            scale * label_gap * (size / label_gap);
+    for (int y = 0; y < size; y++) {
+        if ((size - y)%label_gap == 1) {
+            cout << setw(output_y_label_w_c) << y_label;
+            y_label -= scale * label_gap;
+        } else {
+            cout << "     ";
+        }
+        for (int x = 0; x < size; x ++) {
+            cout << map[x][y];
+        }
+        cout << endl;
+    }
+    int x_label = static_cast<int>(origin.y);
+
+    for (int x = 0; x < size / label_gap; x++) {
+        cout << setw(output_x_label_w_c) << x_label;
+        x_label += scale * label_gap;
+    }
+    cout << endl;
 }
 
 void View::clear(){
-
+    plot_objects.clear();
 }
 
 void View::set_size(int size_){
-
+    if (size_ <= min_size_c) {
+        throw Error("New map size is too big!");
+    }
+    if(size_ > max_size_c){
+        throw Error("New map size is too small!");
+    }
+    size = size_;
 }
 
 void View::set_scale(double scale_){
-
+    if (scale_ < 0.) {
+        throw Error("New map scale must be positive!");
+    }
+    scale = scale_;
 }
 
-void set_origin(Point origin_){
-
+void View::set_origin(Point origin_){
+    origin = origin_;
 }
 
-void set_defaults(){
-
+void View::set_defaults(){
+    size = default_size_c;
+    scale = default_scale_c;
+    origin = Point{default_origin_c, default_origin_c};
 }
 
