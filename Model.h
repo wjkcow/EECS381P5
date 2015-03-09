@@ -2,6 +2,8 @@
 #define MODEL_H
 
 #include <string>
+#include <vector>
+#include <map>
 
 struct Sim_object;
 struct Island;
@@ -31,6 +33,7 @@ You should delete this comment.
 
 // Declare the global model pointer
 class Model;
+
 extern Model* g_Model_ptr;
 
 class Model {
@@ -88,7 +91,14 @@ public:
     Model& operator=(Model&&) = delete;
     
 private:
-	int time;		// the simulated time
+    int time{0};		// the simulated time
+    std::vector<View*> views; // all the views
+    struct Less_than_name;
+    std::map<std::string, Sim_object*, Less_than_name> sim_objects;
+    std::map<std::string, Ship*, Less_than_name> ships;
+    std::map<std::string, Island*, Less_than_name> islands;
+    
+    constexpr static int distinct_name_len_c = 2;
 
 };
 #endif
