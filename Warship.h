@@ -61,7 +61,7 @@ protected:
 	// get the target
 	Ship* get_target() const;
 private:
-    bool is_attcking_state = false;
+    bool is_attacking_state = false;
     int firepower;
     double maximum_range;
     Ship* target_ptr;
