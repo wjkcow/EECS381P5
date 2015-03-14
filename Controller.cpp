@@ -7,10 +7,8 @@
 #include "Ship_factory.h"
 
 #include <iostream>
-#include <map>
-#include <functional>
+
 using namespace std;
-using namespace placeholders;
 
 Controller::Controller(){
     cout << "Controller constructed" << endl;
@@ -23,51 +21,19 @@ Controller::~Controller(){
 void Controller::run(){
     view = new View{};
     g_Model_ptr->attach(view);
-
-
-    map<string, function<void(void)>> view_model_cmds = {
-        {"default", bind(&Controller::view_cmd_default, this)},
-        {"size",    bind(&Controller::view_cmd_size, this)},
-        {"zoom",    bind(&Controller::view_cmd_zoom, this)},
-        {"pan",     bind(&Controller::view_cmd_pan, this)},
-        {"show",    bind(&Controller::view_cmd_show, this)},
-        {"status",  bind(&Controller::model_cmd_status, this)},
-        {"go",      bind(&Controller::model_cmd_go, this)},
-        {"create",  bind(&Controller::model_cmd_create, this)}
-    };
-    map<string, function<void(Ship*)>> ship_cmds = {
-        {"course",      bind(&Controller::ship_course, this, _1)},
-        {"position",    bind(&Controller::ship_position, this, _1)},
-        {"destination", bind(&Controller::ship_destination, this, _1)},
-        {"load_at",     bind(&Controller::ship_load_at, this, _1)},
-        {"unload_at",   bind(&Controller::ship_unload_at, this, _1)},
-        {"dock_at",     bind(&Controller::ship_dock_at, this, _1)},
-        {"attack",      bind(&Controller::ship_attack, this, _1)},
-        {"refuel",      bind(&Controller::ship_refuel, this, _1)},
-        {"stop",        bind(&Controller::ship_stop, this, _1)},
-        {"stop_attack", bind(&Controller::ship_stop_attack, this, _1)}
-    };
-    string cmd_word;
-    string ship_cmd_word;
+    string first_cmd_word;
     while (true) {
         try {
             cout << "\nTime " << g_Model_ptr->get_time() << ": Enter command: ";
-            cin >> cmd_word;
-            if (cmd_word == "quit") {
+            cin >> first_cmd_word;
+            if (first_cmd_word == "quit") {
                 clear();
                 return;
-            } else if(g_Model_ptr->is_ship_present(cmd_word)){
-                cin >> ship_cmd_word;
-                if (!ship_cmds.count(ship_cmd_word)) {
-                    throw Error("Unrecognized command!");
-                }
-                ship_cmds[ship_cmd_word](g_Model_ptr->get_ship_ptr(cmd_word));
-            } else if(view_model_cmds.count(cmd_word)){
-                view_model_cmds[cmd_word]();
+            } else if(g_Model_ptr->is_ship_present(first_cmd_word)){
+                ship_cmd(first_cmd_word);
             } else {
-                throw Error("Unrecognized command!");
+                view_model_cmd(first_cmd_word);
             }
-
         } catch (Error &e) {
             cout << e.what() << endl;
             while(cin.good() && cin.get() != '\n');
@@ -77,6 +43,30 @@ void Controller::run(){
             return;
         } 
     }
+}
+
+void Controller::ship_cmd(const string& ship_name){
+    string ship_cmd_word;
+    cin >> ship_cmd_word;
+    if (!ship_cmds.count(ship_cmd_word)) {
+        throw Error("Unrecognized command!");
+    }
+    ship_cmds[ship_cmd_word]
+    (g_Model_ptr->get_ship_ptr(ship_name));
+}
+
+void Controller::view_model_cmd(const string& cmd){
+    if(view_model_cmds.count(cmd)){
+        view_model_cmds[cmd]();
+    } else {
+        throw Error("Unrecognized command!");
+    }
+}
+
+void Controller::clear(){
+    g_Model_ptr->detach(view);
+    delete view;
+    cout << "Done" << endl;
 }
 
 void Controller::view_cmd_default() const{
@@ -128,16 +118,22 @@ void Controller::model_cmd_create() const{
 }
 
 void Controller::ship_course(Ship* ship_ptr) const{
-    ship_ptr->set_course_and_speed(read_compass_heading(), read_speed());
+    double course = read_compass_heading();
+    double speed = read_speed();
+    ship_ptr->set_course_and_speed(course, speed);
 }
 
 void Controller::ship_position(Ship* ship_ptr) const{
-    ship_ptr->set_destination_position_and_speed(read_point(), read_speed());
+    Point destination = read_point();
+    double speed = read_speed();
+    ship_ptr->set_destination_position_and_speed(destination, speed);
 }
 
 void Controller::ship_destination(Ship* ship_ptr) const{
-    ship_ptr->set_destination_position_and_speed(get_island()->get_location(),
-                                                 read_speed());
+    Point island_location = get_island()->get_location();
+    double speed = read_speed();
+    ship_ptr->set_destination_position_and_speed(island_location,
+                                                 speed);
 }
 
 void Controller::ship_load_at(Ship* ship_ptr) const{
@@ -168,11 +164,6 @@ void Controller::ship_stop_attack(Ship* ship_ptr) const{
     ship_ptr->stop_attack();
 }
 
-void Controller::clear(){
-    g_Model_ptr->detach(view);
-    delete view;
-    cout << "Done" << endl;
-}
 Ship* Controller::get_ship() const{
     string name;
     cin >> name;
@@ -194,12 +185,14 @@ double Controller::read_double() const{
 }
 
 Point Controller::read_point() const{
-    return Point{read_double(), read_double()};
+    double point_x = read_double();
+    double point_y = read_double();
+    return Point{point_x, point_y};
 }
 
 double Controller::read_compass_heading() const{
     double compass_heading = read_double();
-    if (compass_heading < 0. || compass_heading >= 360.) {
+    if (compass_heading < 0. || compass_heading >= max_compass_heading) {
         throw Error("Invalid heading entered!");
     }
     return compass_heading;

@@ -37,7 +37,7 @@ private:
     constexpr static double fuel_consumption_c = 10.;
     constexpr static int resistance_c = 6;
     constexpr static int firepower_c = 3;
-    constexpr static double maximum_attacking_range_ = 15;
+    constexpr static double maximum_attacking_range_ = 15.;
 };
 
 #endif

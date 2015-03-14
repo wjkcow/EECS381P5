@@ -2,6 +2,8 @@
 #define CONTROLLER_H
 
 #include <iostream>
+#include <map>
+#include <functional>
 struct Model;
 struct View;
 struct Ship;
@@ -28,6 +30,12 @@ public:
 	void run();
 private:
     View* view; // the only view for this one
+    
+    // handler for all the ship commands
+    void ship_cmd(const std::string& cmd);
+    // handler for model and view commands
+    void view_model_cmd(const std::string& cmd);
+    
     
     // handlers to the view comands:
     // restore the default setting of the map
@@ -88,7 +96,45 @@ private:
     double read_compass_heading() const;
     double read_speed() const;
     
+    // map for all the ship commands
+    std::map<std::string, std::function<void(Ship*)>> ship_cmds =
+    {
+        {"course",
+            std::bind(&Controller::ship_course, this, std::placeholders::_1)},
+        {"position",
+            std::bind(&Controller::ship_position, this, std::placeholders::_1)},
+        {"destination",
+            std::bind(&Controller::ship_destination, this, std::placeholders::_1)},
+        {"load_at",
+            std::bind(&Controller::ship_load_at, this, std::placeholders::_1)},
+        {"unload_at",
+            std::bind(&Controller::ship_unload_at, this, std::placeholders::_1)},
+        {"dock_at",
+            std::bind(&Controller::ship_dock_at, this, std::placeholders::_1)},
+        {"attack",
+            std::bind(&Controller::ship_attack, this, std::placeholders::_1)},
+        {"refuel",
+            std::bind(&Controller::ship_refuel, this, std::placeholders::_1)},
+        {"stop",
+            std::bind(&Controller::ship_stop, this, std::placeholders::_1)},
+        {"stop_attack",
+            std::bind(&Controller::ship_stop_attack, this, std::placeholders::_1)}
+    };
+    
+    // map for all the view or model commands;
+    std::map<std::string, std::function<void(void)>> view_model_cmds =
+    {
+        {"default", std::bind(&Controller::view_cmd_default, this)},
+        {"size",    std::bind(&Controller::view_cmd_size, this)},
+        {"zoom",    std::bind(&Controller::view_cmd_zoom, this)},
+        {"pan",     std::bind(&Controller::view_cmd_pan, this)},
+        {"show",    std::bind(&Controller::view_cmd_show, this)},
+        {"status",  std::bind(&Controller::model_cmd_status, this)},
+        {"go",      std::bind(&Controller::model_cmd_go, this)},
+        {"create",  std::bind(&Controller::model_cmd_create, this)}
+    };
     constexpr static int min_name_len = 2;
+    constexpr static double max_compass_heading = 360.;
 };
 
 #endif

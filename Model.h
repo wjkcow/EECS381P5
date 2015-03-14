@@ -101,8 +101,8 @@ private:
         }
     };
     std::map<std::string, Sim_object*, Less_than_name> sim_objects;
-    std::map<std::string, Ship*, Less_than_name> ships;
-    std::map<std::string, Island*, Less_than_name> islands;
+    std::map<std::string, Ship*> ships;
+    std::map<std::string, Island*> islands;
     
     constexpr static int distinct_name_len_c = 2;
 
