@@ -93,7 +93,13 @@ public:
 private:
     int time{0};		// the simulated time
     std::vector<View*> views; // all the views
-    struct Less_than_name;
+    struct Less_than_name{
+        bool operator()(const std::string& str1, const std::string& str2) const{
+            // only the first two letters matters
+            return str1.compare(0, distinct_name_len_c,
+                                str2, 0, distinct_name_len_c);
+        }
+    };
     std::map<std::string, Sim_object*, Less_than_name> sim_objects;
     std::map<std::string, Ship*, Less_than_name> ships;
     std::map<std::string, Island*, Less_than_name> islands;

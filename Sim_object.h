@@ -4,17 +4,14 @@
 object's name, and has pure virtual accessor functions for the object's position
 and other information. */
 
-/* *** You may not add any additional classes, structs, functions etc to this file. */
 #include <string>
 
 struct Point;
 
 class Sim_object {
 public:
-    // *** define the constructor in Sim_object.cpp to output the supplied message
 	Sim_object(const std::string& name_);
 
-    // *** define the destructor in Sim_object.cpp to output the supplied message
     virtual ~Sim_object();
 	
 	const std::string& get_name() const
@@ -24,7 +21,6 @@ public:
     virtual void broadcast_current_state() {}
 
 	/* Interface for derived classes */
-	// *** declare the following as pure virtual functions 
     virtual Point get_location() const = 0;
     virtual void describe() const = 0;
     virtual void update() = 0;

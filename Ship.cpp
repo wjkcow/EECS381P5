@@ -1,4 +1,6 @@
 #include "Ship.h"
+
+#include "Island.h"
 #include "Model.h"
 
 #include <iostream>
@@ -27,9 +29,7 @@ Ship::~Ship()
 }
 
 bool Ship::can_move() const{
-    return (ship_state != State::DEAD_IN_THE_WATER) &&
-    (ship_state != State::SINKING) && (ship_state != State::SUNK) &&
-    (ship_state != State::ON_THE_BOTTOM);
+    return is_afloat() && (ship_state != State::DEAD_IN_THE_WATER);
 }
 
 bool Ship::is_moving() const{
@@ -51,17 +51,13 @@ bool Ship::is_on_the_bottom() const{
 }
 
 bool Ship::can_dock(Island* island_ptr) const{
-    if ((ship_state == State::STOPPED) &&
-        (cartesian_distance(destination, Track_base::get_position())
-         < dock_dist_c)) {
-            return true;
-        }
-    return false;
+    return (ship_state == State::STOPPED) && (cartesian_distance(
+                                                  island_ptr->get_location(),
+                                                  Track_base::get_position())
+                                                  <= dock_dist_c);
 }
 
 void Ship::update(){
-    
-    
     if (is_afloat() && resistance >= 0){ // we are not sinking!
         if(is_moving()){
             calculate_movement();
@@ -75,7 +71,6 @@ void Ship::update(){
             cout << get_name() <<  " dead in the water at "
             << get_location() << endl;
         }
-    
     } else if (is_afloat() && resistance < 0){
         ship_state = State::SINKING;
         set_speed(0.);
@@ -121,7 +116,7 @@ void Ship::describe() const{
             cout << "Moving on " << get_course_speed() << endl;
             break;
         case State::DOCKED:
-            cout << "Docked at " << get_position() << endl;
+            cout << "Docked at " << docked_island->get_name() << endl;
             break;
         case State::STOPPED:
             cout << "Stopped" << endl;
@@ -140,24 +135,27 @@ void Ship::broadcast_current_state(){
 }
 
 void Ship::set_destination_position_and_speed(Point destination_position, double speed){
-    
     // get the course
     Compass_vector cv{get_position(), destination};
+    
     move_helper(cv.direction, speed);
     // undock the ship
-    if (ship_state == State::DOCKED) {
-        ship_state = State::MOVING_TO_POSITION;
+    if (is_docked()) {
+        docked_island = nullptr;
     }
     cout <<  get_name() <<" will sail on "  << get_course_speed() << " to " <<
     destination << endl;
+    ship_state = State::MOVING_TO_POSITION;
+
 }
 
 void Ship::set_course_and_speed(double course, double speed){
     move_helper(course, speed);
-    if (ship_state == State::DOCKED) {
-        ship_state = State::MOVING_ON_COURSE;
+    if (is_docked()) {
+        docked_island = nullptr;
     }
     cout << get_name() <<" will sail on " << get_course_speed() << endl;
+    ship_state = State::MOVING_ON_COURSE;
 }
 
 void Ship::move_helper(double course, double speed){
@@ -181,7 +179,7 @@ void Ship::stop(){
 }
 
 void Ship::dock(Island * island_ptr){
-    if (!can_dock(island_ptr)) {
+    if (!(ship_state == State::STOPPED && can_dock(island_ptr))) {
         throw Error("Can't dock!");
     }
     set_position(island_ptr->get_location());
@@ -234,7 +232,7 @@ double Ship::get_maximum_speed() const{
 }
 
 Island* Ship::get_docked_Island() const{
-    return docked_island;
+    return is_docked() ? docked_island : nullptr;
 }
 
 /*

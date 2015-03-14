@@ -13,5 +13,7 @@ using namespace std;
 int main(){
 //    cout.setf(ios::fixed, ios::floatfield); // set fixed floating format
 //    cout.precision(2);
-    cout << setw(3) << 3  << setw(3) <<4 << endl;
+    cout.setf(ios::fixed, ios::floatfield);
+    cout.precision(2);
+    cout  <<  " "  <<4 << endl;
 }

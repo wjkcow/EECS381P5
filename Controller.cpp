@@ -21,21 +21,19 @@ Controller::~Controller(){
 }
 
 void Controller::run(){
-    cout.setf(ios::fixed, ios::floatfield);
-    cout.precision(2);
     view = new View{};
     g_Model_ptr->attach(view);
 
 
     map<string, function<void(void)>> view_model_cmds = {
         {"default", bind(&Controller::view_cmd_default, this)},
-        {"size",    bind(&Controller::view_cmd_default, this)},
-        {"zoom",    bind(&Controller::view_cmd_default, this)},
-        {"pan",     bind(&Controller::view_cmd_default, this)},
-        {"show",    bind(&Controller::view_cmd_default, this)},
-        {"status",  bind(&Controller::view_cmd_default, this)},
-        {"go",      bind(&Controller::view_cmd_default, this)},
-        {"create",  bind(&Controller::view_cmd_default, this)}
+        {"size",    bind(&Controller::view_cmd_size, this)},
+        {"zoom",    bind(&Controller::view_cmd_zoom, this)},
+        {"pan",     bind(&Controller::view_cmd_pan, this)},
+        {"show",    bind(&Controller::view_cmd_show, this)},
+        {"status",  bind(&Controller::model_cmd_status, this)},
+        {"go",      bind(&Controller::model_cmd_go, this)},
+        {"create",  bind(&Controller::model_cmd_create, this)}
     };
     map<string, function<void(Ship*)>> ship_cmds = {
         {"course",      bind(&Controller::ship_course, this, _1)},
@@ -58,9 +56,11 @@ void Controller::run(){
             if (cmd_word == "quit") {
                 clear();
                 return;
-            } else if(g_Model_ptr->is_ship_present(cmd_word) &&
-                      ship_cmds.count(ship_cmd_word)){
+            } else if(g_Model_ptr->is_ship_present(cmd_word)){
                 cin >> ship_cmd_word;
+                if (!ship_cmds.count(ship_cmd_word)) {
+                    throw Error("Unrecognized command!");
+                }
                 ship_cmds[ship_cmd_word](g_Model_ptr->get_ship_ptr(cmd_word));
             } else if(view_model_cmds.count(cmd_word)){
                 view_model_cmds[cmd_word]();

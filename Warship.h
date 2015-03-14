@@ -65,7 +65,5 @@ private:
     int firepower;
     double maximum_range;
     Ship* target_ptr;
-    
-    
 };
 #endif

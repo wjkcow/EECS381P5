@@ -128,10 +128,9 @@ private:
 	void calculate_movement();
 
     // helper function for move on destination and move on course
-    // throw exception is cannot move or the speed is too large
+    // throw exception when it is cannot move or the speed is too large
     void move_helper(double course, double speed);
-    constexpr static double dock_dist_c = 1e-1;    // can dock when distance to destination
-    constexpr static double fuel_error_c = 0.005;  // error for the fuel
+
     double fuel_capacity;             // max fuel amount
     double maximum_speed;             // max speed of the ship
     int resistance;                   // current resistance of the ship
@@ -150,6 +149,9 @@ private:
 
     // current state for this ship
     State ship_state;
+
+    constexpr static double dock_dist_c = 0.1;    // can dock when distance to destination
+    constexpr static double fuel_error_c = 0.005;  // error for the fuel
 };
 #endif
 

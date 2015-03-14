@@ -1,7 +1,7 @@
 #ifndef CRUSIER_H
 #define CRUSIER_H
 
-#include "Warship.cpp"
+#include "Warship.h"
 /*
 A Cruiser is a Warship with moderate speed, firepower, and resistance.
 When told to attack it will start firing at the target if it is in range.

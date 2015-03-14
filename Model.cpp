@@ -11,15 +11,7 @@
 #include <algorithm>
 using namespace std;
 
-Model* g_Model_ptr = new Model();
-
-struct Model::Less_than_name{
-    bool operator()(const string& str1, const string& str2){
-        // only the first two letters matters
-        return str1.compare(0, distinct_name_len_c,
-                                      str2, 0, distinct_name_len_c);
-    }
-};
+Model* g_Model_ptr{nullptr};
 
 Model::Model(){
     islands["Exxon"] = new Island("Exxon", Point(10, 10), 1000, 200);
@@ -34,8 +26,8 @@ Model::Model(){
 }
 
 Model::~Model(){
-    for (Sim_object* s : sim_objects) {
-        delete  s;
+    for (auto so_pair : sim_objects) {
+        delete  so_pair.second;
     }
     cout << "Model destructed" << endl;
 }
@@ -52,7 +44,7 @@ Island* Model::get_island_ptr(const string& name) const{
     if(!is_island_present(name)){
         throw Error("Island not found!");
     }
-    return islands[name];
+    return islands.find(name)->second;
 }
 
 bool Model::is_ship_present(const string& name) const{
@@ -68,7 +60,7 @@ Ship* Model::get_ship_ptr(const string& name) const{
     if (!is_ship_present(name)) {
         throw Error("Ship not found!");
     }
-    return ships[name];
+    return ships.find(name)->second;
 }
 
 void Model::describe() const{
@@ -83,8 +75,10 @@ void Model::update(){
         objects_pair.second->update();
     }
     vector<Ship*> bottom_ships;
-    for (auto &ships_pair : sim_objects) {
-        bottom_ships.push_back(ships_pair.second);
+    for (auto &ships_pair : ships) {
+        if (ships_pair.second->is_on_the_bottom()) {
+            bottom_ships.push_back(ships_pair.second);
+        }
     }
     for (Ship* s: bottom_ships) {
         sim_objects.erase(s->get_name());
