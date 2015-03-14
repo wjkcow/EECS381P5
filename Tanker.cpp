@@ -14,43 +14,48 @@ Tanker::~Tanker(){
 
 void Tanker::set_destination_position_and_speed(Point destination,
                                                 double speed){
-    if(tanker_state != State::NO_CARGO_DESTINATION){
-        throw Error("Tanker has cargo destinations!");
-    } else {
-        Ship::set_destination_position_and_speed(destination, speed);
-    }
+    check_no_cargo_destination();
+    Ship::set_destination_position_and_speed(destination, speed);
 }
 
 void Tanker::set_course_and_speed(double course, double speed){
-    if(tanker_state != State::NO_CARGO_DESTINATION){
-        throw Error("Tanker has cargo destinations!");
-    } else {
-        Ship::set_course_and_speed(course, speed);
-    }
+    check_no_cargo_destination();
+    Ship::set_course_and_speed(course, speed);
 }
 
 void Tanker::set_load_destination(Island* load_des_){
-    if(tanker_state != State::NO_CARGO_DESTINATION){
-        throw Error("Tanker has cargo destinations!");
-    } else if(load_des_ == unload_destination){
-        throw Error("Load and unload cargo destinations are the same!");
-    } else {
-        cout << get_name() << " will load at " << load_des_->get_name() << endl;
-    }
+    check_no_cargo_destination();
+    load_destination = load_des_;
+    check_destination();
+    cout << get_name() << " will load at " << load_des_->get_name() << endl;
+    set_load_unload_helper();
 }
 
 void Tanker::set_unload_destination(Island* unload_des_){
+    check_no_cargo_destination();
+    unload_destination = unload_des_;
+    check_destination();
+    cout << get_name() << " will unload at " << unload_des_->get_name() << endl;
+    set_load_unload_helper();
+}
+    
+void Tanker::check_no_cargo_destination(){
     if(tanker_state != State::NO_CARGO_DESTINATION){
         throw Error("Tanker has cargo destinations!");
-    } else if(unload_des_ == load_destination){
+    }
+}
+    
+void Tanker::check_destination(){
+    if(load_destination == unload_destination){
         throw Error("Load and unload cargo destinations are the same!");
-    } else {
-        cout << get_name() << " will unload at " << unload_des_->get_name()
-                          << endl;
     }
 }
 
 void Tanker::set_load_unload_helper(){
+    // change state only when both destination pointers are set
+    if(!load_destination || !unload_destination){
+        return;
+    }
     if(is_docked() && get_docked_Island() == load_destination){
         tanker_state = State::LOADING;
     } else if(is_docked() && get_docked_Island() == unload_destination){
@@ -82,11 +87,13 @@ void Tanker::stop(){
 
 void Tanker::update(){
     Ship::update();
-   if (!can_move() && tanker_state != State::NO_CARGO_DESTINATION) {
+    if (!can_move()) {
         tanker_state = State::NO_CARGO_DESTINATION;
         load_destination = nullptr;
         unload_destination = nullptr;
         cout << get_name() <<  " now has no cargo destinations" << endl;
+    } else if(tanker_state == State::NO_CARGO_DESTINATION){
+        return;
     } else if (tanker_state == State::MOVING_TO_LOADING && !is_moving()
         && can_dock(load_destination)) {
         dock(load_destination);
@@ -120,7 +127,7 @@ void Tanker::update(){
 void Tanker::describe() const{
     cout << "\nTanker ";
     Ship::describe();
-    cout << "Cargo: " << cargo << " tons" << endl;
+    cout << "Cargo: " << cargo << " tons";
     switch (tanker_state) {
         case State::NO_CARGO_DESTINATION:
             cout << ", no cargo destinations" << endl;

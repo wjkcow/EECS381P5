@@ -1,6 +1,8 @@
 #ifndef TANKER_H
 #define TANKER_H
 #include "Ship.h"
+
+class Island;
 /*
 A Tanker is a ship with a large corgo capacity for fuel.
 It can be told an Island to load fuel at, and an Island to unload at.
@@ -50,6 +52,10 @@ private:
     Island* load_destination = nullptr;
     Island* unload_destination = nullptr;
     
+    // throw error if it's not NO_CARGO_DESTINATION
+    void check_no_cargo_destination();
+    // throw error is load and unload des are the same
+    void check_destination();
     // helper function for load and unload to change state
     void set_load_unload_helper();
     enum class State{  // state enum for the tanker FSM
