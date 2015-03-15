@@ -4,10 +4,10 @@
 #include <iostream>
 #include <map>
 #include <functional>
-struct Model;
-struct View;
-struct Ship;
-struct Island;
+class  Model;
+class View;
+class Ship;
+class Island;
 struct Point;
 /* Controller
 This class is responsible for controlling the Model and View according to interactions

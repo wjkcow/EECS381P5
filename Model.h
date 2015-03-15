@@ -5,10 +5,10 @@
 #include <vector>
 #include <map>
 
-struct Sim_object;
-struct Island;
-struct Ship;
-struct View;
+class Sim_object;
+class Island;
+class Ship;
+class View;
 struct Point;
 /*
 Model is part of a simplified Model-View-Controller pattern.

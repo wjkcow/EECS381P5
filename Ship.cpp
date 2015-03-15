@@ -12,7 +12,7 @@ Ship::Ship(const string& name_, Point position_, double fuel_capacity_,
            Sim_object{name_}, Track_base(position_), fuel{fuel_capacity_},
            fuel_capacity(fuel_capacity_), maximum_speed(maximum_speed_),
            fuel_consumption{fuel_consumption_}, resistance(resistance_),
-           ship_state{State::STOPPED}, docked_island(nullptr)
+            docked_island(nullptr),ship_state{State::STOPPED}
 {
     cout << "Ship " << name_ <<  " constructed" << endl;
     

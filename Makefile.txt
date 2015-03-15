@@ -45,7 +45,7 @@ Model.o: Model.cpp Model.h Sim_object.h Island.h Ship.h View.h Ship_factory.h
 View.o: View.cpp View.h Utility.h Geometry.h
     $(CC) $(CFLAGS) View.cpp
 
-
+Utility.o: Utility
 clean:
 	rm -f *.o
 

@@ -121,8 +121,12 @@ protected:
 
 private:
 	double fuel;						// Current amount of fuel
-	double fuel_consumption;			// tons/nm required
-	Point destination;					// Current destination if any
+    double fuel_capacity;             // max fuel amount
+    double maximum_speed;             // max speed of the ship
+    double fuel_consumption;			// tons/nm required
+    int resistance;                   // current resistance of the ship
+    Point destination;					// Current destination if any
+    Island* docked_island;
 
 	// Updates position, fuel, and movement_state, assuming 1 time unit (1 hr)
 	void calculate_movement();
@@ -131,10 +135,6 @@ private:
     // throw exception when it is cannot move or the speed is too large
     void move_helper(double course, double speed);
 
-    double fuel_capacity;             // max fuel amount
-    double maximum_speed;             // max speed of the ship
-    int resistance;                   // current resistance of the ship
-    Island* docked_island;
     // The state for FSM
     enum class State{
         DOCKED,
