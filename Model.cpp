@@ -22,6 +22,13 @@ Model::Model(){
     ships["Xerxes"] = create_ship("Xerxes", "Cruiser", Point (25, 25));
     ships["Valdez"] = create_ship("Valdez", "Tanker", Point (30, 30));
     
+    sim_objects["Exxon"] = islands["Exxon"];
+    sim_objects["Shell"] = islands["Shell"];
+    sim_objects["Bermuda"] = islands["Bermuda"];
+    
+    sim_objects["Ajax"] = ships["Ajax"];
+    sim_objects["Xerxes"] = ships["Xerxes"];
+    sim_objects["Valdez"] = ships["Valdez"];
     cout << "Model constructed" << endl;
 }
 
@@ -54,6 +61,7 @@ bool Model::is_ship_present(const string& name) const{
 void Model::add_ship(Ship* ship_ptr){
     ship_ptr->broadcast_current_state();
     ships[ship_ptr->get_name()] = ship_ptr;
+    sim_objects[ship_ptr->get_name()] = ship_ptr;
 }
 
 Ship* Model::get_ship_ptr(const string& name) const{
@@ -89,6 +97,9 @@ void Model::update(){
 
 void Model::attach(View* v){
     views.push_back(v);
+    for (auto so_pair : sim_objects) {
+        so_pair.second->broadcast_current_state();
+    }
 }
 
 void Model::detach(View* v){

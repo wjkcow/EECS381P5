@@ -60,17 +60,17 @@ void Tanker::set_load_unload_helper(){
         tanker_state = State::LOADING;
     } else if(is_docked() && get_docked_Island() == unload_destination){
         tanker_state = State::UNLOADING;
-    } else if(!is_moving() && cargo == 0 && can_dock(load_destination)){
+    } else if(!is_moving() && cargo == 0. && can_dock(load_destination)){
         dock(load_destination);
         tanker_state = State::LOADING;
-    } else if(!is_moving() && cargo > 0 && can_dock(unload_destination)){
+    } else if(!is_moving() && cargo > 0. && can_dock(unload_destination)){
         dock(unload_destination);
         tanker_state = State::UNLOADING;
-    } else if(cargo == 0){
+    } else if(cargo == 0.){
         Ship::set_destination_position_and_speed(
                     load_destination->get_location(), get_maximum_speed());
         tanker_state = State::MOVING_TO_LOADING;
-    } else if(cargo > 0){
+    } else if(cargo > 0.){
         Ship::set_destination_position_and_speed(
                                                  unload_destination->get_location(), get_maximum_speed());
         tanker_state = State::MOVING_TO_UNLOADING;

@@ -44,6 +44,7 @@ void Warship::stop_attack(){
     }
     cout << get_name() << " stopping attack" << endl;
     target_ptr = nullptr;
+    is_attacking_state = false;
 }
 
 void Warship::describe() const{

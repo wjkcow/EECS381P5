@@ -36,6 +36,7 @@ void Controller::run(){
             }
         } catch (Error &e) {
             cout << e.what() << endl;
+            cin.clear();
             while(cin.good() && cin.get() != '\n');
         } catch (exception &e){
             cout << e.what() << endl;

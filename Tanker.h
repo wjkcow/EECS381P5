@@ -71,8 +71,8 @@ private:
     constexpr static double init_max_speed_c = 10.;
     constexpr static double init_fuel_consumption_c = 2.;
     constexpr static int init_resistance_c = 0;
-    constexpr static int init_cargo_capacity_c = 1000;
-    constexpr static int init_cargo_c = 0;
+    constexpr static double init_cargo_capacity_c = 1000.;
+    constexpr static double init_cargo_c = 0.;
     constexpr static double cargo_error_c = 0.05;
 };
 #endif

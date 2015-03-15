@@ -52,6 +52,9 @@ void View::update_remove(const string& name){
 }
 
 void View::draw(){
+    ios::fmtflags old_settings = cout.flags();
+    int old_precision = static_cast<int>(cout.precision());
+    
     vector<vector<string>> map{static_cast<size_t>(size),
         vector<string>{static_cast<size_t>(size), ". "}};
     cout <<  "Display size: " << size << ", scale: " << scale <<
@@ -74,27 +77,35 @@ void View::draw(){
         cout << out_of_maps << " outside the map" << endl;
     }
     
-    int y_label = static_cast<int>(origin.x) +
-            scale * label_gap * (size / label_gap);
+    cout.setf(ios::fixed, ios::floatfield);
+    cout.precision(0);
+    int label_count = size % label_gap ? size / label_gap + 1 :
+                        size / label_gap;
+    double y_label = origin.y +
+            scale * label_gap * (label_count - 1);
     for (int y = 0; y < size; y++) {
         if ((size - y)%label_gap == 1) {
-            cout << setw(output_y_label_w_c) << y_label;
+            cout << setw(output_y_label_w_c) << y_label << " ";
             y_label -= scale * label_gap;
         } else {
             cout << "     ";
         }
         for (int x = 0; x < size; x ++) {
-            cout << map[x][y];
+            cout << map[x][size - y - 1];
         }
         cout << endl;
     }
-    int x_label = static_cast<int>(origin.y);
+    double x_label = origin.x;
 
-    for (int x = 0; x < size / label_gap; x++) {
+
+    for (int x = 0; x < label_count; x++) {
         cout << setw(output_x_label_w_c) << x_label;
         x_label += scale * label_gap;
     }
     cout << endl;
+    
+    cout.flags(old_settings);
+    cout.precision(old_precision);
 }
 
 void View::clear(){
@@ -103,16 +114,16 @@ void View::clear(){
 
 void View::set_size(int size_){
     if (size_ <= min_size_c) {
-        throw Error("New map size is too big!");
+        throw Error("New map size is too small!");
     }
     if(size_ > max_size_c){
-        throw Error("New map size is too small!");
+        throw Error("New map size is too big!");
     }
     size = size_;
 }
 
 void View::set_scale(double scale_){
-    if (scale_ < 0.) {
+    if (scale_ <= 0.) {
         throw Error("New map scale must be positive!");
     }
     scale = scale_;

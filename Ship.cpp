@@ -10,7 +10,8 @@ using namespace std;
 Ship::Ship(const string& name_, Point position_, double fuel_capacity_,
            double maximum_speed_, double fuel_consumption_, int resistance_): Sim_object{name_}, Track_base(position_), fuel{fuel_capacity_},
 maximum_speed(maximum_speed_),
-fuel_consumption{fuel_consumption_}, resistance(resistance_)
+fuel_consumption{fuel_consumption_}, resistance(resistance_),
+ship_state{State::STOPPED}, docked_island(nullptr)
 {
     cout << "Ship " << name_ <<  " constructed" << endl;
     
@@ -66,7 +67,8 @@ void Ship::update(){
         } else if(ship_state == State::STOPPED){
             cout << get_name() << " stopped at " << get_location() << endl;
         } else if (is_docked()){
-            cout <<  get_name() << " docked at " << get_location() << endl;
+            cout <<  get_name() << " docked at " <<
+                 docked_island->get_name() << endl;
         } else if (ship_state == State::DEAD_IN_THE_WATER){
             cout << get_name() <<  " dead in the water at "
             << get_location() << endl;
@@ -136,6 +138,7 @@ void Ship::broadcast_current_state(){
 
 void Ship::set_destination_position_and_speed(Point destination_position, double speed){
     // get the course
+    destination = destination_position;
     Compass_vector cv{get_position(), destination};
     
     move_helper(cv.direction, speed);

@@ -18,13 +18,13 @@ void Cruiser::update(){
     if(is_attacking() && target_in_range()){
         fire_at_target();
     } else if(is_attacking() && !target_in_range()){
-        cout << " target is out of range" << endl;
+        cout << get_name() << " target is out of range" << endl;
         stop_attack();
     }
 }
 
 void Cruiser::describe() const{
-    cout << "\nCruiser " << endl;
+    cout << "\nCruiser ";
     Warship::describe();
 }
 

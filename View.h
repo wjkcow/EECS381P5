@@ -84,8 +84,9 @@ private:
     constexpr static int default_size_c = 25;
     constexpr static double default_scale_c = 2.;
     constexpr static double default_origin_c = -10.;
-    constexpr static int max_size_c = 30;
-    constexpr static int min_size_c = 6;
+    constexpr static int max_size_c = 30; // size <= 30
+    constexpr static int min_size_c = 6;  // size > 6
+    // consts to help plot the map
     constexpr static int plot_wide_c = 2;
     constexpr static int output_y_label_w_c = 4;
     constexpr static int output_x_label_w_c = 6;

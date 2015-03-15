@@ -97,7 +97,7 @@ private:
         bool operator()(const std::string& str1, const std::string& str2) const{
             // only the first two letters matters
             return str1.compare(0, distinct_name_len_c,
-                                str2, 0, distinct_name_len_c);
+                                str2, 0, distinct_name_len_c) < 0;
         }
     };
     std::map<std::string, Sim_object*, Less_than_name> sim_objects;

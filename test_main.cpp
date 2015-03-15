@@ -14,6 +14,7 @@ int main(){
 //    cout.setf(ios::fixed, ios::floatfield); // set fixed floating format
 //    cout.precision(2);
     cout.setf(ios::fixed, ios::floatfield);
-    cout.precision(2);
-    cout  <<  " "  <<4 << endl;
+    cout.precision(0);
+    int a = 10.1;
+    cout  <<- 10.1 << " "<< a << endl;
 }
