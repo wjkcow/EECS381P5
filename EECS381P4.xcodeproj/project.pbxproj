@@ -44,6 +44,7 @@
 		D23DAABF1AAB9679003793E6 /* Cruiser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cruiser.cpp; sourceTree = "<group>"; };
 		D23DAAC11AAB9A46003793E6 /* Ship_factory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Ship_factory.cpp; sourceTree = "<group>"; };
 		D23DAAC31AABA668003793E6 /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Controller.cpp; sourceTree = "<group>"; };
+		D2A104411AB544FE00441DA6 /* Makefile.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.txt; sourceTree = "<group>"; };
 		D2F91A0C1AA90BBD00CB23BA /* EECS381P4 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EECS381P4; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F91A1B1AA90DB200CB23BA /* Geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
 		D2F91A1C1AA90DB200CB23BA /* Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geometry.h; sourceTree = "<group>"; };
@@ -101,6 +102,7 @@
 		D2F91A381AA90DB900CB23BA /* EECS381P4 */ = {
 			isa = PBXGroup;
 			children = (
+				D2A104411AB544FE00441DA6 /* Makefile.txt */,
 				D2F91A281AA90DB200CB23BA /* Sim_object.h */,
 				D2F91A391AA91D3300CB23BA /* Sim_object.cpp */,
 				D2F91A231AA90DB200CB23BA /* Island.h */,

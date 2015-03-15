@@ -47,8 +47,9 @@ public:
 	void update() override;
     void describe() const override;
 private:
-    int cargo_capacity = init_cargo_capacity_c; // capacity of the cargo
-    int cargo = init_cargo_c; // current amount
+    double
+    cargo_capacity = init_cargo_capacity_c; // capacity of the cargo
+    double cargo = init_cargo_c; // current amount
     Island* load_destination = nullptr;
     Island* unload_destination = nullptr;
     

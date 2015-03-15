@@ -1,0 +1,55 @@
+CC = g++
+LD = g++
+
+CFLAGS = -c -pedantic-errors -std=c++11 -Wall -fno-elide-constructors
+LFLAGS = -pedantic -Wall
+
+OBJS = p4_main.o Sim_object.o Island.o Ship.o Tanker.o Warship.o Cruiser.o Ship_factory.o Controller.o Model.o View.o Utility.o Track_base.o Geometry.o Navigation.o
+PROG = p4exe
+
+default: $(PROG)
+
+$(PROG): $(OBJS)
+	$(LD) $(LFLAGS) $(OBJS) -o $(PROG)
+
+p4_main.o: p4_main.cpp Model.h Controller.h
+	$(CC) $(CFLAGS) p4_main.cpp
+
+Sim_object.o: Sim_object.cpp Sim_object.h
+    $(CC) $(CFLAGS) Sim_object.cpp
+
+Island.o: Island.cpp Island.h Sim_object.h Geometry.h Model.h
+	$(CC) $(CFLAGS) Island.cpp
+
+Ship.o: Ship.cpp Ship.h Island.h Model.h Sim_object.h Track_base.h Geometry.h Utility.h
+    $(CC) $(CFLAGS) Ship.cpp
+
+Tanker.o: Tanker.cpp Tanker.h Island.h Ship.h
+    $(CC) $(CFLAGS) Tanker.cpp
+
+Warship.o: Warship.cpp Warship.h Ship.h
+    $(CC) $(CFLAGS) Warship.cpp
+
+Cruiser.o: Cruiser.cpp Cruiser.h Warship.h
+    $(CC) $(CFLAGS) Cruiser.cpp
+
+Ship_factory.o: Ship_factory.cpp Ship_factory.h Tanker.h Cruiser.h
+    $(CC) $(CFLAGS) Ship_factory.cpp
+
+Controller.o: Controller.cpp Controller.h Model.h View.h Ship.h Island.h Geometry.h Ship_factory.h
+    $(CC) $(CFLAGS) Controller.cpp
+
+Model.o: Model.cpp Model.h Sim_object.h Island.h Ship.h View.h Ship_factory.h
+    $(CC) $(CFLAGS) Model.cpp
+
+View.o: View.cpp View.h Utility.h Geometry.h
+    $(CC) $(CFLAGS) View.cpp
+
+
+clean:
+	rm -f *.o
+
+real_clean:
+	rm -f *.o
+	rm -f *exe
+

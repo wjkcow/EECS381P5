@@ -8,10 +8,11 @@
 using namespace std;
 
 Ship::Ship(const string& name_, Point position_, double fuel_capacity_,
-           double maximum_speed_, double fuel_consumption_, int resistance_): Sim_object{name_}, Track_base(position_), fuel{fuel_capacity_},
-maximum_speed(maximum_speed_),
-fuel_consumption{fuel_consumption_}, resistance(resistance_),
-ship_state{State::STOPPED}, docked_island(nullptr)
+           double maximum_speed_, double fuel_consumption_, int resistance_):
+           Sim_object{name_}, Track_base(position_), fuel{fuel_capacity_},
+           fuel_capacity(fuel_capacity_), maximum_speed(maximum_speed_),
+           fuel_consumption{fuel_consumption_}, resistance(resistance_),
+           ship_state{State::STOPPED}, docked_island(nullptr)
 {
     cout << "Ship " << name_ <<  " constructed" << endl;
     

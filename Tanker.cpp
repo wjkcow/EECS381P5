@@ -4,7 +4,9 @@
 #include <iostream>
 using namespace std;
 
-Tanker::Tanker(const string& name_, Point position_):Ship{name_, position_, init_fuel_capacity_c, init_max_speed_c, init_fuel_consumption_c, init_resistance_c}{
+Tanker::Tanker(const string& name_, Point position_):Ship{name_, position_,
+    init_fuel_capacity_c, init_max_speed_c, init_fuel_consumption_c,
+    init_resistance_c}, tanker_state{State::NO_CARGO_DESTINATION}{
     cout << "Tanker " << name_ << " constructed" << endl;
 }
 
