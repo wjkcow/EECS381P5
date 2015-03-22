@@ -32,7 +32,7 @@ be kept together with your .cpp file for the component.
 You should delete this comment.
 */
 
-class Ship: public Sim_object, private Track_base{
+class Ship: public Sim_object{
 public:
 	// made pure virtual to mark this class as abstract, but defined anyway
 	// to output destructor message
@@ -40,7 +40,7 @@ public:
 	
 	/*** Readers ***/
 	// return the current position
-	Point get_location() const override {return Track_base::get_position();}
+	Point get_location() const override {return track_base.get_position();}
 	
 	// Return true if ship can move (it is not dead in the water or in the process or sinking); 
 	bool can_move() const;
@@ -120,8 +120,8 @@ protected:
 	Island* get_docked_Island() const;
 
 private:
-
-	double fuel;						// Current amount of fuel
+    Track_base track_base;
+    double fuel;						// Current amount of fuel
     double fuel_capacity;             // max fuel amount
     double maximum_speed;             // max speed of the ship
     double fuel_consumption;			// tons/nm required

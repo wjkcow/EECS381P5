@@ -10,7 +10,7 @@ using namespace std;
 
 Ship::Ship(const string& name_, Point position_, double fuel_capacity_,
            double maximum_speed_, double fuel_consumption_, int resistance_):
-           Sim_object{name_}, Track_base(position_), fuel{fuel_capacity_},
+           Sim_object{name_}, track_base(position_), fuel{fuel_capacity_},
            fuel_capacity(fuel_capacity_), maximum_speed(maximum_speed_),
            fuel_consumption{fuel_consumption_}, resistance(resistance_),
             docked_island(nullptr),ship_state{State::STOPPED}
@@ -56,7 +56,7 @@ bool Ship::is_on_the_bottom() const{
 bool Ship::can_dock(Island* island_ptr) const{
     return (ship_state == State::STOPPED) && (cartesian_distance(
                                                   island_ptr->get_location(),
-                                                  Track_base::get_position())
+                                                  track_base.get_position())
                                                   <= dock_dist_c);
 }
 
@@ -77,7 +77,7 @@ void Ship::update(){
         }
     } else if (is_afloat() && resistance < 0){
         ship_state = State::SINKING;
-        set_speed(0.);
+        track_base.set_speed(0.);
         cout << get_name() << " sinking" << endl;
     } else if (ship_state == State::SINKING){
         ship_state = State::SUNK;
@@ -93,7 +93,7 @@ void Ship::update(){
 }
 
 void Ship::describe() const{
-    cout << get_name() << " at " << get_position();
+    cout << get_name() << " at " << track_base.get_position();
     switch (ship_state) {
         case State::SINKING:
             cout << " sinking" << endl;
@@ -113,11 +113,11 @@ void Ship::describe() const{
     cout << ", fuel: " << fuel << " tons, resistance: " << resistance << endl;
     switch (ship_state) {
         case State::MOVING_TO_POSITION:
-            cout << "Moving to " << destination << " on " << get_course_speed()
+            cout << "Moving to " << destination << " on " << track_base.get_course_speed()
             << endl;
             break;
         case State::MOVING_ON_COURSE:
-            cout << "Moving on " << get_course_speed() << endl;
+            cout << "Moving on " << track_base.get_course_speed() << endl;
             break;
         case State::DOCKED:
             cout << "Docked at " << docked_island->get_name() << endl;
@@ -135,20 +135,20 @@ void Ship::describe() const{
 }
 
 void Ship::broadcast_current_state(){
-    g_Model_ptr->notify_location(get_name(), get_position());
+    g_Model_ptr->notify_location(get_name(), track_base.get_position());
 }
 
 void Ship::set_destination_position_and_speed(Point destination_position, double speed){
     // get the course
     destination = destination_position;
-    Compass_vector cv{get_position(), destination};
+    Compass_vector cv{track_base.get_position(), destination};
     
     move_helper(cv.direction, speed);
     // undock the ship
     if (is_docked()) {
         docked_island = nullptr;
     }
-    cout <<  get_name() <<" will sail on "  << get_course_speed() << " to " <<
+    cout <<  get_name() <<" will sail on "  << track_base.get_course_speed() << " to " <<
     destination << endl;
     ship_state = State::MOVING_TO_POSITION;
 
@@ -159,7 +159,7 @@ void Ship::set_course_and_speed(double course, double speed){
     if (is_docked()) {
         docked_island = nullptr;
     }
-    cout << get_name() <<" will sail on " << get_course_speed() << endl;
+    cout << get_name() <<" will sail on " << track_base.get_course_speed() << endl;
     ship_state = State::MOVING_ON_COURSE;
 }
 
@@ -170,16 +170,16 @@ void Ship::move_helper(double course, double speed){
     if (speed > maximum_speed) {
         throw Error("Ship cannot go that fast!");
     }
-    Track_base::set_course(course);
-    Track_base::set_speed(speed);
+    track_base.set_course(course);
+    track_base.set_speed(speed);
 }
 
 void Ship::stop(){
     if (!can_move()) {
         throw Error("Ship cannot move!");
     }
-    Track_base::set_speed(0.);
-    cout << get_name() <<  " stopping at " << get_position() << endl;
+    track_base.set_speed(0.);
+    cout << get_name() <<  " stopping at " << track_base.get_position() << endl;
     ship_state = State::STOPPED;
 }
 
@@ -187,8 +187,8 @@ void Ship::dock(Island * island_ptr){
     if (!(ship_state == State::STOPPED && can_dock(island_ptr))) {
         throw Error("Can't dock!");
     }
-    set_position(island_ptr->get_location());
-    g_Model_ptr->notify_location(get_name(), get_position());
+    track_base.set_position(island_ptr->get_location());
+    g_Model_ptr->notify_location(get_name(), track_base.get_position());
     ship_state = State::DOCKED;
     docked_island = island_ptr;
     cout << get_name() << " docked at " << island_ptr->get_name() << endl;
@@ -263,7 +263,7 @@ void Ship:: calculate_movement()
     // get the distance to destination
     double destination_distance = cartesian_distance(get_location(), destination);
     // get full step distance we can move on this time step
-    double full_distance = get_speed() * time;
+    double full_distance = track_base.get_speed() * time;
     // get fuel required for full step distance
     double full_fuel_required = full_distance * fuel_consumption;	// tons = nm * tons/nm
     // how far and how long can we sail in this time period based on the fuel state?
@@ -280,21 +280,21 @@ void Ship:: calculate_movement()
     // are we are moving to a destination, and is the destination within the distance possible?
     if(ship_state == State::MOVING_TO_POSITION && destination_distance <= distance_possible) {
         // yes, make our new position the destination
-        set_position(destination);
+        track_base.set_position(destination);
         // we travel the destination distance, using that much fuel
         double fuel_required = destination_distance * fuel_consumption;
         fuel -= fuel_required;
-        set_speed(0.);
+        track_base.set_speed(0.);
         ship_state = State::STOPPED;
     }
     else {
         // go as far as we can, stay in the same movement state
         // simply move for the amount of time possible
-        update_position(time_possible);
+        track_base.update_position(time_possible);
         // have we used up our fuel?
         if(full_fuel_required >= fuel) {
             fuel = 0.0;
-            set_speed(0.);
+            track_base.set_speed(0.);
             ship_state = State::DEAD_IN_THE_WATER;
         }
         else {
