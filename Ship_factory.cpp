@@ -2,6 +2,7 @@
 
 #include "Tanker.h"
 #include "Cruiser.h"
+#include "Utility.h"
 
 Ship* create_ship(const std::string& name, const std::string& type, Point initial_position){
     if (type == "Tanker") {

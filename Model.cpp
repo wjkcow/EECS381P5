@@ -5,6 +5,7 @@
 #include "Ship.h"
 #include "View.h"
 #include "Ship_factory.h"
+#include "Utility.h"
 
 #include <iostream>
 #include <string>

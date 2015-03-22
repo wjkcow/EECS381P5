@@ -47,7 +47,7 @@
 		D23DAAC31AABA668003793E6 /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Controller.cpp; sourceTree = "<group>"; };
 		D2A104411AB544FE00441DA6 /* Makefile.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.txt; sourceTree = "<group>"; };
 		D2A104421AB5F73000441DA6 /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
-		D2F91A0C1AA90BBD00CB23BA /* EECS381P4 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EECS381P4; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2F91A0C1AA90BBD00CB23BA /* EECS381P5 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EECS381P5; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F91A1B1AA90DB200CB23BA /* Geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
 		D2F91A1C1AA90DB200CB23BA /* Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geometry.h; sourceTree = "<group>"; };
 		D2F91A1D1AA90DB200CB23BA /* Navigation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Navigation.cpp; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 		D2F91A031AA90BBD00CB23BA = {
 			isa = PBXGroup;
 			children = (
-				D2F91A381AA90DB900CB23BA /* EECS381P4 */,
+				D2F91A381AA90DB900CB23BA /* EECS381P5 */,
 				D2F91A0D1AA90BBD00CB23BA /* Products */,
 			);
 			sourceTree = "<group>";
@@ -96,12 +96,12 @@
 		D2F91A0D1AA90BBD00CB23BA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D2F91A0C1AA90BBD00CB23BA /* EECS381P4 */,
+				D2F91A0C1AA90BBD00CB23BA /* EECS381P5 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D2F91A381AA90DB900CB23BA /* EECS381P4 */ = {
+		D2F91A381AA90DB900CB23BA /* EECS381P5 */ = {
 			isa = PBXGroup;
 			children = (
 				D2A104411AB544FE00441DA6 /* Makefile.txt */,
@@ -138,15 +138,15 @@
 				D2F91A1F1AA90DB200CB23BA /* p4_main.cpp */,
 				D22024D91AA96ECE00941BE4 /* test_main.cpp */,
 			);
-			name = EECS381P4;
+			name = EECS381P5;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D2F91A0B1AA90BBD00CB23BA /* EECS381P4 */ = {
+		D2F91A0B1AA90BBD00CB23BA /* EECS381P5 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D2F91A131AA90BBD00CB23BA /* Build configuration list for PBXNativeTarget "EECS381P4" */;
+			buildConfigurationList = D2F91A131AA90BBD00CB23BA /* Build configuration list for PBXNativeTarget "EECS381P5" */;
 			buildPhases = (
 				D2F91A081AA90BBD00CB23BA /* Sources */,
 				D2F91A091AA90BBD00CB23BA /* Frameworks */,
@@ -156,9 +156,9 @@
 			);
 			dependencies = (
 			);
-			name = EECS381P4;
+			name = EECS381P5;
 			productName = EECS381P4;
-			productReference = D2F91A0C1AA90BBD00CB23BA /* EECS381P4 */;
+			productReference = D2F91A0C1AA90BBD00CB23BA /* EECS381P5 */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -175,7 +175,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D2F91A071AA90BBD00CB23BA /* Build configuration list for PBXProject "EECS381P4" */;
+			buildConfigurationList = D2F91A071AA90BBD00CB23BA /* Build configuration list for PBXProject "EECS381P5" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -187,7 +187,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D2F91A0B1AA90BBD00CB23BA /* EECS381P4 */,
+				D2F91A0B1AA90BBD00CB23BA /* EECS381P5 */,
 			);
 		};
 /* End PBXProject section */
@@ -303,7 +303,7 @@
 				GCC_WARN_PEDANTIC = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EECS381P5;
 			};
 			name = Debug;
 		};
@@ -317,14 +317,14 @@
 				GCC_WARN_PEDANTIC = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = EECS381P5;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D2F91A071AA90BBD00CB23BA /* Build configuration list for PBXProject "EECS381P4" */ = {
+		D2F91A071AA90BBD00CB23BA /* Build configuration list for PBXProject "EECS381P5" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D2F91A111AA90BBD00CB23BA /* Debug */,
@@ -333,7 +333,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D2F91A131AA90BBD00CB23BA /* Build configuration list for PBXNativeTarget "EECS381P4" */ = {
+		D2F91A131AA90BBD00CB23BA /* Build configuration list for PBXNativeTarget "EECS381P5" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D2F91A141AA90BBD00CB23BA /* Debug */,

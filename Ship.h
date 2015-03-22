@@ -34,13 +34,9 @@ You should delete this comment.
 
 class Ship: public Sim_object, private Track_base{
 public:
-	// initialize, then output constructor message
-	Ship(const std::string& name_, Point position_, double fuel_capacity_, 
-		double maximum_speed_, double fuel_consumption_, int resistance_);
-		
 	// made pure virtual to mark this class as abstract, but defined anyway
 	// to output destructor message
-	virtual ~Ship() = 0;
+	virtual ~Ship();
 	
 	/*** Readers ***/
 	// return the current position
@@ -113,6 +109,10 @@ public:
     Ship& operator= (const Ship&) = delete;
     Ship& operator= (Ship&&) = delete;
 protected:
+    // initialize, then output constructor message
+    Ship(const std::string& name_, Point position_, double fuel_capacity_,
+     double maximum_speed_, double fuel_consumption_, int resistance_);
+
 	// future projects may need additional protected members
 
 	double get_maximum_speed() const;
@@ -120,6 +120,7 @@ protected:
 	Island* get_docked_Island() const;
 
 private:
+
 	double fuel;						// Current amount of fuel
     double fuel_capacity;             // max fuel amount
     double maximum_speed;             // max speed of the ship
