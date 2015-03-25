@@ -26,7 +26,7 @@ void Tanker::set_course_and_speed(double course, double speed){
     Ship::set_course_and_speed(course, speed);
 }
 
-void Tanker::set_load_destination(Island* load_des_){
+void Tanker::set_load_destination(shared_ptr<Island> load_des_){
     check_no_cargo_destination();
     load_destination = load_des_;
     check_destination();
@@ -34,7 +34,7 @@ void Tanker::set_load_destination(Island* load_des_){
     set_load_unload_helper();
 }
 
-void Tanker::set_unload_destination(Island* unload_des_){
+void Tanker::set_unload_destination(shared_ptr<Island> unload_des_){
     check_no_cargo_destination();
     unload_destination = unload_des_;
     check_destination();

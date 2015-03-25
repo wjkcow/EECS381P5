@@ -22,12 +22,9 @@ int main ()
 	cout.precision(2);
 
 	// create a Model object;
-    g_Model_ptr = new Model;
 	// create the Controller object and go
 	Controller controller;
 
 	controller.run();
-    
-    delete g_Model_ptr;
 }
 

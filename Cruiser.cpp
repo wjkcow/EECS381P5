@@ -28,10 +28,9 @@ void Cruiser::describe() const{
     Warship::describe();
 }
 
-void Cruiser::receive_hit(int hit_force, Ship* attacker_ptr){
+void Cruiser::receive_hit(int hit_force, shared_ptr<Ship> attacker_ptr){
     Ship::receive_hit(hit_force, attacker_ptr);
-    if (!is_attacking()) {
+    if (is_afloat() && !is_attacking()) {
         Warship::attack(attacker_ptr);
     }
-
 }

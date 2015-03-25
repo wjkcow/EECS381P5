@@ -45,15 +45,10 @@ bool Ship::is_docked() const{
 }
 
 bool Ship::is_afloat() const{
-    return (ship_state != State::SINKING) && (ship_state != State::SUNK) &&
-    (ship_state != State::ON_THE_BOTTOM);
+    return ship_state != State::SUNK;
 }
 
-bool Ship::is_on_the_bottom() const{
-    return ship_state == State::ON_THE_BOTTOM;
-}
-
-bool Ship::can_dock(Island* island_ptr) const{
+bool Ship::can_dock(std::shared_ptr<Island> island_ptr) const{
     return (ship_state == State::STOPPED) && (cartesian_distance(
                                                   island_ptr->get_location(),
                                                   track_base.get_position())
@@ -65,7 +60,7 @@ void Ship::update(){
         if(is_moving()){
             calculate_movement();
             cout << get_name() << " now at " << get_location() << endl;
-            g_Model_ptr->notify_location(get_name(), get_location());
+            Model::get_instance()->notify_location(get_name(), get_location());
         } else if(ship_state == State::STOPPED){
             cout << get_name() << " stopped at " << get_location() << endl;
         } else if (is_docked()){
@@ -75,41 +70,18 @@ void Ship::update(){
             cout << get_name() <<  " dead in the water at "
             << get_location() << endl;
         }
-    } else if (is_afloat() && resistance < 0){
-        ship_state = State::SINKING;
-        track_base.set_speed(0.);
-        cout << get_name() << " sinking" << endl;
-    } else if (ship_state == State::SINKING){
-        ship_state = State::SUNK;
-        g_Model_ptr->notify_gone(get_name());
-        cout << get_name() <<" sunk" << endl;
     } else if (ship_state == State::SUNK){
-        ship_state = State::ON_THE_BOTTOM;
-        cout << get_name() <<" on the bottom" << endl;
-    } else if (ship_state == State::ON_THE_BOTTOM){
-        cout << get_name() <<" on the bottom" << endl;
+        cout << get_name() <<" sunk" << endl;
     }
-    
 }
 
 void Ship::describe() const{
     cout << get_name() << " at " << track_base.get_position();
-    switch (ship_state) {
-        case State::SINKING:
-            cout << " sinking" << endl;
-            return;
-            break;
-        case State::SUNK:
-            cout << " sunk" << endl;
-            return;
-            break;
-        case State::ON_THE_BOTTOM:
-            cout << " on the bottom" << endl;
-            return;
-            break;
-        default:
-            break;
+    if(ship_state == State::SUNK){
+        cout << " sunk" << endl;
+        return;
     }
+    
     cout << ", fuel: " << fuel << " tons, resistance: " << resistance << endl;
     switch (ship_state) {
         case State::MOVING_TO_POSITION:
@@ -135,7 +107,7 @@ void Ship::describe() const{
 }
 
 void Ship::broadcast_current_state(){
-    g_Model_ptr->notify_location(get_name(), track_base.get_position());
+    Model::get_instance()->notify_location(get_name(), track_base.get_position());
 }
 
 void Ship::set_destination_position_and_speed(Point destination_position, double speed){
@@ -183,12 +155,12 @@ void Ship::stop(){
     ship_state = State::STOPPED;
 }
 
-void Ship::dock(Island * island_ptr){
+void Ship::dock(std::shared_ptr<Island>island_ptr){
     if (!(ship_state == State::STOPPED && can_dock(island_ptr))) {
         throw Error("Can't dock!");
     }
     track_base.set_position(island_ptr->get_location());
-    g_Model_ptr->notify_location(get_name(), track_base.get_position());
+    Model::get_instance()->notify_location(get_name(), track_base.get_position());
     ship_state = State::DOCKED;
     docked_island = island_ptr;
     cout << get_name() << " docked at " << island_ptr->get_name() << endl;
@@ -208,15 +180,15 @@ void Ship::refuel(){
     
 }
 
-void Ship::set_load_destination(Island *){
+void Ship::set_load_destination(shared_ptr<Island>){
     throw  Error("Cannot load at a destination!");
 }
 
-void Ship::set_unload_destination(Island *){
+void Ship::set_unload_destination(shared_ptr<Island>){
     throw Error("Cannot unload at a destination!");
 }
 
-void Ship::attack(Ship * in_target_ptr){
+void Ship::attack(shared_ptr<Ship> in_target_ptr){
     throw Error("Cannot attack!");
 }
 
@@ -224,10 +196,17 @@ void Ship::stop_attack(){
     throw Error("Cannot attack!");
 }
 
-void Ship::receive_hit(int hit_force, Ship* attacker_ptr){
+void Ship::receive_hit(int hit_force, shared_ptr<Ship> attacker_ptr){
     resistance -= hit_force;
     cout << get_name() <<  " hit with " << hit_force
     <<  ", resistance now " << resistance << endl;
+    if(resistance < 0){
+        cout << get_name() <<" sunk" << endl;
+        ship_state = State::SUNK;
+        track_base.set_speed(0.);
+        Model::get_instance()->notify_gone(get_name());
+        Model::get_instance()->remove_ship(shared_from_this());
+    }
 }
 
 /* Private Function Definitions */
@@ -236,7 +215,7 @@ double Ship::get_maximum_speed() const{
     return maximum_speed;
 }
 
-Island* Ship::get_docked_Island() const{
+std::shared_ptr<Island> Ship::get_docked_Island() const{
     return is_docked() ? docked_island : nullptr;
 }
 

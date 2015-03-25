@@ -12,12 +12,18 @@
 #include <algorithm>
 using namespace std;
 
-Model* g_Model_ptr{nullptr};
+
+Model* Model::get_instance(){
+    static Model instance{};
+    return &instance;
+}
 
 Model::Model(){
-    islands["Exxon"] = new Island("Exxon", Point(10, 10), 1000, 200);
-    islands["Shell"] = new Island("Shell", Point(0, 30), 1000, 200);
-    islands["Bermuda"] = new Island("Bermuda", Point(20, 20));
+    islands["Exxon"] = make_shared<Island>("Exxon", Point(10, 10), 1000, 200);
+    islands["Shell"] = make_shared<Island>("Shell", Point(0, 30), 1000, 200);
+    islands["Bermuda"] = make_shared<Island>("Bermuda", Point(20, 20));
+    islands["Treasure_Island"] = make_shared<Island>("Treasure_Island",
+                                                     Point(50, 5), 100, 5);
     
     ships["Ajax"] = create_ship("Ajax", "Cruiser", Point (15, 15));
     ships["Xerxes"] = create_ship("Xerxes", "Cruiser", Point (25, 25));
@@ -34,9 +40,6 @@ Model::Model(){
 }
 
 Model::~Model(){
-    for (auto so_pair : sim_objects) {
-        delete  so_pair.second;
-    }
     cout << "Model destructed" << endl;
 }
 
@@ -48,7 +51,7 @@ bool Model::is_island_present(const string& name) const{
     return islands.count(name);
 }
 
-Island* Model::get_island_ptr(const string& name) const{
+shared_ptr<Island> Model::get_island_ptr(const string& name) const{
     if(!is_island_present(name)){
         throw Error("Island not found!");
     }
@@ -59,13 +62,13 @@ bool Model::is_ship_present(const string& name) const{
     return ships.count(name);
 }
 
-void Model::add_ship(Ship* ship_ptr){
+void Model::add_ship(shared_ptr<Ship> ship_ptr){
     ship_ptr->broadcast_current_state();
     ships[ship_ptr->get_name()] = ship_ptr;
     sim_objects[ship_ptr->get_name()] = ship_ptr;
 }
 
-Ship* Model::get_ship_ptr(const string& name) const{
+shared_ptr<Ship> Model::get_ship_ptr(const string& name) const{
     if (!is_ship_present(name)) {
         throw Error("Ship not found!");
     }
@@ -83,40 +86,32 @@ void Model::update(){
     for (auto &objects_pair : sim_objects) {
         objects_pair.second->update();
     }
-    vector<Ship*> bottom_ships;
-    for (auto &ships_pair : ships) {
-        if (ships_pair.second->is_on_the_bottom()) {
-            bottom_ships.push_back(ships_pair.second);
-        }
-    }
-    for (Ship* s: bottom_ships) {
-        sim_objects.erase(s->get_name());
-        ships.erase(s->get_name());
-        delete s;
-    }
 }
 
-void Model::attach(View* v){
+void Model::attach(shared_ptr<View> v){
     views.push_back(v);
     for (auto so_pair : sim_objects) {
         so_pair.second->broadcast_current_state();
     }
 }
 
-void Model::detach(View* v){
+void Model::detach(shared_ptr<View> v){
     views.erase(find(views.begin(), views.end(), v));
 }
 
 void Model::notify_location(const string& name, Point location){
-    for (View *v : views) {
-        v->update_location(name, location);
-    }
+    for_each(views.begin(), views.end(),
+             bind(&View::update_location,std::placeholders::_1,name, location));
 }
 
 void Model::notify_gone(const string& name){
-    for (View *v : views) {
-        v->update_remove(name);
-    }
+    for_each(views.begin(), views.end(),
+             bind(&View::update_remove,std::placeholders::_1,name));
+}
+
+void Model::remove_ship(shared_ptr<Ship> ship_ptr){
+    sim_objects.erase(ship_ptr->get_name());
+    ships.erase(ship_ptr->get_name());
 }
 
 

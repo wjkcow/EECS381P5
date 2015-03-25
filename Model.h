@@ -34,13 +34,11 @@ You should delete this comment.
 // Declare the global model pointer
 class Model;
 
-extern Model* g_Model_ptr;
-
 class Model {
 public:
-	// create the initial objects, output constructor message
-	Model();
-	
+
+    static Model* get_instance();
+    
 	// destroy all objects, output destructor message
 	~Model();
 
@@ -54,14 +52,14 @@ public:
 	// is there such an island?
 	bool is_island_present(const std::string& name) const;
 	// will throw Error("Island not found!") if no island of that name
-	Island* get_island_ptr(const std::string& name) const;
+    std::shared_ptr<Island> get_island_ptr(const std::string& name) const;
 
 	// is there such an ship?
 	bool is_ship_present(const std::string& name) const;
 	// add a new ship to the list, and update the view
-	void add_ship(Ship*);
+	void add_ship(std::shared_ptr<Ship>);
 	// will throw Error("Ship not found!") if no ship of that name
-	Ship* get_ship_ptr(const std::string& name) const;
+    std::shared_ptr<Ship> get_ship_ptr(const std::string& name) const;
 	
 	// tell all objects to describe themselves
 	void describe() const;
@@ -75,15 +73,19 @@ public:
 	/* View services */
 	// Attaching a View adds it to the container and causes it to be updated
     // with all current objects'location (or other state information.
-	void attach(View*);
+	void attach(std::shared_ptr<View>);
 	// Detach the View by discarding the supplied pointer from the container of Views
     // - no updates sent to it thereafter.
-	void detach(View*);
+	void detach(std::shared_ptr<View>);
 	
     // notify the views about an object's location
 	void notify_location(const std::string& name, Point location);
 	// notify the views that an object is now gone
 	void notify_gone(const std::string& name);
+    
+    // remove the ship from the containers
+    void remove_ship(std::shared_ptr<Ship> ship_ptr);
+    
     // disallow copy/move construction or assignment
     Model(const Model&) = delete;
     Model(Model&&) = delete;
@@ -91,8 +93,10 @@ public:
     Model& operator=(Model&&) = delete;
     
 private:
+    // create the initial objects, output constructor message
+    Model();
     int time{0};		// the simulated time
-    std::vector<View*> views; // all the views
+    std::vector<std::shared_ptr<View>> views; // all the views
     struct Less_than_name{
         bool operator()(const std::string& str1, const std::string& str2) const{
             // only the first two letters matters
@@ -100,9 +104,9 @@ private:
                                 str2, 0, distinct_name_len_c) < 0;
         }
     };
-    std::map<std::string, Sim_object*, Less_than_name> sim_objects;
-    std::map<std::string, Ship*> ships;
-    std::map<std::string, Island*> islands;
+    std::map<std::string, std::shared_ptr<Sim_object>, Less_than_name> sim_objects;
+    std::map<std::string, std::shared_ptr<Ship>> ships;
+    std::map<std::string, std::shared_ptr<Island>> islands;
     
     constexpr static int distinct_name_len_c = 2;
 

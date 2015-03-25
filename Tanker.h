@@ -38,8 +38,8 @@ public:
 	// if both cargo destination are already set, throw Error("Tanker has cargo destinations!").
 	// if they are the same, leave at the set values, and throw Error("Load and unload cargo destinations are the same!")
 	// if both destinations are now set, start the cargo cycle
-	void set_load_destination(Island*) override;
-	void set_unload_destination(Island*) override;
+	void set_load_destination(std::shared_ptr<Island>) override;
+	void set_unload_destination(std::shared_ptr<Island>) override;
 	
 	// when told to stop, clear the cargo destinations and stop
 	void stop() override;
@@ -50,8 +50,8 @@ private:
     double
     cargo_capacity = init_cargo_capacity_c; // capacity of the cargo
     double cargo = init_cargo_c; // current amount
-    Island* load_destination = nullptr;
-    Island* unload_destination = nullptr;
+    std::shared_ptr<Island> load_destination = nullptr;
+    std::shared_ptr<Island> unload_destination = nullptr;
     
     // throw error if it's not NO_CARGO_DESTINATION
     void check_no_cargo_destination();

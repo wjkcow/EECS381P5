@@ -19,17 +19,17 @@ Controller::~Controller(){
 }
 
 void Controller::run(){
-    view = new View{};
-    g_Model_ptr->attach(view);
+    view = make_shared<View>();
+    Model::get_instance()->attach(view);
     string first_cmd_word;
     while (true) {
         try {
-            cout << "\nTime " << g_Model_ptr->get_time() << ": Enter command: ";
+            cout << "\nTime " << Model::get_instance()->get_time() << ": Enter command: ";
             cin >> first_cmd_word;
             if (first_cmd_word == "quit") {
                 clear();
                 return;
-            } else if(g_Model_ptr->is_ship_present(first_cmd_word)){
+            } else if(Model::get_instance()->is_ship_present(first_cmd_word)){
                 ship_cmd(first_cmd_word);
             } else {
                 view_model_cmd(first_cmd_word);
@@ -52,8 +52,7 @@ void Controller::ship_cmd(const string& ship_name){
     if (!ship_cmds.count(ship_cmd_word)) {
         throw Error("Unrecognized command!");
     }
-    ship_cmds[ship_cmd_word]
-    (g_Model_ptr->get_ship_ptr(ship_name));
+    ship_cmds[ship_name](Model::get_instance()->get_ship_ptr(ship_name));
 }
 
 void Controller::view_model_cmd(const string& cmd){
@@ -65,8 +64,7 @@ void Controller::view_model_cmd(const string& cmd){
 }
 
 void Controller::clear(){
-    g_Model_ptr->detach(view);
-    delete view;
+    Model::get_instance()->detach(view);
     cout << "Done" << endl;
 }
 
@@ -95,11 +93,11 @@ void Controller::view_cmd_show() const{
 }
 
 void Controller::model_cmd_status() const{
-    g_Model_ptr->describe();
+    Model::get_instance()->describe();
 }
 
 void Controller::model_cmd_go() const{
-    g_Model_ptr->update();
+    Model::get_instance()->update();
 }
 
 void Controller::model_cmd_create() const{
@@ -108,73 +106,73 @@ void Controller::model_cmd_create() const{
     if (name.length() < min_name_len) {
         throw Error("Name is too short!");
     }
-    if (g_Model_ptr->is_name_in_use(name)) {
+    if (Model::get_instance()->is_name_in_use(name)) {
         throw Error("Name is already in use!");
     }
     
     string type;
     cin >> type;
-    g_Model_ptr->add_ship(create_ship(name, type, read_point()));
+    Model::get_instance()->add_ship(create_ship(name, type, read_point()));
     
 }
 
-void Controller::ship_course(Ship* ship_ptr) const{
+void Controller::ship_course(shared_ptr<Ship> ship_ptr) const{
     double course = read_compass_heading();
     double speed = read_speed();
     ship_ptr->set_course_and_speed(course, speed);
 }
 
-void Controller::ship_position(Ship* ship_ptr) const{
+void Controller::ship_position(shared_ptr<Ship> ship_ptr) const{
     Point destination = read_point();
     double speed = read_speed();
     ship_ptr->set_destination_position_and_speed(destination, speed);
 }
 
-void Controller::ship_destination(Ship* ship_ptr) const{
+void Controller::ship_destination(shared_ptr<Ship> ship_ptr) const{
     Point island_location = get_island()->get_location();
     double speed = read_speed();
     ship_ptr->set_destination_position_and_speed(island_location,
                                                  speed);
 }
 
-void Controller::ship_load_at(Ship* ship_ptr) const{
+void Controller::ship_load_at(shared_ptr<Ship> ship_ptr) const{
     ship_ptr->set_load_destination(get_island());
 }
 
-void Controller::ship_unload_at(Ship* ship_ptr) const{
+void Controller::ship_unload_at(shared_ptr<Ship> ship_ptr) const{
     ship_ptr->set_unload_destination(get_island());
 }
 
-void Controller::ship_dock_at(Ship* ship_ptr) const{
+void Controller::ship_dock_at(shared_ptr<Ship> ship_ptr) const{
     ship_ptr->dock(get_island());
 }
 
-void Controller::ship_attack(Ship* ship_ptr) const{
+void Controller::ship_attack(shared_ptr<Ship> ship_ptr) const{
     ship_ptr->attack(get_ship());
 }
 
-void Controller::ship_refuel(Ship* ship_ptr) const{
+void Controller::ship_refuel(shared_ptr<Ship> ship_ptr) const{
     ship_ptr->refuel();
 }
 
-void Controller::ship_stop(Ship* ship_ptr) const{
+void Controller::ship_stop(shared_ptr<Ship> ship_ptr) const{
     ship_ptr->stop();
 }
 
-void Controller::ship_stop_attack(Ship* ship_ptr) const{
+void Controller::ship_stop_attack(shared_ptr<Ship> ship_ptr) const{
     ship_ptr->stop_attack();
 }
 
-Ship* Controller::get_ship() const{
+shared_ptr<Ship> Controller::get_ship() const{
     string name;
     cin >> name;
-    return g_Model_ptr->get_ship_ptr(name);
+    return Model::get_instance()->get_ship_ptr(name);
 }
 
-Island* Controller::get_island() const{
+shared_ptr<Island> Controller::get_island() const{
     string name;
     cin >> name;
-    return g_Model_ptr->get_island_ptr(name);
+    return Model::get_instance()->get_island_ptr(name);
 }
 
 double Controller::read_double() const{

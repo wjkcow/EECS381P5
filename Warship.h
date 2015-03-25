@@ -2,6 +2,7 @@
 #define WARSHIP_H
 
 #include "Ship.h"
+#include <memory>
 /* Warship class
 A Warship is a ship with firepower and range member variables, and some services for
 protected classes to manage many of the details of warship behavior. This is an
@@ -35,7 +36,7 @@ public:
 	// will	throw Error("Cannot attack!") if not Afloat
 	// will throw Error("Warship may not attack itself!")
     // if supplied target is the same as this Warship
-	void attack(Ship* target_ptr_) override;
+	void attack(std::shared_ptr<Ship> target_ptr_) override;
 
 	// will throw Error("Was not attacking!") if not Attacking
 	void stop_attack() override;
@@ -58,11 +59,11 @@ protected:
 	bool target_in_range() const;
 
 	// get the target
-	Ship* get_target() const;
+    std::shared_ptr<Ship> get_target() const;
 private:
     bool is_attacking_state = false;
     int firepower;
     double maximum_range;
-    Ship* target_ptr;
+    std::weak_ptr<Ship> target_ptr;
 };
 #endif

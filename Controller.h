@@ -4,6 +4,8 @@
 #include <iostream>
 #include <map>
 #include <functional>
+#include <memory>
+
 class  Model;
 class View;
 class Ship;
@@ -29,7 +31,7 @@ public:
 	// create View object, run the program by acccepting user commands, then destroy View object
 	void run();
 private:
-    View* view; // the only view for this one
+    std::shared_ptr<View> view; // the only view for this one
     
     // handler for all the ship commands
     void ship_cmd(const std::string& cmd);
@@ -63,32 +65,32 @@ private:
     
     // handlers for ship commands:
     // read a compass heading and a speed for the ship to set course and speed
-    void ship_course(Ship* ship_ptr) const;
+    void ship_course(std::shared_ptr<Ship> ship_ptr) const;
     // read an (x,y) position and then a speed for the Ship to set destination postion and speed to go to
-    void ship_position(Ship* ship_ptr) const;
+    void ship_position(std::shared_ptr<Ship> ship_ptr) const;
     // read an Island name and a speed. Go the the position of the island
-    void ship_destination(Ship* ship_ptr) const;
+    void ship_destination(std::shared_ptr<Ship> ship_ptr) const;
     // load at the island name
-    void ship_load_at(Ship* ship_ptr) const;
+    void ship_load_at(std::shared_ptr<Ship> ship_ptr) const;
     // unload at the island name
-    void ship_unload_at(Ship* ship_ptr) const;
+    void ship_unload_at(std::shared_ptr<Ship>  ship_ptr) const;
     // dock at the island name
-    void ship_dock_at(Ship* ship_ptr) const;
+    void ship_dock_at(std::shared_ptr<Ship>  ship_ptr) const;
     // attack at the sheep
-    void ship_attack(Ship* ship_ptr) const;
+    void ship_attack(std::shared_ptr<Ship>  ship_ptr) const;
     // refuel the ship
-    void ship_refuel(Ship* ship_ptr) const;
+    void ship_refuel(std::shared_ptr<Ship>  ship_ptr) const;
     // stop the ship
-    void ship_stop(Ship* ship_ptr) const;
+    void ship_stop(std::shared_ptr<Ship>  ship_ptr) const;
     // stop attack
-    void ship_stop_attack(Ship* ship_ptr) const;
+    void ship_stop_attack(std::shared_ptr<Ship>  ship_ptr) const;
     
 
     // clear the data before quit
     void clear();
     // helper functions:
-    Ship* get_ship() const;
-    Island* get_island() const;
+    std::shared_ptr<Ship> get_ship() const;
+    std::shared_ptr<Island> get_island() const;
     
     // helper function for reading
     double read_double() const;
@@ -97,7 +99,7 @@ private:
     double read_speed() const;
     
     // map for all the ship commands
-    std::map<std::string, std::function<void(Ship*)>> ship_cmds =
+    std::map<std::string, std::function<void(std::shared_ptr<Ship>)>> ship_cmds =
     {
         {"course",
             std::bind(&Controller::ship_course, this, std::placeholders::_1)},
