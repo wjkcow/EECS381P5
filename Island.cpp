@@ -40,5 +40,5 @@ void Island::describe() const{
 }
 
 void Island::broadcast_current_state(){
-    Model::get_instance()->notify_location(get_name(), position);
+    Model::get_instance().notify_location(get_name(), position);
 }

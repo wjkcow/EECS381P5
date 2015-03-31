@@ -1,35 +1,37 @@
 #include "Controller.h"
 #include "Model.h"
 #include "View.h"
+#include "Views.h"
 #include "Ship.h"
 #include "Island.h"
 #include "Geometry.h"
 #include "Ship_factory.h"
 #include "Utility.h"
 #include <iostream>
-
+#include <algorithm>
+#include <functional>
 using namespace std;
+using namespace placeholders;
 
 Controller::Controller(){
     cout << "Controller constructed" << endl;
 }
 
 Controller::~Controller(){
+
     cout << "Controller destructed" << endl;
 }
 
 void Controller::run(){
-    view = make_shared<View>();
-    Model::get_instance()->attach(view);
     string first_cmd_word;
     while (true) {
         try {
-            cout << "\nTime " << Model::get_instance()->get_time() << ": Enter command: ";
+            cout << "\nTime " << Model::get_instance().get_time() << ": Enter command: ";
             cin >> first_cmd_word;
             if (first_cmd_word == "quit") {
                 clear();
                 return;
-            } else if(Model::get_instance()->is_ship_present(first_cmd_word)){
+            } else if(Model::get_instance().is_ship_present(first_cmd_word)){
                 ship_cmd(first_cmd_word);
             } else {
                 view_model_cmd(first_cmd_word);
@@ -52,7 +54,7 @@ void Controller::ship_cmd(const string& ship_name){
     if (!ship_cmds.count(ship_cmd_word)) {
         throw Error("Unrecognized command!");
     }
-    ship_cmds[ship_name](Model::get_instance()->get_ship_ptr(ship_name));
+    ship_cmds[ship_name](Model::get_instance().get_ship_ptr(ship_name));
 }
 
 void Controller::view_model_cmd(const string& cmd){
@@ -64,40 +66,106 @@ void Controller::view_model_cmd(const string& cmd){
 }
 
 void Controller::clear(){
-    Model::get_instance()->detach(view);
+    for_each(all_views.begin(), all_views.end(), bind(&Model::detach,
+                                                      &Model::get_instance(), _1));
+
     cout << "Done" << endl;
 }
 
 void Controller::view_cmd_default() const{
-    view->set_defaults();
+    if (!map_view){
+        throw Error("Map view is not open!");
+    }
+    map_view->set_defaults();
+
 }
 
 void Controller::view_cmd_size() const{
+    if (!map_view){
+        throw Error("Map view is not open!");
+    }
     int sz;
     if(!(cin >> sz)){
         throw Error("Expected an integer!");
     }
-    view->set_size(sz);
+    map_view->set_size(sz);
 }
 
 void Controller::view_cmd_zoom() const{
-    view->set_scale(read_double());
+    if (!map_view){
+        throw Error("Map view is not open!");
+    }
+    map_view->set_scale(read_double());
 }
 
 void Controller::view_cmd_pan() const{
-    view->set_origin(read_point());
+    if (!map_view){
+        throw Error("Map view is not open!");
+    }
+    map_view->set_origin(read_point());
 }
 
 void Controller::view_cmd_show() const{
-    view->draw();
+    for_each(all_views.begin(), all_views.end(), bind(&View::draw,_1));
 }
 
+void Controller::open_map_view(){
+    if (map_view) {
+        throw Error("Map view is already open!");
+    }
+    map_view = make_shared<Map_view>();
+    all_views.push_back(map_view);
+}
+void Controller::close_map_view(){
+    if (!map_view) {
+        throw Error("Map view is not open!");
+    }
+    map_view.reset();
+    close_view_helper(map_view);
+}
+void Controller::open_sailing_view(){
+    if (sailing_data_view) {
+        throw Error("Sailing data view is already open!");
+    }
+    sailing_data_view = make_shared<Sailing_data_view>();
+    all_views.push_back(sailing_data_view);
+}
+void Controller::close_sailing_view(){
+    if (!sailing_data_view) {
+        throw Error("Sailing data view is not open!");
+    }
+    sailing_data_view.reset();
+    close_view_helper(sailing_data_view);
+}
+void Controller::open_bridge_view(){
+    auto ship_ptr = get_ship();
+    if (bridge_views.count(ship_ptr->get_name())) {
+        throw Error("Bridge view is already open for that ship!");
+    }
+    auto new_view = make_shared<Bridge_view>(ship_ptr->get_name());
+    bridge_views[ship_ptr->get_name()] = new_view;
+    all_views.push_back(new_view);
+}
+void Controller::close_bridge_view(){
+    auto ship_ptr = get_ship();
+    if (bridge_views.count(ship_ptr->get_name())) {
+        throw Error("Bridge view for that ship is not open!");
+    }
+    auto b_view_ptr = bridge_views[ship_ptr->get_name()];
+    bridge_views.erase(ship_ptr->get_name());
+    close_view_helper(b_view_ptr);
+}
+void Controller::close_view_helper(std::shared_ptr<View>& sp){
+    Model::get_instance().detach(sp);
+    all_views.erase(find(all_views.begin(), all_views.end(), sp));
+    sp.reset();
+}
 void Controller::model_cmd_status() const{
-    Model::get_instance()->describe();
+    Model::get_instance().describe();
 }
 
 void Controller::model_cmd_go() const{
-    Model::get_instance()->update();
+    Model::get_instance().update();
 }
 
 void Controller::model_cmd_create() const{
@@ -106,13 +174,13 @@ void Controller::model_cmd_create() const{
     if (name.length() < min_name_len) {
         throw Error("Name is too short!");
     }
-    if (Model::get_instance()->is_name_in_use(name)) {
+    if (Model::get_instance().is_name_in_use(name)) {
         throw Error("Name is already in use!");
     }
     
     string type;
     cin >> type;
-    Model::get_instance()->add_ship(create_ship(name, type, read_point()));
+    Model::get_instance().add_ship(create_ship(name, type, read_point()));
     
 }
 
@@ -166,13 +234,13 @@ void Controller::ship_stop_attack(shared_ptr<Ship> ship_ptr) const{
 shared_ptr<Ship> Controller::get_ship() const{
     string name;
     cin >> name;
-    return Model::get_instance()->get_ship_ptr(name);
+    return Model::get_instance().get_ship_ptr(name);
 }
 
 shared_ptr<Island> Controller::get_island() const{
     string name;
     cin >> name;
-    return Model::get_instance()->get_island_ptr(name);
+    return Model::get_instance().get_island_ptr(name);
 }
 
 double Controller::read_double() const{

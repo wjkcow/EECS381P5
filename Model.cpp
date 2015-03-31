@@ -13,9 +13,9 @@
 using namespace std;
 
 
-Model* Model::get_instance(){
+Model& Model::get_instance(){
     static Model instance{};
-    return &instance;
+    return instance;
 }
 
 Model::Model(){
@@ -102,6 +102,11 @@ void Model::detach(shared_ptr<View> v){
 void Model::notify_location(const string& name, Point location){
     for_each(views.begin(), views.end(),
              bind(&View::update_location,std::placeholders::_1,name, location));
+}
+
+void Model::notify_sailing_data(const std::string& name, double fuel, double course, double speed){
+    for_each(views.begin(), views.end(),
+             bind(&View::update_sailing_data,std::placeholders::_1,name, fuel, course, speed));
 }
 
 void Model::notify_gone(const string& name){

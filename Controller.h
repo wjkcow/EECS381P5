@@ -1,11 +1,11 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include <iostream>
 #include <map>
 #include <functional>
 #include <memory>
-
+#include <string>
+#include <vector>
 class  Model;
 class View;
 class Ship;
@@ -31,7 +31,10 @@ public:
 	// create View object, run the program by acccepting user commands, then destroy View object
 	void run();
 private:
-    std::shared_ptr<View> view; // the only view for this one
+    std::shared_ptr<View> map_view;
+    std::shared_ptr<View> sailing_data_view;
+    std::map<std::string, std::shared_ptr<View>> bridge_views;
+    std::vector<std::shared_ptr<View>> all_views;
     
     // handler for all the ship commands
     void ship_cmd(const std::string& cmd);
@@ -50,6 +53,16 @@ private:
     void view_cmd_pan() const;
     // tell the view to draw the map
     void view_cmd_show() const;
+    
+    // new commands for multiple views
+    void open_map_view();
+    void close_map_view();
+    void open_sailing_view();
+    void close_sailing_view();
+    void open_bridge_view();
+    void close_bridge_view();
+    // close view helper
+    void close_view_helper(std::shared_ptr<View>& sp);
     
     // handlers to the model commands:
     // have all the objects describe themselves
@@ -85,6 +98,7 @@ private:
     // stop attack
     void ship_stop_attack(std::shared_ptr<Ship>  ship_ptr) const;
     
+
 
     // clear the data before quit
     void clear();
@@ -131,6 +145,12 @@ private:
         {"zoom",    std::bind(&Controller::view_cmd_zoom, this)},
         {"pan",     std::bind(&Controller::view_cmd_pan, this)},
         {"show",    std::bind(&Controller::view_cmd_show, this)},
+        {"open_map_view", std::bind(&Controller::open_map_view, this)},
+        {"close_map_view",    std::bind(&Controller::close_map_view, this)},
+        {"open_sailing_view",    std::bind(&Controller::open_sailing_view, this)},
+        {"close_sailing_view",     std::bind(&Controller::close_sailing_view, this)},
+        {"open_bridge_view",    std::bind(&Controller::open_bridge_view, this)},
+        {"close_bridge_view",    std::bind(&Controller::close_bridge_view, this)},
         {"status",  std::bind(&Controller::model_cmd_status, this)},
         {"go",      std::bind(&Controller::model_cmd_go, this)},
         {"create",  std::bind(&Controller::model_cmd_create, this)}

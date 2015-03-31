@@ -2,95 +2,40 @@
 #define VIEW_H
 
 #include "Geometry.h"
-#include <map>
-/* *** View class ***
-The View class encapsulates the data and functions needed to generate the map
-display, and control its properties. It has a "memory" for the names and locations
-of the to-be-plotted objects.
-
-Usage: 
-1. Call the update_location function with the name and position of each object
-to be plotted. If the object is not already in the View's memory, it will be added
-along with its location. If it is already present, its location will be set to the 
-supplied location. If a single object changes location, its location can be separately
-updated with a call to update_location. 
-
-2. Call the update_remove function with the name of any object that should
-no longer be plotted. This must be done *after* any call to update_location that
-has the same object name since update_location will add any object name supplied.
-
-3. Call the draw function to print out the map.
-
-4. As needed, change the origin, scale, or displayed size of the map
-with the appropriate functions. Since the view "remembers" the previously updated
-information, the draw function will print out a map showing the previous objects
-using the new settings.
-*/
-
-/* 
-*** This skeleton file shows the required public and protected interface for the class, 
-which you may not modify.
-If no protected members are shown, there must be none in your version. 
-If any protected or private members are shown here, then your class must also have them 
-and use them as intended.
-You should delete this comment.
-*/
-
-
 class View {
 public:
-	// default constructor sets the default size, scale, and origin, outputs constructor message
-	View(); 
-	~View();	// outputs destructor message
-	
 	// Save the supplied name and location for future use in a draw() call
 	// If the name is already present,the new location replaces the previous one.
-	void update_location(const std::string& name, Point location);
+    // default behavior is doing nothing
+    virtual void update_location(const std::string& name, Point location){
+    }
+    
+    // update the sailing_data of a specifc function;
+    // default behavior is doing nothing
+    virtual void update_sailing_data(const std::string& name, double fuel, double course, double speed){};
 	
 	// Remove the name and its location; no error if the name is not present.
-	void update_remove(const std::string& name);
+	virtual void update_remove(const std::string& name) = 0;
 	
 	// prints out the current map
-	void draw();
+	virtual void draw() = 0;
 	
 	// Discard the saved information - drawing will show only a empty pattern
-	void clear(); 
+	virtual void clear() = 0;
 	
 	// modify the display parameters
 	// if the size is out of bounds will throw Error("New map size is too big!")
 	// or Error("New map size is too small!")
-	void set_size(int size_);
+    virtual void set_size(int size_){};
 	
 	// If scale is not postive, will throw Error("New map scale must be positive!");
-	void set_scale(double scale_);
+    virtual void set_scale(double scale_){};
 	
 	// any values are legal for the origin
-	void set_origin(Point origin_);
+    virtual void set_origin(Point origin_){};
 	
 	// set the parameters to the default values
-	void set_defaults();
-				
-private:
-    int size{default_size_c};			// current size of the display
-    double scale{default_scale_c};		// distance per cell of the display
-    Point origin{default_origin_c,default_origin_c};		// coordinates of the lower-left-hand corner
-				
-	// Calculate the cell subscripts corresponding to the location parameter, using the 
-	// current size, scale, and origin of the display. 
-	// Return true if the location is within the map, false if not
-	bool get_subscripts(int &ix, int &iy, Point location);
-    std::map<std::string, Point> plot_objects;
-
-    constexpr static int default_size_c = 25;
-    constexpr static double default_scale_c = 2.;
-    constexpr static double default_origin_c = -10.;
-    constexpr static int max_size_c = 30; // size <= 30
-    constexpr static int min_size_c = 6;  // size > 6
-    // consts to help plot the map
-    constexpr static int plot_wide_c = 2;
-    constexpr static int output_y_label_w_c = 4;
-    constexpr static int output_x_label_w_c = 6;
-    constexpr static int label_gap = 3;
+    virtual void set_defaults(){};
 };
 
 #endif
