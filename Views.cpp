@@ -47,14 +47,6 @@ Map_view::Cout_saver::~Cout_saver(){
     cout.precision(old_precision);
 }
 
-Map_view::Map_view(){
-    cout << "Map_view constructed" << endl;
-}
-
-Map_view::~Map_view(){
-    cout << "Map_view destructed" << endl;
-}
-
 void Map_view::update_location(const string& name, Point location){
     plot_objects[name] = location;
 }

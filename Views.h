@@ -80,6 +80,12 @@ public:
     void update_sailing_data(const std::string& name, double fuel, double course, double speed) override;
     void update_remove(const std::string& name) override;
     void draw() override;
+    using View::draw;
+    using View::clear;
+    using View::set_size;
+    using View::set_scale;
+    using View::set_origin;
+    using View::set_defaults;
 private:
     void print_label();
     std::string own_ship_name;

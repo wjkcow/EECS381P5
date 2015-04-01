@@ -31,6 +31,7 @@ void Controller::run(){
             cout << e.what() << endl;
             cin.clear();
             while(cin.good() && cin.get() != '\n');
+            
         } catch (exception &e){
             cout << e.what() << endl;
             clear();
@@ -45,7 +46,7 @@ void Controller::ship_cmd(const string& ship_name){
     if (!ship_cmds.count(ship_cmd_word)) {
         throw Error("Unrecognized command!");
     }
-    ship_cmds[ship_name](Model::get_instance().get_ship_ptr(ship_name));
+    ship_cmds[ship_cmd_word](Model::get_instance().get_ship_ptr(ship_name));
 }
 
 void Controller::view_model_cmd(const string& cmd){
