@@ -12,7 +12,7 @@ class Sim_object {
 public:
 	Sim_object(const std::string& name_);
 
-    virtual ~Sim_object();
+    virtual ~Sim_object(){};
 	
 	const std::string& get_name() const
 		{return name;}

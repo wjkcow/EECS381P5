@@ -3,7 +3,7 @@
 
 #include "Ship.h"
 
-#include <set>
+#include <vector>
 #include <memory>
 class Island;
 
@@ -39,7 +39,7 @@ private:
     std::shared_ptr<Island> next_destination;
     std::shared_ptr<Island> first_island;
 
-    std::set<std::shared_ptr<Island>> visited_islands;
+    std::vector<std::shared_ptr<Island>> unvisited_islands;
 
     constexpr static double init_fuel_capacity_c = 500.;
     constexpr static double init_max_speed_c = 15.;

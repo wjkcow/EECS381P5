@@ -26,8 +26,6 @@ class Cruiser: public Warship{
 public:
 	// initialize, then output constructor message
 	Cruiser(const std::string& name_, Point position_);
-	// output destructor message
-	~Cruiser();
 
 	void update() override;
 	void describe() const override;

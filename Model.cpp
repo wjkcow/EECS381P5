@@ -10,8 +10,9 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <functional>
+#include <memory>
 using namespace std;
-
 
 Model& Model::get_instance(){
     static Model instance{};
@@ -36,11 +37,6 @@ Model::Model(){
     sim_objects["Ajax"] = ships["Ajax"];
     sim_objects["Xerxes"] = ships["Xerxes"];
     sim_objects["Valdez"] = ships["Valdez"];
-    cout << "Model constructed" << endl;
-}
-
-Model::~Model(){
-    cout << "Model destructed" << endl;
 }
 
 bool Model::is_name_in_use(const string& name) const{
@@ -119,5 +115,11 @@ void Model::remove_ship(shared_ptr<Ship> ship_ptr){
     ships.erase(ship_ptr->get_name());
 }
 
-
+vector<shared_ptr<Island>> Model::get_islands(){
+    vector<shared_ptr<Island>> islands_v;
+    transform(islands.begin(), islands.end(),
+      insert_iterator<vector<shared_ptr<Island>>>{islands_v, islands_v.begin()},
+      bind(&Islands_t::value_type::second, placeholders::_1));
+    return islands_v;
+}
 

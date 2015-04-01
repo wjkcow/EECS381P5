@@ -13,15 +13,6 @@
 using namespace std;
 using namespace placeholders;
 
-Controller::Controller(){
-    cout << "Controller constructed" << endl;
-}
-
-Controller::~Controller(){
-
-    cout << "Controller destructed" << endl;
-}
-
 void Controller::run(){
     string first_cmd_word;
     while (true) {
@@ -115,12 +106,12 @@ void Controller::open_map_view(){
     }
     map_view = make_shared<Map_view>();
     all_views.push_back(map_view);
+    Model::get_instance().attach(map_view);
 }
 void Controller::close_map_view(){
     if (!map_view) {
         throw Error("Map view is not open!");
     }
-    map_view.reset();
     close_view_helper(map_view);
 }
 void Controller::open_sailing_view(){
@@ -129,12 +120,13 @@ void Controller::open_sailing_view(){
     }
     sailing_data_view = make_shared<Sailing_data_view>();
     all_views.push_back(sailing_data_view);
+    Model::get_instance().attach(sailing_data_view);
+
 }
 void Controller::close_sailing_view(){
     if (!sailing_data_view) {
         throw Error("Sailing data view is not open!");
     }
-    sailing_data_view.reset();
     close_view_helper(sailing_data_view);
 }
 void Controller::open_bridge_view(){
@@ -145,10 +137,12 @@ void Controller::open_bridge_view(){
     auto new_view = make_shared<Bridge_view>(ship_ptr->get_name());
     bridge_views[ship_ptr->get_name()] = new_view;
     all_views.push_back(new_view);
+    Model::get_instance().attach(new_view);
+
 }
 void Controller::close_bridge_view(){
     auto ship_ptr = get_ship();
-    if (bridge_views.count(ship_ptr->get_name())) {
+    if (!bridge_views.count(ship_ptr->get_name())) {
         throw Error("Bridge view for that ship is not open!");
     }
     auto b_view_ptr = bridge_views[ship_ptr->get_name()];

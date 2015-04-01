@@ -7,23 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D2E54D121ACA3E6900F87240 /* Sim_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A391AA91D3300CB23BA /* Sim_object.cpp */; };
-		D2E54D131ACA3E6900F87240 /* Island.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A3B1AA91E3300CB23BA /* Island.cpp */; };
-		D2E54D141ACA3E6900F87240 /* Ship.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A261AA90DB200CB23BA /* Ship.cpp */; };
-		D2E54D151ACA3E6900F87240 /* Cruise_ship.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E54CED1AC490F900F87240 /* Cruise_ship.cpp */; };
-		D2E54D161ACA3E6900F87240 /* Tanker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D239A23B1AAAAF7E00856589 /* Tanker.cpp */; };
-		D2E54D171ACA3E6900F87240 /* Warship.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAABD1AAB8B4C003793E6 /* Warship.cpp */; };
-		D2E54D181ACA3E6900F87240 /* Cruiser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAABF1AAB9679003793E6 /* Cruiser.cpp */; };
-		D2E54D191ACA3E6900F87240 /* Ship_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAAC11AAB9A46003793E6 /* Ship_factory.cpp */; };
-		D2E54D1A1ACA3E6900F87240 /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAAC31AABA668003793E6 /* Controller.cpp */; };
-		D2E54D1B1ACA3E6900F87240 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A241AA90DB200CB23BA /* Model.cpp */; };
-		D2E54D1C1ACA3E6900F87240 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E54CFA1ACA16CD00F87240 /* View.cpp */; };
-		D2E54D1D1ACA3E6900F87240 /* Views.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E54CFC1ACA16DD00F87240 /* Views.cpp */; };
-		D2E54D1E1ACA3E6900F87240 /* Utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D22024D71AA95FC600941BE4 /* Utility.cpp */; };
-		D2E54D1F1ACA3E6900F87240 /* Track_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A2F1AA90DB200CB23BA /* Track_base.cpp */; };
-		D2E54D201ACA3E6900F87240 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1B1AA90DB200CB23BA /* Geometry.cpp */; };
-		D2E54D211ACA3E6900F87240 /* Navigation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1D1AA90DB200CB23BA /* Navigation.cpp */; };
-		D2E54D221ACA3E6900F87240 /* p4_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1F1AA90DB200CB23BA /* p4_main.cpp */; };
+		D2F2CD161ACB2CCB003289E0 /* Sim_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A391AA91D3300CB23BA /* Sim_object.cpp */; };
+		D2F2CD171ACB2CCB003289E0 /* Island.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A3B1AA91E3300CB23BA /* Island.cpp */; };
+		D2F2CD181ACB2CCB003289E0 /* Ship.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A261AA90DB200CB23BA /* Ship.cpp */; };
+		D2F2CD191ACB2CCB003289E0 /* Cruise_ship.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E54CED1AC490F900F87240 /* Cruise_ship.cpp */; };
+		D2F2CD1A1ACB2CCB003289E0 /* Tanker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D239A23B1AAAAF7E00856589 /* Tanker.cpp */; };
+		D2F2CD1B1ACB2CCB003289E0 /* Warship.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAABD1AAB8B4C003793E6 /* Warship.cpp */; };
+		D2F2CD1C1ACB2CCB003289E0 /* Cruiser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAABF1AAB9679003793E6 /* Cruiser.cpp */; };
+		D2F2CD1D1ACB2CCB003289E0 /* Ship_factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAAC11AAB9A46003793E6 /* Ship_factory.cpp */; };
+		D2F2CD1E1ACB2CCB003289E0 /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAAC31AABA668003793E6 /* Controller.cpp */; };
+		D2F2CD1F1ACB2CCB003289E0 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A241AA90DB200CB23BA /* Model.cpp */; };
+		D2F2CD201ACB2CCB003289E0 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E54CFA1ACA16CD00F87240 /* View.cpp */; };
+		D2F2CD211ACB2CCB003289E0 /* Views.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E54CFC1ACA16DD00F87240 /* Views.cpp */; };
+		D2F2CD221ACB2CCB003289E0 /* Utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D22024D71AA95FC600941BE4 /* Utility.cpp */; };
+		D2F2CD231ACB2CCB003289E0 /* Track_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A2F1AA90DB200CB23BA /* Track_base.cpp */; };
+		D2F2CD241ACB2CCB003289E0 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1B1AA90DB200CB23BA /* Geometry.cpp */; };
+		D2F2CD251ACB2CCB003289E0 /* Navigation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1D1AA90DB200CB23BA /* Navigation.cpp */; };
+		D2F2CD261ACB2CCB003289E0 /* p4_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1F1AA90DB200CB23BA /* p4_main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -117,8 +117,8 @@
 				D2F91A3B1AA91E3300CB23BA /* Island.cpp */,
 				D2F91A271AA90DB200CB23BA /* Ship.h */,
 				D2F91A261AA90DB200CB23BA /* Ship.cpp */,
-				D2E54CED1AC490F900F87240 /* Cruise_ship.cpp */,
 				D2E54CEE1AC490F900F87240 /* Cruise_ship.h */,
+				D2E54CED1AC490F900F87240 /* Cruise_ship.cpp */,
 				D2F91A291AA90DB200CB23BA /* Tanker.h */,
 				D239A23B1AAAAF7E00856589 /* Tanker.cpp */,
 				D2A104421AB5F73000441DA6 /* makefile */,
@@ -206,23 +206,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D2E54D121ACA3E6900F87240 /* Sim_object.cpp in Sources */,
-				D2E54D131ACA3E6900F87240 /* Island.cpp in Sources */,
-				D2E54D141ACA3E6900F87240 /* Ship.cpp in Sources */,
-				D2E54D151ACA3E6900F87240 /* Cruise_ship.cpp in Sources */,
-				D2E54D161ACA3E6900F87240 /* Tanker.cpp in Sources */,
-				D2E54D171ACA3E6900F87240 /* Warship.cpp in Sources */,
-				D2E54D181ACA3E6900F87240 /* Cruiser.cpp in Sources */,
-				D2E54D191ACA3E6900F87240 /* Ship_factory.cpp in Sources */,
-				D2E54D1A1ACA3E6900F87240 /* Controller.cpp in Sources */,
-				D2E54D1B1ACA3E6900F87240 /* Model.cpp in Sources */,
-				D2E54D1C1ACA3E6900F87240 /* View.cpp in Sources */,
-				D2E54D1D1ACA3E6900F87240 /* Views.cpp in Sources */,
-				D2E54D1E1ACA3E6900F87240 /* Utility.cpp in Sources */,
-				D2E54D1F1ACA3E6900F87240 /* Track_base.cpp in Sources */,
-				D2E54D201ACA3E6900F87240 /* Geometry.cpp in Sources */,
-				D2E54D211ACA3E6900F87240 /* Navigation.cpp in Sources */,
-				D2E54D221ACA3E6900F87240 /* p4_main.cpp in Sources */,
+				D2F2CD161ACB2CCB003289E0 /* Sim_object.cpp in Sources */,
+				D2F2CD171ACB2CCB003289E0 /* Island.cpp in Sources */,
+				D2F2CD181ACB2CCB003289E0 /* Ship.cpp in Sources */,
+				D2F2CD191ACB2CCB003289E0 /* Cruise_ship.cpp in Sources */,
+				D2F2CD1A1ACB2CCB003289E0 /* Tanker.cpp in Sources */,
+				D2F2CD1B1ACB2CCB003289E0 /* Warship.cpp in Sources */,
+				D2F2CD1C1ACB2CCB003289E0 /* Cruiser.cpp in Sources */,
+				D2F2CD1D1ACB2CCB003289E0 /* Ship_factory.cpp in Sources */,
+				D2F2CD1E1ACB2CCB003289E0 /* Controller.cpp in Sources */,
+				D2F2CD1F1ACB2CCB003289E0 /* Model.cpp in Sources */,
+				D2F2CD201ACB2CCB003289E0 /* View.cpp in Sources */,
+				D2F2CD211ACB2CCB003289E0 /* Views.cpp in Sources */,
+				D2F2CD221ACB2CCB003289E0 /* Utility.cpp in Sources */,
+				D2F2CD231ACB2CCB003289E0 /* Track_base.cpp in Sources */,
+				D2F2CD241ACB2CCB003289E0 /* Geometry.cpp in Sources */,
+				D2F2CD251ACB2CCB003289E0 /* Navigation.cpp in Sources */,
+				D2F2CD261ACB2CCB003289E0 /* p4_main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

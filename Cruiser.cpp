@@ -5,12 +5,6 @@ using namespace std;
 
 Cruiser::Cruiser(const std::string& name_, Point position_):
     Warship{name_, position_, fuel_capacity_c, maximum_speed_c, fuel_consumption_c, resistance_c, firepower_c, maximum_attacking_range_}{
-        cout << "Cruiser " << name_ << " constructed" << endl;
-}
-
-
-Cruiser::~Cruiser(){
-    cout << "Cruiser " << get_name() << " destructed" << endl;
 }
 
 void Cruiser::update(){

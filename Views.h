@@ -9,11 +9,7 @@
 struct Point;
 
 class Map_view : public View {
-public:
-    // default constructor sets the default size, scale, and origin, outputs constructor message
-    Map_view();
-    ~Map_view();	// outputs destructor message
-    
+public:    
     // Save the supplied name and location for future use in a draw() call
     // If the name is already present,the new location replaces the previous one.
     void update_location(const std::string& name, Point location) override;

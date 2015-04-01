@@ -4,6 +4,7 @@
 #include "Geometry.h"
 class View {
 public:
+    virtual ~View(){};
 	// Save the supplied name and location for future use in a draw() call
 	// If the name is already present,the new location replaces the previous one.
     // default behavior is doing nothing

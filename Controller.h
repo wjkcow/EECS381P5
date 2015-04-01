@@ -23,11 +23,6 @@ You should delete this comment.
 */
 class Controller {
 public:	
-	// output constructor message
-	Controller();
-	// output destructor message
-	~Controller();
-
 	// create View object, run the program by acccepting user commands, then destroy View object
 	void run();
 private:

@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <memory>
 
 class Sim_object;
 class Island;
@@ -39,9 +40,6 @@ public:
 
     static Model& get_instance();
     
-	// destroy all objects, output destructor message
-	~Model();
-
 	// return the current time
 	int get_time() {return time;}
 
@@ -90,11 +88,8 @@ public:
     // remove the ship from the containers
     void remove_ship(std::shared_ptr<Ship> ship_ptr);
     
-    using Islands_t = std::map<std::string, std::shared_ptr<Island>>;
     // get the set of all island
-    const Islands_t &get_islands(){
-        return islands;
-    }
+    std::vector<std::shared_ptr<Island>> get_islands();
     
     // disallow copy/move construction or assignment
     Model(const Model&) = delete;
@@ -116,7 +111,8 @@ private:
     };
     std::map<std::string, std::shared_ptr<Sim_object>, Less_than_name> sim_objects;
     std::map<std::string, std::shared_ptr<Ship>> ships;
-    Islands_t islands;
+    using Islands_t = std::map<std::string, std::shared_ptr<Island>> ;
+    std::map<std::string, std::shared_ptr<Island>> islands;
     
     constexpr static int distinct_name_len_c = 2;
 

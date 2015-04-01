@@ -15,20 +15,7 @@ Ship::Ship(const string& name_, Point position_, double fuel_capacity_,
            fuel_consumption{fuel_consumption_}, resistance(resistance_),
             docked_island(nullptr),ship_state{State::STOPPED}
 {
-    cout << "Ship " << name_ <<  " constructed" << endl;
     
-}
-/*
- Define the destructor function even if it was declared as a pure virtual function.
- This seems odd, because pure virtual functions are usually not defined in the class
- that declares them. But this is often done as a way to make a class abstract,
- if there is no other virtual function that makes sense to mark as pure. Here we
- are defining it just to get the destructor message output.
- */
-
-Ship::~Ship()
-{
-    cout << "Ship "  << get_name() << " destructed" << endl;
 }
 
 bool Ship::can_move() const{
@@ -61,6 +48,8 @@ void Ship::update(){
             calculate_movement();
             cout << get_name() << " now at " << get_location() << endl;
             Model::get_instance().notify_location(get_name(), get_location());
+            Model::get_instance().notify_sailing_data(get_name(), fuel,
+                             track_base.get_course(), track_base.get_speed());
         } else if(ship_state == State::STOPPED){
             cout << get_name() << " stopped at " << get_location() << endl;
         } else if (is_docked()){
@@ -108,6 +97,8 @@ void Ship::describe() const{
 
 void Ship::broadcast_current_state(){
     Model::get_instance().notify_location(get_name(), track_base.get_position());
+    Model::get_instance().notify_sailing_data(get_name(), fuel,
+                          track_base.get_course(), track_base.get_speed());
 }
 
 void Ship::set_destination_position_and_speed(Point destination_position, double speed){
@@ -123,7 +114,6 @@ void Ship::set_destination_position_and_speed(Point destination_position, double
     cout <<  get_name() <<" will sail on "  << track_base.get_course_speed() << " to " <<
     destination << endl;
     ship_state = State::MOVING_TO_POSITION;
-
 }
 
 void Ship::set_course_and_speed(double course, double speed){
@@ -144,6 +134,8 @@ void Ship::move_helper(double course, double speed){
     }
     track_base.set_course(course);
     track_base.set_speed(speed);
+    Model::get_instance().notify_sailing_data(get_name(), fuel,
+                                              track_base.get_course(), track_base.get_speed());
 }
 
 void Ship::stop(){
@@ -153,6 +145,8 @@ void Ship::stop(){
     track_base.set_speed(0.);
     cout << get_name() <<  " stopping at " << track_base.get_position() << endl;
     ship_state = State::STOPPED;
+    Model::get_instance().notify_sailing_data(get_name(), fuel,
+                                              track_base.get_course(), track_base.get_speed());
 }
 
 void Ship::dock(std::shared_ptr<Island>island_ptr){
@@ -177,6 +171,8 @@ void Ship::refuel(){
         fuel += docked_island->provide_fuel(fuel_needed);
         cout << get_name() <<  " now has " << fuel << " tons of fuel" << endl;
     }
+    Model::get_instance().notify_sailing_data(get_name(), fuel,
+                                              track_base.get_course(), track_base.get_speed());
     
 }
 

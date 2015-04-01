@@ -21,13 +21,7 @@ be kept together with your .cpp file for the component.
 You should delete this comment.
 */
 class Warship: public Ship{
-
 public:
-
-	// a pure virtual function to mark this as an abstract class, 
-	// but defined anyway to output destructor message
-	virtual ~Warship();
-	
 	// perform warship-specific behavior
 	void update() override;
 
