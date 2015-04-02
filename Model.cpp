@@ -20,23 +20,15 @@ Model& Model::get_instance(){
 }
 
 Model::Model(){
-    islands["Exxon"] = make_shared<Island>("Exxon", Point(10, 10), 1000, 200);
-    islands["Shell"] = make_shared<Island>("Shell", Point(0, 30), 1000, 200);
-    islands["Bermuda"] = make_shared<Island>("Bermuda", Point(20, 20));
-    islands["Treasure_Island"] = make_shared<Island>("Treasure_Island",
-                                                     Point(50, 5), 100, 5);
+    add_island_helper(make_shared<Island>("Exxon", Point(10, 10), 1000, 200));
+    add_island_helper(make_shared<Island>("Shell", Point(0, 30), 1000, 200));
+    add_island_helper(make_shared<Island>("Bermuda", Point(20, 20)));
+    add_island_helper(make_shared<Island>("Treasure_Island",
+                                          Point(50, 5), 100, 5));
     
-    ships["Ajax"] = create_ship("Ajax", "Cruiser", Point (15, 15));
-    ships["Xerxes"] = create_ship("Xerxes", "Cruiser", Point (25, 25));
-    ships["Valdez"] = create_ship("Valdez", "Tanker", Point (30, 30));
-    
-    sim_objects["Exxon"] = islands["Exxon"];
-    sim_objects["Shell"] = islands["Shell"];
-    sim_objects["Bermuda"] = islands["Bermuda"];
-    
-    sim_objects["Ajax"] = ships["Ajax"];
-    sim_objects["Xerxes"] = ships["Xerxes"];
-    sim_objects["Valdez"] = ships["Valdez"];
+    add_ship_helper(create_ship("Ajax", "Cruiser", Point (15, 15)));
+    add_ship_helper(create_ship("Xerxes", "Cruiser", Point (25, 25)));
+    add_ship_helper(create_ship("Valdez", "Tanker", Point (30, 30)));
 }
 
 bool Model::is_name_in_use(const string& name) const{
@@ -60,8 +52,7 @@ bool Model::is_ship_present(const string& name) const{
 
 void Model::add_ship(shared_ptr<Ship> ship_ptr){
     ship_ptr->broadcast_current_state();
-    ships[ship_ptr->get_name()] = ship_ptr;
-    sim_objects[ship_ptr->get_name()] = ship_ptr;
+    add_ship_helper(ship_ptr);
 }
 
 shared_ptr<Ship> Model::get_ship_ptr(const string& name) const{
@@ -113,6 +104,15 @@ void Model::notify_gone(const string& name){
 void Model::remove_ship(shared_ptr<Ship> ship_ptr){
     sim_objects.erase(ship_ptr->get_name());
     ships.erase(ship_ptr->get_name());
+}
+
+void Model::add_island_helper(std::shared_ptr<Island> island_ptr){
+    islands[island_ptr->get_name()] = island_ptr;
+    sim_objects[island_ptr->get_name()] = island_ptr;
+}
+void Model::add_ship_helper(std::shared_ptr<Ship> ship_ptr){
+    ships[ship_ptr->get_name()] = ship_ptr;
+    sim_objects[ship_ptr->get_name()] = ship_ptr;
 }
 
 vector<shared_ptr<Island>> Model::get_islands(){

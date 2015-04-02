@@ -18,12 +18,15 @@ public:
     void update() override;
     void describe() const override;
 private:
+    double cruise_speed;
     enum class State{
         NOT_ON_CRUISE,
         REFUELING,
         VISITING_ISLAND,
+        CONTINUE_CRUISE,
         MOVING_TO_NEXT_ISLAND
-    } state;
+    };
+    State state{State::NOT_ON_CRUISE};
     
     bool is_on_cruise() const{
         return state != State::NOT_ON_CRUISE;
@@ -34,7 +37,6 @@ private:
     // if no island at that destination, empty pointer is returned.
     std::shared_ptr<Island> get_first_island(Point destination);
     std::shared_ptr<Island> get_next_island();
-    bool get_next_island_helper(std::shared_ptr<Island>, std::shared_ptr<Island>);
 
     std::shared_ptr<Island> next_destination;
     std::shared_ptr<Island> first_island;

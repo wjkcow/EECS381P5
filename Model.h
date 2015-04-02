@@ -98,6 +98,9 @@ public:
     Model& operator=(Model&&) = delete;
     
 private:
+    void add_island_helper(std::shared_ptr<Island> island_ptr);
+    void add_ship_helper(std::shared_ptr<Ship> ship_ptr);
+
     // create the initial objects, output constructor message
     Model();
     int time{0};		// the simulated time

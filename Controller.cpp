@@ -31,12 +31,11 @@ void Controller::run(){
             cout << e.what() << endl;
             cin.clear();
             while(cin.good() && cin.get() != '\n');
-            
         } catch (exception &e){
             cout << e.what() << endl;
             clear();
             return;
-        } 
+        }
     }
 }
 
@@ -142,12 +141,13 @@ void Controller::open_bridge_view(){
 
 }
 void Controller::close_bridge_view(){
-    auto ship_ptr = get_ship();
-    if (!bridge_views.count(ship_ptr->get_name())) {
+    string ship_name;
+    cin >> ship_name;
+    if (!bridge_views.count(ship_name)) {
         throw Error("Bridge view for that ship is not open!");
     }
-    auto b_view_ptr = bridge_views[ship_ptr->get_name()];
-    bridge_views.erase(ship_ptr->get_name());
+    auto b_view_ptr = bridge_views[ship_name];
+    bridge_views.erase(ship_name);
     close_view_helper(b_view_ptr);
 }
 void Controller::close_view_helper(std::shared_ptr<View>& sp){

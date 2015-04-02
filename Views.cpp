@@ -56,7 +56,7 @@ void Map_view::update_remove(const string& name){
 }
 
 void Map_view::draw(){
-    Cout_saver{};
+    Cout_saver cout_saver{};
     vector<vector<string>> map{static_cast<size_t>(size),
         vector<string>{static_cast<size_t>(size), ". "}};
     cout <<  "Display size: " << size << ", scale: " << scale <<
@@ -158,18 +158,17 @@ void Bridge_view::update_remove(const std::string& name){
 }
 
 void Bridge_view::draw(){
-    Map_view::set_origin(Point{-90,-90});
-    Map_view::set_scale(10.0);
+
     if (is_sunk) {
         cout << "Bridge view from " << own_ship_name << " sunk at "
-             << get_locations().at(own_ship_name);
+             << get_locations().at(own_ship_name) << endl;
         cout << "     w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-"<< endl;
         cout << "     w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-"<< endl;
         cout << "     w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-w-"<< endl;
         print_label();
     } else {
         cout << "Bridge view from " << own_ship_name << " position "
-        << heading << " heading " << endl;
+        << get_locations().at(own_ship_name) << " heading " << heading << endl;
         
         cout << "     . . . . . . . . . . . . . . . . . . . " << endl;
         cout << "     . . . . . . . . . . . . . . . . . . . " << endl;
@@ -187,12 +186,13 @@ void Bridge_view::draw(){
                 if (view_angle > 180) {
                     view_angle -= 360;
                 }
-                int x,y;
-                get_subscripts(x, y, Point{view_angle, view_angle});
-                if (bridge_view_data[x] == ". ") {
-                    bridge_view_data[x] = loc_pair.first.substr(0, 2);
-                } else {
-                    bridge_view_data[x] = "**";
+                int x;
+                if(get_subscribe(x, view_angle)){
+                    if (bridge_view_data[x] == ". ") {
+                        bridge_view_data[x] = loc_pair.first.substr(0, 2);
+                    } else {
+                        bridge_view_data[x] = "**";
+                    }
                 }
             }
         }
@@ -201,6 +201,17 @@ void Bridge_view::draw(){
              ostream_iterator<string>(cout));
         cout << endl;
         print_label();
+    }
+}
+bool Bridge_view::get_subscribe(int &x, double view_angle){
+    int y;
+    Map_view::set_origin(Point{-90,-90});
+    Map_view::set_scale(10.0);
+    get_subscripts(x, y, Point{view_angle, view_angle});
+    if(x >= 0 && x < 19){
+        return true;
+    } else {
+        return false;
     }
 }
 

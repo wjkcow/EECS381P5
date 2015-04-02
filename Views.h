@@ -87,6 +87,7 @@ public:
     using View::set_origin;
     using View::set_defaults;
 private:
+    bool get_subscribe(int &x,double view_angle);
     void print_label();
     std::string own_ship_name;
     bool is_sunk;
