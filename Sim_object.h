@@ -24,7 +24,7 @@ public:
     virtual Point get_location() const = 0;
     virtual void describe() const = 0;
     virtual void update() = 0;
-	
+    
 private:
 	std::string name;
 };
