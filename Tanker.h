@@ -1,7 +1,7 @@
 #ifndef TANKER_H
 #define TANKER_H
 #include "Ship.h"
-
+#include <memory>
 class Island;
 /*
 A Tanker is a ship with a large corgo capacity for fuel.
@@ -48,8 +48,8 @@ private:
     double
     cargo_capacity = init_cargo_capacity_c; // capacity of the cargo
     double cargo = init_cargo_c; // current amount
-    std::shared_ptr<Island> load_destination = nullptr;
-    std::shared_ptr<Island> unload_destination = nullptr;
+    std::shared_ptr<Island> load_destination{};
+    std::shared_ptr<Island> unload_destination{};
     
     // throw error if it's not NO_CARGO_DESTINATION
     void check_no_cargo_destination();

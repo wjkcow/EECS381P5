@@ -70,15 +70,16 @@ void Tanker::set_load_unload_helper(){
         tanker_state = State::MOVING_TO_LOADING;
     } else if(cargo > 0.){
         Ship::set_destination_position_and_speed(
-                                                 unload_destination->get_location(), get_maximum_speed());
+                                        unload_destination->get_location(),
+                                        get_maximum_speed());
         tanker_state = State::MOVING_TO_UNLOADING;
     }
 }
 
 void Tanker::stop(){
     Ship::stop();
-    load_destination = nullptr;
-    unload_destination = nullptr;
+    load_destination.reset();
+    unload_destination.reset();
     tanker_state = State::NO_CARGO_DESTINATION;
     cout << get_name() <<  " now has no cargo destinations" << endl;
 }
@@ -87,8 +88,8 @@ void Tanker::update(){
     Ship::update();
     if (!can_move()) {
         tanker_state = State::NO_CARGO_DESTINATION;
-        load_destination = nullptr;
-        unload_destination = nullptr;
+        load_destination.reset();
+        unload_destination.reset();
         cout << get_name() <<  " now has no cargo destinations" << endl;
     } else if(tanker_state == State::NO_CARGO_DESTINATION){
         return;
