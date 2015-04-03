@@ -19,7 +19,7 @@ void Cruise_ship::set_destination_position_and_speed(Point destination_position,
     if (first_island) {
         next_destination = first_island;
         cruise_speed = speed;
-        cruise_helper(destination_position, speed);
+        cruise_helper(destination_position);
         cout <<  get_name() << " cruise will start and end at "
              << first_island->get_name() << endl;
         state = State::MOVING_TO_NEXT_ISLAND;
@@ -29,8 +29,8 @@ void Cruise_ship::set_destination_position_and_speed(Point destination_position,
     
 }
 
-void Cruise_ship::cruise_helper(Point destination_position, double speed){
-    Ship::set_destination_position_and_speed(destination_position, speed);
+void Cruise_ship::cruise_helper(Point destination_position){
+    Ship::set_destination_position_and_speed(destination_position, cruise_speed);
     cout << get_name() << " will visit " << next_destination->get_name() << endl;
 }
 
@@ -63,13 +63,15 @@ void Cruise_ship::update(){
             break;
         case State::VISITING_ISLAND:
             state = State::CONTINUE_CRUISE;
-
             break;
         case State::CONTINUE_CRUISE:
             state = State::MOVING_TO_NEXT_ISLAND;
             next_destination = get_next_island();
-            cruise_helper(next_destination->get_location(), cruise_speed);
+            cruise_helper(next_destination->get_location());
         case State::MOVING_TO_NEXT_ISLAND:
+            // if we dock at the first island and have visited all the islands,
+            //the crusie is done, otherwise we just dock at next island and
+            // start refuelling
             if (can_dock(first_island) &&
                 unvisited_islands.empty()) {
                 Ship::dock(first_island);
@@ -92,7 +94,6 @@ void Cruise_ship::describe() const{
         || state == State::CONTINUE_CRUISE) {
         cout << "Waiting during cruise at "
              << get_docked_Island()->get_name() << endl;
-
     } else if(state == State::MOVING_TO_NEXT_ISLAND) {
         cout << "On cruise to " << next_destination->get_name() << endl;
     }
@@ -107,12 +108,14 @@ void Cruise_ship::cancel_if_on_cruise(){
 }
 
 shared_ptr<Island> Cruise_ship::get_first_island(Point destination){
+    // start the cruise, thus all island have no been visited
     unvisited_islands = Model::get_instance().get_islands();
     auto ite = find_if(unvisited_islands.begin(), unvisited_islands.end(),
                        [destination](const shared_ptr<Island>& island_ptr){
         return island_ptr->get_location() == destination;
     });
     if (ite == unvisited_islands.end()) {
+        unvisited_islands.clear();
         return shared_ptr<Island>{};
     }
     first_island = *ite;
