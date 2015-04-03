@@ -22,7 +22,7 @@ public:
 	virtual void draw() = 0;
 	
 	// Discard the saved information - drawing will show only a empty pattern
-	virtual void clear() = 0;
+    virtual void clear(){};
 	
 	// modify the display parameters
 	// if the size is out of bounds will throw Error("New map size is too big!")

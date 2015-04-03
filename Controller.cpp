@@ -42,18 +42,19 @@ void Controller::run(){
 void Controller::ship_cmd(const string& ship_name){
     string ship_cmd_word;
     cin >> ship_cmd_word;
-    if (!ship_cmds.count(ship_cmd_word)) {
+    auto func_ite = ship_cmds.find(ship_cmd_word);
+    if (func_ite == ship_cmds.end()) {
         throw Error("Unrecognized command!");
     }
-    ship_cmds[ship_cmd_word](Model::get_instance().get_ship_ptr(ship_name));
+    (func_ite->second)(Model::get_instance().get_ship_ptr(ship_name));
 }
 
 void Controller::view_model_cmd(const string& cmd){
-    if(view_model_cmds.count(cmd)){
-        view_model_cmds[cmd]();
-    } else {
+    auto func_ite = view_model_cmds.find(cmd);
+    if (func_ite == view_model_cmds.end()) {
         throw Error("Unrecognized command!");
     }
+    (func_ite->second)();
 }
 
 void Controller::clear(){
