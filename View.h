@@ -8,12 +8,12 @@ public:
 	// Save the supplied name and location for future use in a draw() call
 	// If the name is already present,the new location replaces the previous one.
     // default behavior is doing nothing
-    virtual void update_location(const std::string& name, Point location){
-    }
+    virtual void update_location(const std::string& name, Point location){}
     
     // update the sailing_data of a specifc function;
     // default behavior is doing nothing
-    virtual void update_sailing_data(const std::string& name, double fuel, double course, double speed){};
+    virtual void update_sailing_data(const std::string& name, double fuel,
+                                     double course, double speed){};
 	
 	// Remove the name and its location; no error if the name is not present.
 	virtual void update_remove(const std::string& name) = 0;

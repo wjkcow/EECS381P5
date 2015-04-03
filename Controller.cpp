@@ -59,8 +59,11 @@ void Controller::view_model_cmd(const string& cmd){
 
 void Controller::clear(){
     for_each(all_views.begin(), all_views.end(), bind(&Model::detach,
-                                                      &Model::get_instance(), _1));
-
+                                                 &Model::get_instance(), _1));
+    map_view.reset();
+    sailing_data_view.reset();
+    bridge_views.clear();
+    all_views.clear();
     cout << "Done" << endl;
 }
 
@@ -122,7 +125,6 @@ void Controller::open_sailing_view(){
     sailing_data_view = make_shared<Sailing_data_view>();
     all_views.push_back(sailing_data_view);
     Model::get_instance().attach(sailing_data_view);
-
 }
 void Controller::close_sailing_view(){
     if (!sailing_data_view) {
