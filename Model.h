@@ -98,7 +98,9 @@ public:
     Model& operator=(Model&&) = delete;
     
 private:
+    // this helper function adds island to sim_objects and island container
     void add_island_helper(std::shared_ptr<Island> island_ptr);
+    // this helper function adds ship to sim_objects and ship container
     void add_ship_helper(std::shared_ptr<Ship> ship_ptr);
 
     // create the initial objects, output constructor message

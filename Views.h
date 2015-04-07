@@ -8,35 +8,20 @@
 
 struct Point;
 
-class Map_view : public View {
+// this is the kind of view which will have graphic representation,
+// thus the location of every name will be remembered
+// it is still abstract as draw is not defined
+class Graph_view : public View{
 public:
+    Graph_view(int size_, double scale_, double origin_);
     // Save the supplied name and location for future use in a draw() call
     // If the name is already present,the new location replaces the previous one.
     void update_location(const std::string& name, Point location) override;
-    
     // Remove the name and its location; no error if the name is not present.
     void update_remove(const std::string& name) override;
-    
-    // prints out the current map
-    void draw() override;
-    
     // Discard the saved information - drawing will show only a empty pattern
     void clear() override;
     
-    // modify the display parameters
-    // if the size is out of bounds will throw Error("New map size is too big!")
-    // or Error("New map size is too small!")
-    void set_size(int size_) override;
-    
-    // If scale is not postive, will throw Error("New map scale must be positive!");
-    void set_scale(double scale_) override;
-    
-    // any values are legal for the origin
-    void set_origin(Point origin_) override;
-    
-    // set the parameters to the default values
-    void set_defaults() override;
-				
 protected:
     const std::map<std::string, Point>& get_locations() const{
         return plot_objects;
@@ -45,8 +30,36 @@ protected:
     // current size, scale, and origin of the display.
     // Return true if the location is within the map, false if not
     bool get_subscripts(int &ix, int &iy, Point location);
+    int size;			// current size of the display
+    double scale;		// distance per cell of the display
+    Point origin;		// coordinates of the lower-left-hand corner
 private:
     std::map<std::string, Point> plot_objects;
+};
+
+
+
+class Map_view : public Graph_view {
+public:
+    Map_view();
+    // prints out the current map
+    void draw() override;
+    
+
+    // modify the display parameters
+    // if the size is out of bounds will throw Error("New map size is too big!")
+    // or Error("New map size is too small!")
+    void set_size(int size_) override;
+    
+    // If scale is not postive, will throw Error("New map scale must be positive!");
+    void set_scale(double scale_) override;
+    // any values are legal for the origin
+    void set_origin(Point origin_) override;
+    
+    // set the parameters to the default values
+    void set_defaults() override;
+				
+private:
     //RAII class for manage cout setting
     class Cout_saver{
     public:
@@ -57,11 +70,6 @@ private:
         int old_precision;
     };
 
-    
-    int size{default_size_c};			// current size of the display
-    double scale{default_scale_c};		// distance per cell of the display
-    Point origin{default_origin_c,default_origin_c};		// coordinates of the lower-left-hand corner
-    
     constexpr static int default_size_c = 25;
     constexpr static double default_scale_c = 2.;
     constexpr static double default_origin_c = -10.;
@@ -74,19 +82,14 @@ private:
     constexpr static int label_gap = 3;
 };
 
-class Bridge_view: public Map_view{
+class Bridge_view: public Graph_view{
 public:
     Bridge_view(const std::string& name_);
     void update_sailing_data(const std::string& name, double fuel, double course, double speed) override;
     void update_remove(const std::string& name) override;
     void draw() override;
-    using View::draw;
-    using View::clear;
-    using View::set_size;
-    using View::set_scale;
-    using View::set_origin;
-    using View::set_defaults;
 private:
+    // this function get the subscribe for the view
     bool get_subscribe(int &x,double view_angle);
     void print_label();
     std::string own_ship_name;
@@ -94,6 +97,10 @@ private:
     double heading;
     constexpr static double max_view_range = 20.;
     constexpr static double min_view_range = 0.005;
+    
+    constexpr static int default_size_c = 19;
+    constexpr static double default_scale_c = 10.;
+    constexpr static double default_origin_c = -90.;
 };
 
 class Sailing_data_view: public View{

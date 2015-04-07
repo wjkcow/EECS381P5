@@ -21,7 +21,7 @@ using namespace std;
 // scale is a double value, and size is an integer for the number of rows/columns
 // currently being used for the grid.
 // Return true if the location is within the grid, false if not
-bool Map_view::get_subscripts(int &ix, int &iy, Point location)
+bool Graph_view::get_subscripts(int &ix, int &iy, Point location)
 {
     // adjust with origin and scale
     Cartesian_vector subscripts = (location - origin) / scale;
@@ -38,6 +38,27 @@ bool Map_view::get_subscripts(int &ix, int &iy, Point location)
         return true;
 }
 
+Graph_view::Graph_view(int size_, double scale_, double origin_):
+size{size_}, scale{scale_}, origin{origin_, origin_}{}
+
+void Graph_view::update_location(const string& name, Point location){
+    plot_objects[name] = location;
+}
+
+void Graph_view::update_remove(const string& name){
+    plot_objects.erase(name);
+}
+
+
+void Graph_view::clear(){
+    plot_objects.clear();
+}
+
+
+Map_view::Map_view():Graph_view{default_size_c,default_scale_c,
+    default_origin_c}{
+}
+
 Map_view::Cout_saver::Cout_saver(){
     old_settings = cout.flags();
     old_precision = static_cast<int>(cout.precision());
@@ -45,14 +66,6 @@ Map_view::Cout_saver::Cout_saver(){
 Map_view::Cout_saver::~Cout_saver(){
     cout.flags(old_settings);
     cout.precision(old_precision);
-}
-
-void Map_view::update_location(const string& name, Point location){
-    plot_objects[name] = location;
-}
-
-void Map_view::update_remove(const string& name){
-    plot_objects.erase(name);
 }
 
 void Map_view::draw(){
@@ -63,7 +76,7 @@ void Map_view::draw(){
     ", origin: " << origin << endl;
     int x,y;
     string out_of_maps;
-    for (auto &plot_pair : plot_objects) {
+    for (auto &plot_pair : get_locations()) {
         if (!get_subscripts(x, y, plot_pair.second)) {
             if (!out_of_maps.empty()) {
                 out_of_maps += ", ";
@@ -107,9 +120,6 @@ void Map_view::draw(){
     cout << endl;
 }
 
-void Map_view::clear(){
-    plot_objects.clear();
-}
 
 void Map_view::set_size(int size_){
     if (size_ <= min_size_c) {
@@ -139,8 +149,8 @@ void Map_view::set_defaults(){
 }
 
 // BELOW IS FUNCTIONS OF BRIDGE VIEW
-Bridge_view::Bridge_view(const std::string& name_): own_ship_name{name_},
-is_sunk{false}{
+Bridge_view::Bridge_view(const std::string& name_): Graph_view{default_size_c, default_scale_c, default_origin_c},own_ship_name{name_},
+    is_sunk{false}{
 }
 
 void Bridge_view::update_sailing_data(const string& name, double, double course,
@@ -153,7 +163,7 @@ void Bridge_view::update_remove(const std::string& name){
     if (name == own_ship_name) {
         is_sunk = true;
     } else {
-        Map_view::update_remove(name);
+        Graph_view::update_remove(name);
     }
 }
 
@@ -173,8 +183,9 @@ void Bridge_view::draw(){
         cout << "     . . . . . . . . . . . . . . . . . . . " << endl;
         cout << "     . . . . . . . . . . . . . . . . . . . " << endl;
 
-        vector<string> bridge_view_data{19, ". "};
-        const std::map<std::string, Point>& locations = Map_view::get_locations();
+        vector<string> bridge_view_data{default_size_c, ". "};
+        const std::map<std::string, Point>& locations =
+                                                Graph_view::get_locations();
         Point own_ship_loc = locations.at(own_ship_name);
         for (const auto & loc_pair: locations) {
             Compass_position cp{own_ship_loc,loc_pair.second};
@@ -205,24 +216,11 @@ void Bridge_view::draw(){
 }
 bool Bridge_view::get_subscribe(int &x, double view_angle){
     int y;
-    Map_view::set_origin(Point{-90,-90});
-    Map_view::set_scale(10.0);
-    get_subscripts(x, y, Point{view_angle, view_angle});
-    if(x >= 0 && x < 19){
-        return true;
-    } else {
-        return false;
-    }
+    return get_subscripts(x, y, Point{view_angle, view_angle});
 }
 
 void Bridge_view::print_label(){
-    int init_label = -90;
-    int label_gap = 30;
-    for (int i = 0 ; i < 7; i ++) {
-        cout << setw(6) << init_label;
-        init_label += label_gap;
-    }
-    cout << endl;
+    cout << "   -90   -60   -30     0    30    60    90" << endl;
 }
 
 // BELOW IS FUNCTIONS FOR SAILING_DATA VIEW

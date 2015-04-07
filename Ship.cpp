@@ -174,7 +174,7 @@ void Ship::refuel(){
 }
 
 void Ship::set_load_destination(shared_ptr<Island>){
-    throw  Error("Cannot load at a destination!");
+    throw Error("Cannot load at a destination!");
 }
 
 void Ship::set_unload_destination(shared_ptr<Island>){
