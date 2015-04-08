@@ -4,7 +4,7 @@
 #include "View.h"
 #include <string>
 #include <map>
-#include <iostream>
+#include <iostream> //NOTE: include<iosfwd>
 
 struct Point;
 
@@ -61,7 +61,7 @@ public:
 				
 private:
     //RAII class for manage cout setting
-    class Cout_saver{
+    class Cout_saver{ //NOTE: implementation 
     public:
         Cout_saver();
         ~Cout_saver();

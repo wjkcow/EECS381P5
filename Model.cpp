@@ -32,18 +32,20 @@ Model::Model(){
 }
 
 bool Model::is_name_in_use(const string& name) const{
-    return sim_objects.count(name);
+    return sim_objects.count(name); //NOTE: search map containers
+    // is_island_present
+    // is_is_ship_present
 }
 
 bool Model::is_island_present(const string& name) const{
-    return islands.count(name);
+    return islands.count(name); //NOTE: comp: bi
 }
 
 shared_ptr<Island> Model::get_island_ptr(const string& name) const{
-    if(!is_island_present(name)){
+    if(!is_island_present(name)){ //NOTE: double search
         throw Error("Island not found!");
     }
-    return islands.find(name)->second;
+    return islands.find(name)->second; //NOTE: at
 }
 
 bool Model::is_ship_present(const string& name) const{
@@ -69,7 +71,7 @@ void Model::describe() const{
 }
 
 void Model::update(){
-    time ++;
+    time ++; //NOTE: ++
     for (auto &objects_pair : sim_objects) {
         objects_pair.second->update();
     }

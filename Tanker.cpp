@@ -37,13 +37,13 @@ void Tanker::set_unload_destination(shared_ptr<Island> unload_des_){
     set_load_unload_helper();
 }
     
-void Tanker::check_no_cargo_destination(){
+void Tanker::check_no_cargo_destination(){ //NOTE:
     if(tanker_state != State::NO_CARGO_DESTINATION){
         throw Error("Tanker has cargo destinations!");
     }
 }
     
-void Tanker::check_destination(){
+void Tanker::check_destination(){ //NOTE:
     if(load_destination == unload_destination){
         throw Error("Load and unload cargo destinations are the same!");
     }
@@ -84,9 +84,10 @@ void Tanker::stop(){
     cout << get_name() <<  " now has no cargo destinations" << endl;
 }
 
-void Tanker::update(){
+void Tanker::update(){ //NOTE:
     Ship::update();
     if (!can_move()) {
+        //stop();
         tanker_state = State::NO_CARGO_DESTINATION;
         load_destination.reset();
         unload_destination.reset();

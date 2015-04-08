@@ -21,7 +21,7 @@ This skeleton file shows the required public and protected interface for the cla
 If no protected members are shown, there must be none in your version. 
 If any protected or private members are shown here, then your class must also have them and use them as intended.
 You should delete this comment.
-*/
+*/ //NOTE:
 class Cruiser: public Warship{
 public:
 	// initialize, then output constructor message

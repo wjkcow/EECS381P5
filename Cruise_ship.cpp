@@ -24,12 +24,12 @@ void Cruise_ship::set_destination_position_and_speed(Point destination_position,
              << first_island->get_name() << endl;
         state = State::MOVING_TO_NEXT_ISLAND;
     } else {
-        Ship::set_destination_position_and_speed(destination_position, speed);
+        Ship::set_destination_position_and_speed(destination_position, speed); //NOTE: 
     }
     
 }
 
-void Cruise_ship::cruise_helper(Point destination_position){
+void Cruise_ship::cruise_helper(Point destination_position){//NOTE:
     Ship::set_destination_position_and_speed(destination_position, cruise_speed);
     cout << get_name() << " will visit " << next_destination->get_name() << endl;
 }
@@ -67,7 +67,7 @@ void Cruise_ship::update(){
         case State::CONTINUE_CRUISE:
             state = State::MOVING_TO_NEXT_ISLAND;
             next_destination = get_next_island();
-            cruise_helper(next_destination->get_location());
+            cruise_helper(next_destination->get_location());//NOTE: break
         case State::MOVING_TO_NEXT_ISLAND:
             // if we dock at the first island and have visited all the islands,
             //the crusie is done, otherwise we just dock at next island and
@@ -104,6 +104,7 @@ void Cruise_ship::cancel_if_on_cruise(){
         cout << get_name() << " canceling current cruise" << endl;
         state = State::NOT_ON_CRUISE;
         unvisited_islands.clear();
+        //NOTE: reset 
     }
 }
 

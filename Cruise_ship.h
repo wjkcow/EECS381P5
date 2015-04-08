@@ -19,11 +19,11 @@ public:
     // cruise will be canceled
     void stop();
     // cruise will be canceled
-    void dock(std::shared_ptr<Island> island_ptr);
+    void dock(std::shared_ptr<Island> island_ptr); //NOTE: 
     // move like a ship or cruise
     void update() override;
     void describe() const override;
-private:
+private: //NOTE: order of function and variable
     double cruise_speed; // cruise is always on this speed
     enum class State{
         NOT_ON_CRUISE,
@@ -42,9 +42,9 @@ private:
     void cancel_if_on_cruise();
     // get the island pointer from the destination Point,
     // if no island at that destination, empty pointer is returned.
-    std::shared_ptr<Island> get_first_island(Point destination);
+    std::shared_ptr<Island> get_first_island(Point destination); //NOTE
     // get the next island to cruise to depend on next_island
-    std::shared_ptr<Island> get_next_island();
+    std::shared_ptr<Island> get_next_island(); //NOTE: get_next_island_and_remove
 
     // next island we will visit
     std::shared_ptr<Island> next_destination;

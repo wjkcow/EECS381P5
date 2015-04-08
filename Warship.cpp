@@ -12,10 +12,11 @@ Warship::Warship(const string& name_, Point position_, double fuel_capacity_, do
 
 void Warship::update(){
     Ship::update();
+    //NOTE: not is_attacking return
     if (is_attacking() && (!is_afloat() || target_ptr.expired() ||
                            !get_target()->is_afloat())) {
         stop_attack();
-        target_ptr.reset();
+        target_ptr.reset(); //NOTE: stop_attack
     } else if(is_attacking()){
         cout <<  get_name() << " is attacking" << endl;
     }
@@ -46,7 +47,7 @@ void Warship::stop_attack(){
 }
 
 void Warship::describe() const{
-    Ship::describe();
+    Ship::describe(); //NOTE: !is_attacking()
     if (is_attacking() && (target_ptr.expired() || !get_target()->is_afloat())){
         cout << "Attacking absent ship" << endl;
     } else if (is_attacking()) {

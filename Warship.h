@@ -47,7 +47,7 @@ protected:
 	bool is_attacking() const;
 	
 	// fire at the current target
-	void fire_at_target();
+	void fire_at_target(); //NOTE: const
 		
 	// is the current target in range?
 	bool target_in_range() const;

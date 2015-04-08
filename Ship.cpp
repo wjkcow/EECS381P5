@@ -41,11 +41,13 @@ bool Ship::can_dock(std::shared_ptr<Island> island_ptr) const{
 }
 
 void Ship::update(){
-    if (!is_afloat()) {
+    //NOTE: change to switch
+    if (!is_afloat()) { 
         cout << get_name() <<" sunk" << endl;
     } else if(is_moving()){
         calculate_movement();
         cout << get_name() << " now at " << get_location() << endl;
+        //NOTE: broadcast current_state
         Model::get_instance().notify_location(get_name(), get_location());
         Model::get_instance().notify_sailing_data(get_name(), fuel,
                                                   track_base.get_course(), track_base.get_speed());
@@ -146,7 +148,7 @@ void Ship::stop(){
 }
 
 void Ship::dock(std::shared_ptr<Island>island_ptr){
-    if (!(ship_state == State::STOPPED && can_dock(island_ptr))) {
+    if (!(ship_state == State::STOPPED && can_dock(island_ptr))) {//NOTE:
         throw Error("Can't dock!");
     }
     track_base.set_position(island_ptr->get_location());

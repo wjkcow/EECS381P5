@@ -29,13 +29,15 @@ Model also provides facilities for looking up objects given their name.
 This skeleton file shows the required public and protected interface for the class, which you may not modify. 
 If no protected members are shown, there must be none in your version. 
 If any protected or private members are shown here, then your class must also have them and use them as intended.
-You should delete this comment.
+You should delete this comment. //NOTE:
 */
 
 // Declare the global model pointer
-class Model;
+class Model; //NOTE: 
 
 class Model {
+      //NOTE: destructor
+
 public:
 
     static Model& get_instance();
@@ -89,7 +91,7 @@ public:
     void remove_ship(std::shared_ptr<Ship> ship_ptr);
     
     // get the set of all island
-    std::vector<std::shared_ptr<Island>> get_islands();
+    std::vector<std::shared_ptr<Island>> get_islands(); //NOTE: const
     
     // disallow copy/move construction or assignment
     Model(const Model&) = delete;
@@ -114,7 +116,7 @@ private:
                                 str2, 0, distinct_name_len_c) < 0;
         }
     };
-    std::map<std::string, std::shared_ptr<Sim_object>, Less_than_name> sim_objects;
+    std::map<std::string, std::shared_ptr<Sim_object>, Less_than_name> sim_objects; //NOTE: 
     std::map<std::string, std::shared_ptr<Ship>> ships;
     using Islands_t = std::map<std::string, std::shared_ptr<Island>> ;
     std::map<std::string, std::shared_ptr<Island>> islands;

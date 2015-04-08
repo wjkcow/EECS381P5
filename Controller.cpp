@@ -101,7 +101,7 @@ void Controller::view_cmd_pan() const{
 }
 
 void Controller::view_cmd_show() const{
-    for_each(all_views.begin(), all_views.end(), bind(&View::draw,_1));
+    for_each(all_views.begin(), all_views.end(), bind(&View::draw,_1));//NOTE: mem_fn
 }
 
 void Controller::open_map_view(){
@@ -139,7 +139,7 @@ void Controller::open_bridge_view(){
     }
     auto new_view = make_shared<Bridge_view>(ship_ptr->get_name());
     bridge_views[ship_ptr->get_name()] = new_view;
-    all_views.push_back(new_view);
+    all_views.push_back(new_view); //NOTE: 
     Model::get_instance().attach(new_view);
 
 }
@@ -169,7 +169,7 @@ void Controller::model_cmd_go() const{
 void Controller::model_cmd_create() const{
     string name;
     cin >> name;
-    if (name.length() < min_name_len) {
+    if (name.length() < min_name_len) { //NOTE: _c
         throw Error("Name is too short!");
     }
     if (Model::get_instance().is_name_in_use(name)) {
@@ -183,7 +183,7 @@ void Controller::model_cmd_create() const{
 }
 
 void Controller::ship_course(shared_ptr<Ship> ship_ptr) const{
-    double course = read_compass_heading();
+    double course = read_compass_heading(); //NOTE: open this
     double speed = read_speed();
     ship_ptr->set_course_and_speed(course, speed);
 }
@@ -195,7 +195,7 @@ void Controller::ship_position(shared_ptr<Ship> ship_ptr) const{
 }
 
 void Controller::ship_destination(shared_ptr<Ship> ship_ptr) const{
-    Point island_location = get_island()->get_location();
+    Point island_location = get_island()->get_location();//NOTE: open
     double speed = read_speed();
     ship_ptr->set_destination_position_and_speed(island_location,
                                                  speed);

@@ -26,7 +26,7 @@ public:
 	// create View object, run the program by acccepting user commands, then destroy View object
 	void run();
 private:
-    std::shared_ptr<View> map_view;
+    std::shared_ptr<View> map_view; //NOTE: change view
     std::shared_ptr<View> sailing_data_view;
     std::map<std::string, std::shared_ptr<View>> bridge_views;
     std::vector<std::shared_ptr<View>> all_views;
@@ -107,7 +107,7 @@ private:
     double read_compass_heading() const;
     double read_speed() const;
     
-    // map for all the ship commands
+    // map for all the ship commands //NOTE: 
     std::map<std::string, std::function<void(std::shared_ptr<Ship>)>> ship_cmds =
     {
         {"course",
