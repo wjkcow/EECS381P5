@@ -38,7 +38,7 @@ Model::~Model(){}
 bool Model::is_name_in_use(const string& name) const{
     auto island_pair_ite = islands.lower_bound(name);
     if (island_pair_ite != islands.end() &&
-        island_pair_ite->second->get_name().compare(
+        !island_pair_ite->second->get_name().compare(
             0,distinct_name_len_c, name, 0, distinct_name_len_c))
     {
         return true;
@@ -46,7 +46,7 @@ bool Model::is_name_in_use(const string& name) const{
     
     auto ship_pair_ite = ships.lower_bound(name);
     if (ship_pair_ite != ships.end() &&
-        ship_pair_ite->second->get_name().compare(
+        !ship_pair_ite->second->get_name().compare(
             0, distinct_name_len_c, name, 0 , distinct_name_len_c))
     {
         return true;

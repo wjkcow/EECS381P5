@@ -26,6 +26,13 @@ protected:
     virtual std::string get_placeholder() = 0;
     virtual int         get_grid_size_x() = 0;
     virtual int         get_grid_size_y() = 0;
+
+    int set_size_x(int x_);
+    int get_size_x();
+    int set_size_y(int y_);
+    int get_size_y();
+    int set_scale(double scale_);
+    int get_scalse(double scale_);
     
     // the function prints the y label at the left of each line
     virtual void print_y_label(int line) = 0;

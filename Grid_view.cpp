@@ -23,7 +23,6 @@ void Grid_view::update_remove(const string&name){
 }
 
 void Grid_view::draw(){
-    // first clear the grid_map
     vector<vector<string>> grid_map{static_cast<size_t>(get_grid_size_x()),
         {static_cast<size_t>(get_grid_size_y()), get_placeholder()}};
     

@@ -89,48 +89,35 @@ void Tanker::update(){
         load_destination.reset();
         unload_destination.reset();
         cout << get_name() <<  " now has no cargo destinations" << endl;
-    }
-    switch (tanker_state) {
-        case State::MOVING_TO_LOADING:
-            if (!is_moving()&& can_dock(load_destination)) {
-                dock(load_destination);
-                tanker_state = State::LOADING;
-            }
-            break;
-        case State::MOVING_TO_UNLOADING:
-            if (!is_moving() && can_dock(unload_destination)) {
-                dock(unload_destination);
-                tanker_state = State::UNLOADING;
-            }
-            break;
-        case State::LOADING: 
-        {
-            Ship::refuel();
-            double cargo_needed = cargo_capacity - cargo;
-            if (cargo_needed < cargo_error_c) {
-                cargo = cargo_capacity;
-                Ship::set_destination_position_and_speed(
-                                            unload_destination->get_location(),
-                                            get_maximum_speed());
-                tanker_state = State::MOVING_TO_UNLOADING;
-            } else {
-                cargo += load_destination->provide_fuel(cargo_needed);
-                cout << get_name() << " now has " << cargo << " of cargo" << endl;
-            }
+    } else if(tanker_state == State::NO_CARGO_DESTINATION){
+        return;
+    } else if (tanker_state == State::MOVING_TO_LOADING && !is_moving()
+               && can_dock(load_destination)) {
+        dock(load_destination);
+        tanker_state = State::LOADING;
+    } else if (tanker_state == State::MOVING_TO_UNLOADING && !is_moving()
+               && can_dock(unload_destination)) {
+        dock(unload_destination);
+        tanker_state = State::UNLOADING;
+    } else if (tanker_state == State::LOADING) {
+        Ship::refuel();
+        double cargo_needed = cargo_capacity - cargo;
+        if (cargo_needed < cargo_error_c) {
+            cargo = cargo_capacity;
+            Ship::set_destination_position_and_speed(
+                                                     unload_destination->get_location(), get_maximum_speed());
+            tanker_state = State::MOVING_TO_UNLOADING;
+        } else {
+            cargo += load_destination->provide_fuel(cargo_needed);
+            cout << get_name() << " now has " << cargo << " of cargo" << endl;
         }
-            break;
-        case State::UNLOADING:
-            if ( cargo == 0.) {
-                Ship::set_destination_position_and_speed
-                (load_destination->get_location(), get_maximum_speed());
-                tanker_state = State::MOVING_TO_LOADING;
-            } else if(cargo > 0.){
-                unload_destination->accept_fuel(cargo);
-                cargo = 0.;
-            }
-            break;
-        default:
-            break;
+    } else if (tanker_state == State::UNLOADING && cargo == 0.) {
+        Ship::set_destination_position_and_speed
+        (load_destination->get_location(), get_maximum_speed());
+        tanker_state = State::MOVING_TO_LOADING;
+    } else if (tanker_state == State::UNLOADING && cargo > 0.){
+        unload_destination->accept_fuel(cargo);
+        cargo = 0.;
     }
 }
 
