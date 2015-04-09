@@ -16,12 +16,6 @@ fuel capacity and initial amount 100 tons, maximum speed 10., fuel consumption 2
 resistance 0, cargo capacity 1000 tons, initial cargo is 0 tons.
 */
 
-/* 
-This skeleton file shows the required public and protected interface for the class, which you may not modify. 
-If no protected members are shown, there must be none in your version. 
-If any protected or private members are shown here, then your class must also have them and use them as intended.
-You should delete this comment.
-*/
 class Tanker: public Ship{
 public:
 	// initialize, the output constructor message
@@ -45,33 +39,15 @@ public:
 	void update() override;
     void describe() const override;
 private:
-    double
-    cargo_capacity = init_cargo_capacity_c; // capacity of the cargo
-    double cargo = init_cargo_c; // current amount
+    double cargo_capacity; // capacity of the cargo
+    double cargo; // current amount
     std::shared_ptr<Island> load_destination{};
     std::shared_ptr<Island> unload_destination{};
-    
-    // throw error if it's not NO_CARGO_DESTINATION
-    void check_no_cargo_destination();
-    // throw error is load and unload des are the same
-    void check_destination();
-    // helper function for load and unload to change state
-    void set_load_unload_helper();
-    enum class State{  // state enum for the tanker FSM
-        NO_CARGO_DESTINATION,
-        UNLOADING,
-        MOVING_TO_LOADING,
-        LOADING,
-        MOVING_TO_UNLOADING
-    };
+
+    enum class State;
     State tanker_state; // current state of the tanker
-    // consts for initializations
-    constexpr static double init_fuel_capacity_c = 100.;
-    constexpr static double init_max_speed_c = 10.;
-    constexpr static double init_fuel_consumption_c = 2.;
-    constexpr static int init_resistance_c = 0;
-    constexpr static double init_cargo_capacity_c = 1000.;
-    constexpr static double init_cargo_c = 0.;
-    constexpr static double cargo_error_c = 0.05;
+    
+    // helper function for load and unload to change state
+    void set_load_unload_state();
 };
 #endif

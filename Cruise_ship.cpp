@@ -80,6 +80,7 @@ void Cruise_ship::update(){
                                              next_destination->get_location(),
                                              cruise_speed);
             cout << get_name() << " will visit " << next_destination->get_name() << endl;
+            break;
         case State::MOVING_TO_NEXT_ISLAND:
             // if we dock at the first island and have visited all the islands,
             //the crusie is done, otherwise we just dock at next island and

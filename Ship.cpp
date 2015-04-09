@@ -82,6 +82,7 @@ void Ship::update(){
         case State::MOVING_TO_POSITION:
             calculate_movement();
             cout << get_name() << " now at " << get_location() << endl;
+            broadcast_current_state();
             break;
         default:
             break;
