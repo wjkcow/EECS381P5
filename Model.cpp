@@ -14,6 +14,8 @@
 #include <memory>
 using namespace std;
 
+const int distinct_name_len_c = 2;
+
 Model& Model::get_instance(){
     static Model instance{};
     return instance;
@@ -34,20 +36,34 @@ Model::Model(){
 Model::~Model(){}
 
 bool Model::is_name_in_use(const string& name) const{
-    return sim_objects.count(name); //NOTE: search map containers
-    // is_island_present
-    // is_is_ship_present
+    auto island_pair_ite = islands.lower_bound(name);
+    if (island_pair_ite != islands.end() &&
+        island_pair_ite->second->get_name().compare(
+            0,distinct_name_len_c, name, 0, distinct_name_len_c))
+    {
+        return true;
+    }
+    
+    auto ship_pair_ite = ships.lower_bound(name);
+    if (ship_pair_ite != ships.end() &&
+        ship_pair_ite->second->get_name().compare(
+            0, distinct_name_len_c, name, 0 , distinct_name_len_c))
+    {
+        return true;
+    }
+    return false;
 }
 
 bool Model::is_island_present(const string& name) const{
-    return islands.count(name); //NOTE: comp: bi
+    return islands.count(name);
 }
 
 shared_ptr<Island> Model::get_island_ptr(const string& name) const{
-    if(!is_island_present(name)){ //NOTE: double search
+    auto ite = islands.find(name);
+    if (ite == islands.end()) {
         throw Error("Island not found!");
     }
-    return islands.find(name)->second; //NOTE: at
+    return ite->second;
 }
 
 bool Model::is_ship_present(const string& name) const{
@@ -60,30 +76,28 @@ void Model::add_ship(shared_ptr<Ship> ship_ptr){
 }
 
 shared_ptr<Ship> Model::get_ship_ptr(const string& name) const{
-    if (!is_ship_present(name)) {
+    auto ite = ships.find(name);
+    if (ite == ships.end()) {
         throw Error("Ship not found!");
     }
-    return ships.find(name)->second;
+    return ite->second;
 }
 
 void Model::describe() const{
-    for (auto &objects_pair : sim_objects) {
-        objects_pair.second->describe();
-    }
+    for_each(sim_objects.begin(), sim_objects.end(),
+             mem_fn(&Sim_object::describe));
 }
 
 void Model::update(){
-    time ++; //NOTE: ++
-    for (auto &objects_pair : sim_objects) {
-        objects_pair.second->update();
-    }
+    time ++;
+    for_each(sim_objects.begin(), sim_objects.end(),
+             mem_fn(&Sim_object::update));
 }
 
 void Model::attach(shared_ptr<View> v){
     views.push_back(v);
-    for (auto so_pair : sim_objects) {
-        so_pair.second->broadcast_current_state();
-    }
+    for_each(sim_objects.begin(), sim_objects.end(),
+             mem_fn(&Sim_object::broadcast_current_state));
 }
 
 void Model::detach(shared_ptr<View> v){
@@ -120,24 +134,30 @@ void Model::notify_gone(const string& name){
 }
 
 void Model::remove_ship(shared_ptr<Ship> ship_ptr){
-    sim_objects.erase(ship_ptr->get_name());
+    sim_objects.erase(ship_ptr);
     ships.erase(ship_ptr->get_name());
 }
 
 void Model::add_island_helper(std::shared_ptr<Island> island_ptr){
     islands[island_ptr->get_name()] = island_ptr;
-    sim_objects[island_ptr->get_name()] = island_ptr;
+    sim_objects.insert(island_ptr);
 }
 void Model::add_ship_helper(std::shared_ptr<Ship> ship_ptr){
     ships[ship_ptr->get_name()] = ship_ptr;
-    sim_objects[ship_ptr->get_name()] = ship_ptr;
+    sim_objects.insert(ship_ptr);
 }
 
-vector<shared_ptr<Island>> Model::get_islands(){
+vector<shared_ptr<Island>> Model::get_islands() const{
     vector<shared_ptr<Island>> islands_v;
     transform(islands.begin(), islands.end(),
       insert_iterator<vector<shared_ptr<Island>>>{islands_v, islands_v.begin()},
-      bind(&Islands_t::value_type::second, placeholders::_1));
+      mem_fn(&Islands_t::value_type::second));
     return islands_v;
+}
+
+// Compare Sim_object by name
+bool Model:: Sim_object_name_comparator:: operator() (std::shared_ptr<Sim_object> lhs,
+                                                      std::shared_ptr<Sim_object> rhs) {
+    return lhs->get_name() < rhs->get_name();
 }
 

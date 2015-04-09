@@ -103,7 +103,7 @@ void Tanker::update(){
                 tanker_state = State::UNLOADING;
             }
             break;
-        case State::LOADING:
+        case State::LOADING: 
         {
             Ship::refuel();
             double cargo_needed = cargo_capacity - cargo;

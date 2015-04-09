@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <set>
 #include <memory>
 
 class Sim_object;
@@ -84,7 +85,7 @@ public:
     void remove_ship(std::shared_ptr<Ship> ship_ptr);
     
     // get the set of all island
-    std::vector<std::shared_ptr<Island>> get_islands(); //NOTE: const
+    std::vector<std::shared_ptr<Island>> get_islands() const;
     
     // disallow copy/move construction or assignment
     Model(const Model&) = delete;
@@ -107,19 +108,16 @@ private:
 
     int time{0};		// the simulated time
     std::vector<std::shared_ptr<View>> views; // all the views
-    struct Less_than_name{
-        bool operator()(const std::string& str1, const std::string& str2) const{
-            // only the first two letters matters
-            return str1.compare(0, distinct_name_len_c,
-                                str2, 0, distinct_name_len_c) < 0;
-        }
+    // Compare Sim_object by name
+    struct Sim_object_name_comparator {
+        bool operator() (std::shared_ptr<Sim_object> lhs, std::shared_ptr<Sim_object> rhs);
     };
-    std::map<std::string, std::shared_ptr<Sim_object>, Less_than_name> sim_objects; //NOTE: 
+    
+    std::set<std::shared_ptr<Sim_object>,Sim_object_name_comparator> sim_objects;
     std::map<std::string, std::shared_ptr<Ship>> ships;
     using Islands_t = std::map<std::string, std::shared_ptr<Island>> ;
     std::map<std::string, std::shared_ptr<Island>> islands;
     
-    constexpr static int distinct_name_len_c = 2;
 
 };
 #endif

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D20FC0FC1AD62C75005C234E /* Radar_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D20FC0FA1AD62C75005C234E /* Radar_view.cpp */; };
 		D21EA1BE1ACCD7E40027A3CA /* p5_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D21EA1BD1ACCD7E40027A3CA /* p5_main.cpp */; };
 		D2DF1D751AD5AE060092370F /* Grid_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2DF1D731AD5AE060092370F /* Grid_view.cpp */; };
 		D2DF1D781AD5AECE0092370F /* Map_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2DF1D761AD5AECE0092370F /* Map_view.cpp */; };
@@ -42,6 +43,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D20FC0FA1AD62C75005C234E /* Radar_view.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Radar_view.cpp; sourceTree = "<group>"; };
+		D20FC0FB1AD62C75005C234E /* Radar_view.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Radar_view.h; sourceTree = "<group>"; };
 		D21EA1BD1ACCD7E40027A3CA /* p5_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = p5_main.cpp; sourceTree = "<group>"; };
 		D22024D71AA95FC600941BE4 /* Utility.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Utility.cpp; sourceTree = "<group>"; };
 		D22024D91AA96ECE00941BE4 /* test_main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = test_main.cpp; sourceTree = "<group>"; };
@@ -151,6 +154,8 @@
 				D2DF1D7A1AD5AED80092370F /* Bridge_view.h */,
 				D2DF1D7C1AD5AEE80092370F /* Sailing_data_view.cpp */,
 				D2DF1D7D1AD5AEE80092370F /* Sailing_data_view.h */,
+				D20FC0FA1AD62C75005C234E /* Radar_view.cpp */,
+				D20FC0FB1AD62C75005C234E /* Radar_view.h */,
 				D2F91A2A1AA90DB200CB23BA /* Utility.h */,
 				D22024D71AA95FC600941BE4 /* Utility.cpp */,
 				D2F91A2F1AA90DB200CB23BA /* Track_base.cpp */,
@@ -236,6 +241,7 @@
 				D2DF1D751AD5AE060092370F /* Grid_view.cpp in Sources */,
 				D2F2CD1F1ACB2CCB003289E0 /* Model.cpp in Sources */,
 				D2F2CD201ACB2CCB003289E0 /* View.cpp in Sources */,
+				D20FC0FC1AD62C75005C234E /* Radar_view.cpp in Sources */,
 				D2DF1D781AD5AECE0092370F /* Map_view.cpp in Sources */,
 				D2F2CD221ACB2CCB003289E0 /* Utility.cpp in Sources */,
 				D2F2CD231ACB2CCB003289E0 /* Track_base.cpp in Sources */,
