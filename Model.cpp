@@ -31,6 +31,8 @@ Model::Model(){
     add_ship_helper(create_ship("Valdez", "Tanker", Point (30, 30)));
 }
 
+Model::~Model(){}
+
 bool Model::is_name_in_use(const string& name) const{
     return sim_objects.count(name); //NOTE: search map containers
     // is_island_present
@@ -93,10 +95,24 @@ void Model::notify_location(const string& name, Point location){
              bind(&View::update_location,std::placeholders::_1,name, location));
 }
 
-void Model::notify_sailing_data(const std::string& name, double fuel, double course, double speed){
+// notify the change of fuel
+void Model::notify_fuel(const std::string& name, double fuel){
     for_each(views.begin(), views.end(),
-             bind(&View::update_sailing_data,std::placeholders::_1,name, fuel, course, speed));
+             bind(&View::update_ship_fuel,std::placeholders::_1,name, fuel));
 }
+
+// notify the change of course
+void Model::notify_course(const std::string& name, double course){
+    for_each(views.begin(), views.end(),
+             bind(&View::update_ship_course,std::placeholders::_1,name, course));
+}
+
+// notify the change of speed
+void Model::notify_speed(const std::string& name, double speed){
+    for_each(views.begin(), views.end(),
+             bind(&View::update_ship_speed,std::placeholders::_1,name, speed));
+}
+
 
 void Model::notify_gone(const string& name){
     for_each(views.begin(), views.end(),

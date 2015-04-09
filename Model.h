@@ -25,21 +25,8 @@ when asked to do so by an object, tells all the Views whenever anything changes 
 Model also provides facilities for looking up objects given their name.
 */
 
-/* 
-This skeleton file shows the required public and protected interface for the class, which you may not modify. 
-If no protected members are shown, there must be none in your version. 
-If any protected or private members are shown here, then your class must also have them and use them as intended.
-You should delete this comment. //NOTE:
-*/
-
-// Declare the global model pointer
-class Model; //NOTE: 
-
 class Model {
-      //NOTE: destructor
-
 public:
-
     static Model& get_instance();
     
 	// return the current time
@@ -81,8 +68,14 @@ public:
     // notify the views about an object's location
 	void notify_location(const std::string& name, Point location);
     
-    // notify the new sailing data
-    void notify_sailing_data(const std::string& name, double fuel, double course, double speed);
+    // notify the change of fuel
+    void notify_fuel(const std::string& name, double fuel);
+    
+    // notify the change of course
+    void notify_course(const std::string& name, double course);
+    
+    // notify the change of speed
+    void notify_speed(const std::string& name, double speed);
     
 	// notify the views that an object is now gone
 	void notify_gone(const std::string& name);
@@ -100,13 +93,18 @@ public:
     Model& operator=(Model&&) = delete;
     
 private:
+    // create the initial objects, output constructor message
+    Model();
+    // destructor is made private to prevent singleton deleted
+    // from outside
+    ~Model();
+    
     // this helper function adds island to sim_objects and island container
     void add_island_helper(std::shared_ptr<Island> island_ptr);
     // this helper function adds ship to sim_objects and ship container
     void add_ship_helper(std::shared_ptr<Ship> ship_ptr);
 
-    // create the initial objects, output constructor message
-    Model();
+
     int time{0};		// the simulated time
     std::vector<std::shared_ptr<View>> views; // all the views
     struct Less_than_name{

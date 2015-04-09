@@ -1,7 +1,10 @@
 #include "Controller.h"
 #include "Model.h"
 #include "View.h"
-#include "Views.h"
+#include "Grid_view.h"
+#include "Map_view.h"
+#include "Bridge_view.h"
+#include "Sailing_data_view.h"
 #include "Ship.h"
 #include "Island.h"
 #include "Geometry.h"
@@ -116,7 +119,7 @@ void Controller::close_map_view(){
     if (!map_view) {
         throw Error("Map view is not open!");
     }
-    close_view_helper(map_view);
+    detach_view(map_view);
 }
 void Controller::open_sailing_view(){
     if (sailing_data_view) {
@@ -130,7 +133,7 @@ void Controller::close_sailing_view(){
     if (!sailing_data_view) {
         throw Error("Sailing data view is not open!");
     }
-    close_view_helper(sailing_data_view);
+    detach_view(sailing_data_view);
 }
 void Controller::open_bridge_view(){
     auto ship_ptr = get_ship();
@@ -151,12 +154,11 @@ void Controller::close_bridge_view(){
     }
     auto b_view_ptr = bridge_views[ship_name];
     bridge_views.erase(ship_name);
-    close_view_helper(b_view_ptr);
+    detach_view(b_view_ptr);
 }
-void Controller::close_view_helper(std::shared_ptr<View>& sp){
+void Controller::detach_view(std::shared_ptr<View> sp){
     Model::get_instance().detach(sp);
     all_views.erase(find(all_views.begin(), all_views.end(), sp));
-    sp.reset();
 }
 void Controller::model_cmd_status() const{
     Model::get_instance().describe();

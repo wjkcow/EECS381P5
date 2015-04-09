@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		D21EA1BE1ACCD7E40027A3CA /* p5_main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D21EA1BD1ACCD7E40027A3CA /* p5_main.cpp */; };
+		D2DF1D751AD5AE060092370F /* Grid_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2DF1D731AD5AE060092370F /* Grid_view.cpp */; };
+		D2DF1D781AD5AECE0092370F /* Map_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2DF1D761AD5AECE0092370F /* Map_view.cpp */; };
+		D2DF1D7B1AD5AED80092370F /* Bridge_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2DF1D791AD5AED80092370F /* Bridge_view.cpp */; };
+		D2DF1D7E1AD5AEE80092370F /* Sailing_data_view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2DF1D7C1AD5AEE80092370F /* Sailing_data_view.cpp */; };
 		D2F2CD161ACB2CCB003289E0 /* Sim_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A391AA91D3300CB23BA /* Sim_object.cpp */; };
 		D2F2CD171ACB2CCB003289E0 /* Island.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A3B1AA91E3300CB23BA /* Island.cpp */; };
 		D2F2CD181ACB2CCB003289E0 /* Ship.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A261AA90DB200CB23BA /* Ship.cpp */; };
@@ -19,7 +23,6 @@
 		D2F2CD1E1ACB2CCB003289E0 /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D23DAAC31AABA668003793E6 /* Controller.cpp */; };
 		D2F2CD1F1ACB2CCB003289E0 /* Model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A241AA90DB200CB23BA /* Model.cpp */; };
 		D2F2CD201ACB2CCB003289E0 /* View.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E54CFA1ACA16CD00F87240 /* View.cpp */; };
-		D2F2CD211ACB2CCB003289E0 /* Views.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E54CFC1ACA16DD00F87240 /* Views.cpp */; };
 		D2F2CD221ACB2CCB003289E0 /* Utility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D22024D71AA95FC600941BE4 /* Utility.cpp */; };
 		D2F2CD231ACB2CCB003289E0 /* Track_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A2F1AA90DB200CB23BA /* Track_base.cpp */; };
 		D2F2CD241ACB2CCB003289E0 /* Geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2F91A1B1AA90DB200CB23BA /* Geometry.cpp */; };
@@ -49,12 +52,18 @@
 		D23DAAC31AABA668003793E6 /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Controller.cpp; sourceTree = "<group>"; };
 		D2A104411AB544FE00441DA6 /* Makefile.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Makefile.txt; sourceTree = "<group>"; };
 		D2A104421AB5F73000441DA6 /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
+		D2DF1D731AD5AE060092370F /* Grid_view.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Grid_view.cpp; sourceTree = "<group>"; };
+		D2DF1D741AD5AE060092370F /* Grid_view.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Grid_view.h; sourceTree = "<group>"; };
+		D2DF1D761AD5AECE0092370F /* Map_view.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Map_view.cpp; sourceTree = "<group>"; };
+		D2DF1D771AD5AECE0092370F /* Map_view.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map_view.h; sourceTree = "<group>"; };
+		D2DF1D791AD5AED80092370F /* Bridge_view.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bridge_view.cpp; sourceTree = "<group>"; };
+		D2DF1D7A1AD5AED80092370F /* Bridge_view.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bridge_view.h; sourceTree = "<group>"; };
+		D2DF1D7C1AD5AEE80092370F /* Sailing_data_view.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Sailing_data_view.cpp; sourceTree = "<group>"; };
+		D2DF1D7D1AD5AEE80092370F /* Sailing_data_view.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sailing_data_view.h; sourceTree = "<group>"; };
 		D2E54CED1AC490F900F87240 /* Cruise_ship.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Cruise_ship.cpp; sourceTree = "<group>"; };
 		D2E54CEE1AC490F900F87240 /* Cruise_ship.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cruise_ship.h; sourceTree = "<group>"; };
 		D2E54CF01AC5DF6600F87240 /* strings.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = strings.txt; sourceTree = "<group>"; };
 		D2E54CFA1ACA16CD00F87240 /* View.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = View.cpp; sourceTree = "<group>"; };
-		D2E54CFC1ACA16DD00F87240 /* Views.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Views.cpp; sourceTree = "<group>"; };
-		D2E54CFD1ACA16DD00F87240 /* Views.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Views.h; sourceTree = "<group>"; };
 		D2F91A0C1AA90BBD00CB23BA /* EECS381P5 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = EECS381P5; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F91A1B1AA90DB200CB23BA /* Geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Geometry.cpp; sourceTree = "<group>"; };
 		D2F91A1C1AA90DB200CB23BA /* Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geometry.h; sourceTree = "<group>"; };
@@ -134,8 +143,14 @@
 				D2F91A241AA90DB200CB23BA /* Model.cpp */,
 				D2F91A2C1AA90DB200CB23BA /* View.h */,
 				D2E54CFA1ACA16CD00F87240 /* View.cpp */,
-				D2E54CFD1ACA16DD00F87240 /* Views.h */,
-				D2E54CFC1ACA16DD00F87240 /* Views.cpp */,
+				D2DF1D731AD5AE060092370F /* Grid_view.cpp */,
+				D2DF1D741AD5AE060092370F /* Grid_view.h */,
+				D2DF1D761AD5AECE0092370F /* Map_view.cpp */,
+				D2DF1D771AD5AECE0092370F /* Map_view.h */,
+				D2DF1D791AD5AED80092370F /* Bridge_view.cpp */,
+				D2DF1D7A1AD5AED80092370F /* Bridge_view.h */,
+				D2DF1D7C1AD5AEE80092370F /* Sailing_data_view.cpp */,
+				D2DF1D7D1AD5AEE80092370F /* Sailing_data_view.h */,
 				D2F91A2A1AA90DB200CB23BA /* Utility.h */,
 				D22024D71AA95FC600941BE4 /* Utility.cpp */,
 				D2F91A2F1AA90DB200CB23BA /* Track_base.cpp */,
@@ -206,19 +221,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D2DF1D7E1AD5AEE80092370F /* Sailing_data_view.cpp in Sources */,
 				D2F2CD161ACB2CCB003289E0 /* Sim_object.cpp in Sources */,
 				D2F2CD171ACB2CCB003289E0 /* Island.cpp in Sources */,
 				D2F2CD181ACB2CCB003289E0 /* Ship.cpp in Sources */,
 				D2F2CD191ACB2CCB003289E0 /* Cruise_ship.cpp in Sources */,
+				D2DF1D7B1AD5AED80092370F /* Bridge_view.cpp in Sources */,
 				D2F2CD1A1ACB2CCB003289E0 /* Tanker.cpp in Sources */,
 				D2F2CD1B1ACB2CCB003289E0 /* Warship.cpp in Sources */,
 				D21EA1BE1ACCD7E40027A3CA /* p5_main.cpp in Sources */,
 				D2F2CD1C1ACB2CCB003289E0 /* Cruiser.cpp in Sources */,
 				D2F2CD1D1ACB2CCB003289E0 /* Ship_factory.cpp in Sources */,
 				D2F2CD1E1ACB2CCB003289E0 /* Controller.cpp in Sources */,
+				D2DF1D751AD5AE060092370F /* Grid_view.cpp in Sources */,
 				D2F2CD1F1ACB2CCB003289E0 /* Model.cpp in Sources */,
 				D2F2CD201ACB2CCB003289E0 /* View.cpp in Sources */,
-				D2F2CD211ACB2CCB003289E0 /* Views.cpp in Sources */,
+				D2DF1D781AD5AECE0092370F /* Map_view.cpp in Sources */,
 				D2F2CD221ACB2CCB003289E0 /* Utility.cpp in Sources */,
 				D2F2CD231ACB2CCB003289E0 /* Track_base.cpp in Sources */,
 				D2F2CD241ACB2CCB003289E0 /* Geometry.cpp in Sources */,

@@ -8,6 +8,9 @@
 #include <vector>
 class  Model;
 class View;
+class Map_view;
+class Bridge_view;
+class Sailing_data_view;
 class Ship;
 class Island;
 struct Point;
@@ -26,9 +29,9 @@ public:
 	// create View object, run the program by acccepting user commands, then destroy View object
 	void run();
 private:
-    std::shared_ptr<View> map_view; //NOTE: change view
-    std::shared_ptr<View> sailing_data_view;
-    std::map<std::string, std::shared_ptr<View>> bridge_views;
+    std::shared_ptr<Map_view> map_view; //NOTE: change view
+    std::shared_ptr<Sailing_data_view> sailing_data_view;
+    std::map<std::string, std::shared_ptr<Bridge_view>> bridge_views;
     std::vector<std::shared_ptr<View>> all_views;
     
     // handler for all the ship commands
@@ -56,9 +59,10 @@ private:
     void close_sailing_view();
     void open_bridge_view();
     void close_bridge_view();
-    // close view helper
-    void close_view_helper(std::shared_ptr<View>& sp);
-    
+    // helper function to add view
+    void attach_view(std::shared_ptr<View> sp);
+    // helper function to remove view
+    void detach_view(std::shared_ptr<View> sp);
     // handlers to the model commands:
     // have all the objects describe themselves
     void model_cmd_status() const;
