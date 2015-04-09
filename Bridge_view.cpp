@@ -4,7 +4,7 @@
 #include <iostream>
 
 using namespace std;
-
+const string multiple_obj_placeholder_c = "**";
 const double max_view_range_c = 20.;
 const double min_view_range_c = 0.005;
 
@@ -44,18 +44,15 @@ void Bridge_view::update_ship_course(const std::string& name, double value){
     }
 }
 
-void Bridge_view::draw(){
+void Bridge_view::print_header(){
     if (is_sunk) {
         cout << "Bridge view from " << own_ship_name << " sunk at "
         << own_ship_position << endl;
-        Grid_view::draw();
     } else {
         cout << "Bridge view from " << own_ship_name << " position "
         << own_ship_position << " heading " << heading << endl;
-        Grid_view::draw();
     }
 }
-
 std::vector<Grid_view::Obj_index> Bridge_view::get_indexes(const std::map<std::string, Point>& plot_objects){
     if (is_sunk) {
         return vector<Grid_view::Obj_index>{};
@@ -88,6 +85,11 @@ std::string Bridge_view::get_placeholder(){
         return ". ";
     }
 }
+
+string Bridge_view::get_multiple_obj_placehodler(){
+    return multiple_obj_placeholder_c;
+}
+
 
 int Bridge_view::get_grid_size_x(){
     return grid_y_size_c;

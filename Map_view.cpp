@@ -9,6 +9,7 @@ using namespace std;
 
 // consts for map views
 const string empty_placeholder = ". ";
+const string multiple_obj_placeholder_c = "* ";
 const int default_size_c = 25;
 const double default_scale_c = 2.;
 const double default_origin_c = -10.;
@@ -51,10 +52,9 @@ void Map_view::set_defaults(){
     origin = Point{default_origin_c, default_origin_c};
 }
 
-void Map_view::draw(){
+void Map_view::print_header(){
     cout <<  "Display size: " << size << ", scale: " << scale <<
     ", origin: " << origin << endl;
-    Grid_view::draw();
 }
 
 vector<Grid_view::Obj_index> Map_view::get_indexes(const std::map<std::string, Point>& plot_objectes){
@@ -84,6 +84,10 @@ vector<Grid_view::Obj_index> Map_view::get_indexes(const std::map<std::string, P
 
 string Map_view::get_placeholder(){
     return empty_placeholder;
+}
+
+string Map_view::get_multiple_obj_placehodler(){
+    return multiple_obj_placeholder_c;
 }
 
 int    Map_view::get_grid_size_x(){

@@ -19,13 +19,13 @@ public:
     
     // set the parameters to the default values
     void set_defaults();
-    // prints out the current map
-    void draw() override;
 protected:
+    void print_header() override;
     std::vector<Grid_view::Obj_index>
     get_indexes(const std::map<std::string, Point>&
                 plot_objectes) override;
     std::string get_placeholder() override;
+    std::string get_multiple_obj_placehodler();
     int         get_grid_size_x() override;
     int         get_grid_size_y() override;
     // the function prints the y label at the left of each line

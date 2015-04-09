@@ -16,13 +16,14 @@ public:
     void update_remove(const std::string& name);    
     // update ship's course
     void update_ship_course(const std::string& name, double value);
-    void draw();
     
 protected:
+    void print_header();
     std::vector<Grid_view::Obj_index>
                 get_indexes(const std::map<std::string, Point>&
                 plot_objectes) override;
     std::string get_placeholder() override;
+    std::string get_multiple_obj_placehodler();
     int         get_grid_size_x() override;
     int         get_grid_size_y() override;
     // the function prints the y label at the left of each line

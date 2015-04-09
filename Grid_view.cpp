@@ -11,7 +11,6 @@ using namespace std;
 using namespace std::placeholders;
 
 // consts for all views
-const string grid_multiple_obj_c = "**";
 const int    grid_size_c = 2;
 
 void Grid_view::update_location(const string& name, Point location){
@@ -23,6 +22,7 @@ void Grid_view::update_remove(const string&name){
 }
 
 void Grid_view::draw(){
+    print_header();
     vector<vector<string>> grid_map{static_cast<size_t>(get_grid_size_x()),
         {static_cast<size_t>(get_grid_size_y()), get_placeholder()}};
     
@@ -75,7 +75,7 @@ void Grid_view::set_object_at_grid(const Obj_index &object_index,
         grid_map[object_index.idy][object_index.idx] =
         object_index.name.substr(0, grid_size_c);
     } else {
-        grid_map[object_index.idy][object_index.idx] = grid_multiple_obj_c;
+        grid_map[object_index.idy][object_index.idx] = get_multiple_obj_placehodler();
     }
 }
 
