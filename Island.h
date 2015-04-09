@@ -19,7 +19,7 @@ You should delete this comment.
 */
 class Island: public Sim_object{
 public:
-	// initialize then output constructor message
+	// initialize
 	Island (const std::string& name_, Point position_, double fuel_ = 0., double production_rate_ = 0.);
 		
 	// Return whichever is less, the request or the amount left,
@@ -28,6 +28,7 @@ public:
 	// Add the amount to the amount on hand, and output the total as the amount the Island now has.
 	void accept_fuel(double amount);
 	
+    // get the location of this island
 	Point get_location() const override
 		{return position;}
 

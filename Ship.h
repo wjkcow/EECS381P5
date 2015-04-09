@@ -27,7 +27,9 @@ class Ship: public Sim_object, public std::enable_shared_from_this<Ship>{
 public:
 	/*** Readers ***/
 	// return the current position
-	Point get_location() const override {return track_base.get_position();}
+	Point get_location() const override {
+        return track_base.get_position();
+    }
 	
 	// Return true if ship can move (it is not dead in the water or in the process or sinking); 
 	bool can_move() const;
@@ -48,9 +50,11 @@ public:
 	/*** Interface to derived classes ***/
 	// Update the state of the Ship
 	void update() override;
+
 	// output a description of current state to cout
 	void describe() const override;
-	
+
+    // broadcast the state of this ship to the views through model
 	void broadcast_current_state() override;
 	
 	/*** Command functions ***/
@@ -58,13 +62,16 @@ public:
      // may throw Error("Ship cannot move!")
      // may throw Error("Ship cannot go that fast!")
 	virtual void set_destination_position_and_speed(Point destination_position, double speed);
+
 	// Start moving on a course and speed
      // may throw Error("Ship cannot move!")
      // may throw Error("Ship cannot go that fast!");
 	virtual void set_course_and_speed(double course, double speed);
+
 	// Stop moving
      // may throw Error("Ship cannot move!");
 	virtual void stop();
+
 	// dock at an Island - set our position = Island's position, go into Docked state
      // may throw Error("Can't dock!");
 	virtual void dock(std::shared_ptr<Island> island_ptr);
@@ -93,12 +100,11 @@ public:
     Ship& operator= (const Ship&) = delete;
     Ship& operator= (Ship&&) = delete;
 protected:
-    // initialize, then output constructor message
+    // initialize
     Ship(const std::string& name_, Point position_, double fuel_capacity_,
      double maximum_speed_, double fuel_consumption_, int resistance_);
 
-	// future projects may need additional protected members
-
+    // return the maximum speed of this ship
 	double get_maximum_speed() const;
 	// return pointer to the Island currently docked at, or nullptr if not docked
 	std::shared_ptr<Island> get_docked_Island() const;
@@ -112,29 +118,19 @@ private:
     int resistance;                   // current resistance of the ship
     Point destination;					// Current destination if any
     std::shared_ptr<Island> docked_island;
+    // the state class for ship
+    enum class State;
+    // current state for this ship
+    State ship_state;
+
 
 	// Updates position, fuel, and movement_state, assuming 1 time unit (1 hr)
 	void calculate_movement();
 
     // helper function for move on destination and move on course
     // throw exception when it is cannot move or the speed is too large
-    void move_helper(double course, double speed);
+    void move_on_course_and_speed(double course, double speed);
 
-    // The state for FSM
-    enum class State{
-        DOCKED,
-        MOVING_TO_POSITION,
-        STOPPED,
-        MOVING_ON_COURSE,
-        DEAD_IN_THE_WATER,
-        SUNK
-    };
-
-    // current state for this ship
-    State ship_state;
-
-    constexpr static double dock_dist_c = 0.1;    // can dock when distance to destination
-    constexpr static double fuel_error_c = 0.005;  // error for the fuel
 };
 #endif
 
