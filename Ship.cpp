@@ -41,21 +41,28 @@ bool Ship::can_dock(std::shared_ptr<Island> island_ptr) const{
 }
 
 void Ship::update(){
-    //NOTE: change to switch
-    if (!is_afloat()) { 
-        cout << get_name() <<" sunk" << endl;
-    } else if(is_moving()){
-        calculate_movement();
-        cout << get_name() << " now at " << get_location() << endl;
-        broadcast_current_state();
-    } else if(ship_state == State::STOPPED){
-        cout << get_name() << " stopped at " << get_location() << endl;
-    } else if (is_docked()){
-        cout <<  get_name() << " docked at " <<
-        docked_island->get_name() << endl;
-    } else if (ship_state == State::DEAD_IN_THE_WATER){
-        cout << get_name() <<  " dead in the water at "
-             << get_location() << endl;
+    switch (ship_state) {
+        case State::SUNK:
+            cout << get_name() <<" sunk" << endl;
+            break;
+        case State::STOPPED:
+            cout << get_name() << " stopped at " << get_location() << endl;
+            break;
+        case State::DOCKED:
+            cout <<  get_name() << " docked at " <<
+                docked_island->get_name() << endl;
+            break;
+        case State::DEAD_IN_THE_WATER:
+            cout << get_name() <<  " dead in the water at "
+                 << get_location() << endl;
+            break;
+        case State::MOVING_ON_COURSE: // if the ship is moving
+        case State::MOVING_TO_POSITION:
+            calculate_movement();
+            cout << get_name() << " now at " << get_location() << endl;
+            break;
+        default:
+            break;
     }
 }
 
@@ -144,7 +151,7 @@ void Ship::stop(){
 }
 
 void Ship::dock(std::shared_ptr<Island>island_ptr){
-    if (!(ship_state == State::STOPPED && can_dock(island_ptr))) {//NOTE:
+    if (!can_dock(island_ptr)) {
         throw Error("Can't dock!");
     }
     track_base.set_position(island_ptr->get_location());
